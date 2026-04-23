@@ -138,6 +138,7 @@ describe("OmadaClient", () => {
     const errClient = new OmadaClient({
       auth: new MockAuth(),
       transport: errTransport,
+      retry: { maxAttempts: 1 },
       onAudit: (e) =>
         events.push({
           operationId: e.operationId,

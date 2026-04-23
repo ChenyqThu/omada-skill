@@ -3,9 +3,10 @@ import {
   OmadaFatalError,
   classifyHttpStatus,
   errorFromCategory,
+  retry,
   rootLogger,
 } from "@omada/shared";
-import type { Logger } from "@omada/shared";
+import type { Logger, OmadaError, RetryOptions } from "@omada/shared";
 
 import { operations, type OperationId } from "../generated/operations.js";
 import { FetchTransport } from "./transport.js";
@@ -14,9 +15,16 @@ import type {
   AuditSink,
   AuthStrategy,
   CallParams,
+  HttpResponse,
   OmadaClientOptions,
   Transport,
 } from "./types.js";
+
+/** OmadaError subclass marker so the retry layer can audit the final status. */
+interface TaggedError extends OmadaError {
+  __status?: number;
+  __category?: string;
+}
 
 /**
  * Typed client for the Omada Open API.
@@ -39,6 +47,7 @@ export class OmadaClient {
   private readonly logger: Logger;
   private readonly dryRun: boolean;
   private readonly auditSink?: AuditSink;
+  private readonly retryOpts: RetryOptions;
 
   constructor(opts: OmadaClientOptions) {
     this.baseUrl = resolveBaseUrl({
@@ -50,6 +59,7 @@ export class OmadaClient {
     this.logger = opts.logger ?? rootLogger.child("client");
     this.dryRun = opts.dryRun ?? false;
     if (opts.onAudit) this.auditSink = opts.onAudit;
+    this.retryOpts = opts.retry ?? {};
   }
 
   async call<Op extends OperationId>(operationId: Op, params: CallParams = {}): Promise<unknown> {
@@ -82,49 +92,57 @@ export class OmadaClient {
       }
     }
 
-    const token = await this.auth.getToken();
-    headers["authorization"] = `Bearer ${token}`;
+    const runOnce = async (): Promise<HttpResponse> => {
+      const token = await this.auth.getToken();
+      headers["authorization"] = `Bearer ${token}`;
 
-    this.logger.debug("request", { operationId, method: info.method, url });
+      this.logger.debug("request", { operationId, method: info.method, url });
 
-    const res = await this.transport.send({ method: info.method, url, headers, body });
+      const res = await this.transport.send({ method: info.method, url, headers, body });
 
-    if (res.status === 401) {
-      this.auth.invalidate();
-      this.audit({
-        operationId,
-        method: info.method,
-        path: info.path,
-        dryRun: false,
-        status: 401,
-        error: "auth",
-      });
-      throw new OmadaAuthError(`401 on ${String(operationId)}`);
-    }
-    if (res.status >= 400) {
-      const category = classifyHttpStatus(res.status);
-      const retryAfterMs = parseRetryAfter(res.headers["retry-after"]);
+      if (res.status === 401) {
+        this.auth.invalidate();
+        const err = new OmadaAuthError(`401 on ${String(operationId)}`) as TaggedError;
+        err.__status = 401;
+        err.__category = "auth";
+        throw err;
+      }
+      if (res.status >= 400) {
+        const category = classifyHttpStatus(res.status);
+        const retryAfterMs = parseRetryAfter(res.headers["retry-after"]);
+        const err = errorFromCategory(category, `${res.status} on ${String(operationId)}`, {
+          ...(retryAfterMs !== undefined ? { retryAfterMs } : {}),
+        }) as TaggedError;
+        err.__status = res.status;
+        err.__category = category;
+        throw err;
+      }
+
+      return res;
+    };
+
+    try {
+      const res = await retry(runOnce, this.retryOpts);
       this.audit({
         operationId,
         method: info.method,
         path: info.path,
         dryRun: false,
         status: res.status,
-        error: category,
       });
-      throw errorFromCategory(category, `${res.status} on ${String(operationId)}`, {
-        ...(retryAfterMs !== undefined ? { retryAfterMs } : {}),
+      return res.body;
+    } catch (err) {
+      const tagged = err as TaggedError;
+      this.audit({
+        operationId,
+        method: info.method,
+        path: info.path,
+        dryRun: false,
+        ...(tagged.__status !== undefined ? { status: tagged.__status } : {}),
+        ...(tagged.__category !== undefined ? { error: tagged.__category } : {}),
       });
+      throw err;
     }
-
-    this.audit({
-      operationId,
-      method: info.method,
-      path: info.path,
-      dryRun: false,
-      status: res.status,
-    });
-    return res.body;
   }
 
   private buildUrl(

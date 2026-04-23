@@ -1,8 +1,8 @@
-import type { Logger } from "@omada/shared";
+import type { Logger, RetryOptions } from "@omada/shared";
 
 import type { HttpMethod, OperationId } from "../generated/operations.js";
 
-export type { HttpMethod, OperationId };
+export type { HttpMethod, OperationId, RetryOptions };
 
 export interface HttpRequest {
   method: HttpMethod;
@@ -60,4 +60,11 @@ export interface OmadaClientOptions {
   dryRun?: boolean;
   /** Called after every request (success or failure). Redact before persisting. */
   onAudit?: AuditSink;
+  /**
+   * Retry policy for transient/rateLimit failures. Defaults to
+   * `{ maxAttempts: 3, baseDelayMs: 500, maxDelayMs: 10_000, jitter: true }`.
+   * Auth (401) failures are never retried — they invalidate the token cache
+   * and re-throw so the caller's next call can acquire a fresh token.
+   */
+  retry?: RetryOptions;
 }
