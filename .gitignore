@@ -48,13 +48,8 @@ Thumbs.db
 .omada-mcp/
 .omada-audit/
 
-# OMC orchestration state (do not commit)
-.omc/state/
-.omc/notepad.md
-.omc/project-memory.json
-.omc/logs/
-.omc/research/
-.omc/plans/
+# OMC orchestration runtime state (do not commit)
+.omc/
 
 # Claude plugin bundle output
 *.cpb
