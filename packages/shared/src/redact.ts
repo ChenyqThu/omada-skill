@@ -1,4 +1,4 @@
-const DEFAULT_SENSITIVE_KEYS: readonly string[] = [
+export const DEFAULT_SENSITIVE_KEYS: readonly string[] = [
   "authorization",
   "password",
   "secret",

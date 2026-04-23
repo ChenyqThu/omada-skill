@@ -152,6 +152,24 @@ describe("OmadaClient", () => {
     expect(events[1]?.error).toBe("rateLimit");
   });
 
+  it("redacts sensitive keys in audit events using the caller's redactKeys augmentation", async () => {
+    const { opId, pathParams } = pickReadOperation();
+    const captured: Array<Record<string, unknown>> = [];
+    const transport = new MockTransport().route({ urlMatch: "fixture-", body: {} });
+    const client = new OmadaClient({
+      auth: new MockAuth(),
+      transport,
+      redactKeys: ["operationId"],
+      onAudit: (e) => captured.push(e as unknown as Record<string, unknown>),
+    });
+    await client.call(opId, { path: pathParams });
+    expect(captured).toHaveLength(1);
+    expect(captured[0]?.["operationId"]).toBe("[REDACTED]");
+    expect(captured[0]?.["path"]).toBe(
+      Object.values(operations).find((o) => o.operationId === opId)?.path,
+    );
+  });
+
   it("raises on missing path params instead of sending bogus URLs", async () => {
     const { opId } = pickReadOperation();
     const transport = new MockTransport();

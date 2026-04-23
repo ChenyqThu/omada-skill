@@ -1,8 +1,10 @@
 import {
+  DEFAULT_SENSITIVE_KEYS,
   OmadaAuthError,
   OmadaFatalError,
   classifyHttpStatus,
   errorFromCategory,
+  redact,
   retry,
   rootLogger,
 } from "@omada/shared";
@@ -48,6 +50,7 @@ export class OmadaClient {
   private readonly dryRun: boolean;
   private readonly auditSink?: AuditSink;
   private readonly retryOpts: RetryOptions;
+  private readonly redactKeys: readonly string[];
 
   constructor(opts: OmadaClientOptions) {
     this.baseUrl = resolveBaseUrl({
@@ -60,6 +63,9 @@ export class OmadaClient {
     this.dryRun = opts.dryRun ?? false;
     if (opts.onAudit) this.auditSink = opts.onAudit;
     this.retryOpts = opts.retry ?? {};
+    this.redactKeys = opts.redactKeys
+      ? [...DEFAULT_SENSITIVE_KEYS, ...opts.redactKeys]
+      : DEFAULT_SENSITIVE_KEYS;
   }
 
   async call<Op extends OperationId>(operationId: Op, params: CallParams = {}): Promise<unknown> {
@@ -184,10 +190,11 @@ export class OmadaClient {
     error?: string;
   }): void {
     if (!this.auditSink) return;
-    this.auditSink({
+    const raw = {
       ts: new Date().toISOString(),
       ...event,
-    });
+    };
+    this.auditSink(redact(raw, { keys: this.redactKeys }));
   }
 }
 

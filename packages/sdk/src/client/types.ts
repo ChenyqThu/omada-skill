@@ -58,8 +58,14 @@ export interface OmadaClientOptions {
   logger?: Logger;
   /** If true, write operations short-circuit and return a `{__dryRun: true}` stub. */
   dryRun?: boolean;
-  /** Called after every request (success or failure). Redact before persisting. */
+  /** Called after every request (success or failure). Events are redacted before delivery. */
   onAudit?: AuditSink;
+  /**
+   * Extra keys to redact from audit events (merged with the shared default
+   * list — `authorization`, `token`, `client_secret`, …). Useful for
+   * endpoint-specific fields the default set doesn't cover.
+   */
+  redactKeys?: readonly string[];
   /**
    * Retry policy for transient/rateLimit failures. Defaults to
    * `{ maxAttempts: 3, baseDelayMs: 500, maxDelayMs: 10_000, jitter: true }`.
