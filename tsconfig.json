@@ -5,6 +5,7 @@
     { "path": "./packages/shared" },
     { "path": "./packages/sdk" },
     { "path": "./packages/guardrails" },
-    { "path": "./packages/mcp-tools" }
+    { "path": "./packages/mcp-tools" },
+    { "path": "./apps/mcp-server" }
   ]
 }

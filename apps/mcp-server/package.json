@@ -1,0 +1,29 @@
+{
+  "name": "@omada/mcp-server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "omada-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty",
+    "test": "vitest run",
+    "lint": "eslint src",
+    "clean": "rimraf dist *.tsbuildinfo",
+    "dev:stdio": "tsx src/index.ts --stdio",
+    "dev:http": "tsx src/index.ts --http --port 8787",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.19.0",
+    "@omada/mcp-tools": "workspace:*",
+    "@omada/sdk": "workspace:*",
+    "@omada/shared": "workspace:*"
+  }
+}
