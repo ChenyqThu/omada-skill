@@ -16,9 +16,9 @@
     "test": "vitest run",
     "lint": "eslint src",
     "clean": "rimraf dist *.tsbuildinfo",
-    "dev:stdio": "tsx src/index.ts --stdio",
-    "dev:http": "tsx src/index.ts --http --port 8787",
-    "start": "node dist/index.js"
+    "dev:stdio": "tsx --env-file-if-exists=.env.local src/index.ts --stdio",
+    "dev:http": "tsx --env-file-if-exists=.env.local src/index.ts --http --port 8787",
+    "start": "node --env-file-if-exists=.env.local dist/index.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.19.0",

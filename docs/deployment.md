@@ -26,6 +26,20 @@ registered as `omada-mcp` (see `bin` in the package.json).
 | `OMADA_DRY_RUN`            | `"1"` or `"true"` → all writes short-circuit with a plan preview | `false`                                          |
 | `OMADA_MCP_CONFIRM_SECRET` | High-entropy secret mixed into confirm tokens (≥ 16 chars)       | (required for write tools with two-phase commit) |
 
+### Local `.env.local`
+
+The `dev:stdio`, `dev:http`, and `start` scripts in
+`apps/mcp-server/package.json` pass Node's built-in
+`--env-file-if-exists=.env.local` flag (resolved against each
+script's cwd — `apps/mcp-server/`). Copy the repo-root `.env.example`
+to `apps/mcp-server/.env.local` and fill in the values you need;
+`.env.local` is git-ignored by the root `.gitignore`.
+
+The flag is only attached to the dev/start scripts — running the
+compiled binary directly (`node dist/index.js`, `npx omada-mcp`) does
+**not** read `.env.local`. Use system environment variables or a
+process manager for production deployments.
+
 ## stdio (Claude Desktop, Cursor)
 
 Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
