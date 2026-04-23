@@ -1,0 +1,25 @@
+# Normalize line endings
+* text=auto eol=lf
+
+# Explicit text types
+*.json      text
+*.md        text
+*.ts        text
+*.tsx       text
+*.js        text
+*.cjs       text
+*.mjs       text
+*.yml       text
+*.yaml      text
+*.toml      text
+
+# Source-of-truth OpenAPI — large, diff is noise
+specs/omada_api.json              binary
+specs/snapshots/*.json            binary
+
+# Generated SDK artifacts — visible in review but excluded from language stats
+packages/sdk/src/generated/**     linguist-generated=true
+packages/mcp-tools/src/generated/** linguist-generated=true
+
+# Lockfiles — keep but don't explode in PR diffs
+pnpm-lock.yaml                    -diff

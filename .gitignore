@@ -1,0 +1,62 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+.yarn/
+
+# Build outputs
+dist/
+build/
+out/
+lib/
+*.tsbuildinfo
+
+# Turbo
+.turbo/
+
+# Test / coverage
+coverage/
+.nyc_output/
+*.lcov
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# macOS / OS
+.DS_Store
+Thumbs.db
+*.swp
+
+# Editors
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.shared.json
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Omada runtime artifacts (local token cache + audit logs)
+.omada-mcp/
+.omada-audit/
+
+# OMC orchestration state (do not commit)
+.omc/state/
+.omc/notepad.md
+.omc/project-memory.json
+.omc/logs/
+.omc/research/
+.omc/plans/
+
+# Claude plugin bundle output
+*.cpb
+*.plugin
+
+# Temporary / scratch
+tmp/
+.cache/
