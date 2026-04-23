@@ -1,0 +1,16 @@
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: "*.{ts,tsx,js,mjs,cjs}"
+      run: pnpm eslint --cache {staged_files}
+      stage_fixed: true
+    format:
+      glob: "*.{ts,tsx,js,mjs,cjs,json,md,yml,yaml}"
+      run: pnpm prettier --write --ignore-unknown {staged_files}
+      stage_fixed: true
+
+commit-msg:
+  commands:
+    conventional:
+      run: pnpm commitlint --edit {1}

@@ -1,0 +1,56 @@
+{
+  "name": "omada-skill",
+  "version": "0.0.0",
+  "description": "AI-native integration layer for TP-Link Omada Controller (MCP Server + Skills + internal SDK)",
+  "license": "MIT",
+  "author": "Chen Yuanquan",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.33.2",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "dev": "turbo run dev --parallel",
+    "clean": "turbo run clean && rimraf node_modules",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "generate": "tsx scripts/generate.ts",
+    "spec:diff": "tsx scripts/diff-api.ts",
+    "skill:validate": "tsx scripts/validate-skills.ts",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.9",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@eslint/js": "^9.14.0",
+    "@types/node": "^22.9.0",
+    "eslint": "^9.14.0",
+    "lefthook": "^1.8.2",
+    "openapi-typescript": "^7.4.3",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.2",
+    "turbo": "^2.3.0",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.13.0",
+    "vitest": "^2.1.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "lefthook"
+    ]
+  }
+}

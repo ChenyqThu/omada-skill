@@ -1,0 +1,11 @@
+node_modules
+dist
+.turbo
+coverage
+*.tsbuildinfo
+pnpm-lock.yaml
+specs/omada_api.json
+specs/snapshots
+packages/sdk/src/generated
+packages/mcp-tools/src/generated
+CHANGELOG.md
