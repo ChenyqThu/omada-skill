@@ -26,6 +26,9 @@ export const HIGH_RISK_OPERATION_IDS: ReadonlySet<string> = new Set([
   // Firmware — has downtime potential, even if staged
   "onlineRollingUpgrade",
   "ispUpgradeGateway",
+
+  // Batch wrapper — can chain arbitrary writes, so blast radius is unbounded
+  "batchController",
 ]);
 
 export function isHighRiskOperation(operationId: string): boolean {
@@ -52,6 +55,10 @@ const SEVERITY: Record<string, RiskSeverity> = {
   forgetDevice: "medium",
   rebootDevice: "medium",
   deleteSiteTemplate: "medium",
+
+  // The batch wrapper chains arbitrary writes — treat as high unless the
+  // wrapping tool itself downgrades after inspecting the action list.
+  batchController: "high",
 };
 
 export function riskSeverity(operationId: string): RiskSeverity {
