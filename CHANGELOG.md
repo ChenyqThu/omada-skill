@@ -6,6 +6,57 @@ Versioning: [SemVer](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added — M4 (skills)
+
+- **5 new agent skills** under `skills/<skill-name>/`, following
+  Anthropic's Agent Skill convention documented in `docs/skills.md`:
+  - `omada-bulk-site-onboard` (MSP) — drives
+    `omada_discover_scope`, `omada_list_sites`, `omada_bulk_onboard`,
+    `omada_apply_site_template`, and `omada_batch_change` through the
+    two-phase handshake for onboarding batches of sites from backup
+    files and templates.
+  - `omada-alert-triage` (MSP / SI) — read-only playbook over
+    `omada_alerts_list`, `omada_alerts_triage`, `omada_device_detail`,
+    and `omada_topology`; collapses noisy alert logs into ranked
+    groups + device context + topology hints.
+  - `omada-guest-portal-wizard` (SI) — assembles a `PortalSetting`
+    VO, runs `omada_portal_wizard` through its two-phase handshake,
+    and optionally chains `omada_apply_site_template` for
+    template-backed portals.
+  - `omada-wifi-troubleshoot` (Prosumer / SI) — three-step
+    diagnostic over `omada_wifi_diagnose`, `omada_client_journey`,
+    and `omada_device_detail` (kind=ap) with explicit thresholds for
+    deciding which zoom path to take.
+  - `omada-support-assist` (internal tier-1) — compiles a ticket
+    draft from `omada_site_overview`, `omada_alerts_list`,
+    `omada_audit_logs`, and `omada_device_detail` across a locked
+    incident window. Read-only; hands off to write skills.
+- **Skill companion assets** — every skill ships a `RESOURCES.md`
+  (glossary / reference tables / related skills), two `examples/*.md`
+  (calibration transcripts with real tool calls + token handshakes),
+  and one `checklists/*.md` (preflight / runbook / evidence).
+- **Frontmatter calibration** — each `SKILL.md` carries the
+  `name` / `description` / `version` / `tags` /
+  `requires-mcp-server` block from `docs/skills.md`, with 3 positive
+  + 3 negative triggers in the `description` so downstream skill
+  selectors match precisely.
+
+### Changed — M4
+
+- `docs/skills.md` — replaced the M1 "planned" framing with an M4
+  "implemented" entry for every skill plus a cross-link to the
+  distribution roadmap still pending in M5.
+
+### Notes — M4
+
+- No new runtime code or packages. Skills are pure markdown under
+  `skills/**`; distribution as MCP resources is the M5 item.
+- No test-count delta: 142 vitest cases still pass in ≈ 1 s
+  (`pnpm turbo run typecheck lint test build` ≈ 5 s warm).
+- Every workflow in a skill cites a real tool registered in
+  `packages/mcp-tools/src/tools/**`. Skills never invent operation
+  IDs.
+
 ### Added — M3 (intent tools)
 
 - **21 new MCP intent tools** rounding out the 22-tool M3 surface

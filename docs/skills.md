@@ -8,20 +8,22 @@ into an Omada-fluent agent. Per Anthropic's
 > while skills teach an agent the procedural knowledge of how to use
 > those tools to accomplish real work.
 
-M1 does not ship any skills. The `skills/` directory is reserved, and
-the distribution pattern below is the design target for M4.
+As of **M4**, `skills/` ships five calibrated skills (below). The
+distribution pattern at the bottom of this page — MCP Server-
+distributed skills as `resource://omada-skills/<name>` — remains an
+**M5** target; M4 itself adds only the skill markdown artefacts.
 
-## Planned skills (M4)
+## Shipped skills (M4)
 
 Five skills, one per target user segment plus internal tooling:
 
-| Skill                       | Persona          | Goal                                                                           | Tools invoked                                                                                                       |
-| --------------------------- | ---------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| `omada-bulk-site-onboard`   | MSP              | Onboard a list of customer sites from a template with consistent SSIDs / VLANs | `omada_discover_scope`, `omada_list_sites`, `omada_apply_site_template`, `omada_bulk_onboard`, `omada_batch_change` |
-| `omada-alert-triage`        | MSP              | Group, prioritise, and draft tickets for a batch of alerts                     | `omada_alerts_list`, `omada_alerts_triage`, `omada_device_detail`, `omada_topology`                                 |
-| `omada-guest-portal-wizard` | SI               | Stand up a branded Captive Portal end-to-end                                   | `omada_portal_wizard`, `omada_apply_site_template`                                                                  |
-| `omada-wifi-troubleshoot`   | Prosumer         | Answer "why is my Wi-Fi slow?" via a fixed diagnostic playbook                 | `omada_wifi_diagnose`, `omada_client_journey`, `omada_device_detail`                                                |
-| `omada-support-assist`      | Internal Support | Draft tier-1 tickets with evidence attached                                    | `omada_site_overview`, `omada_device_detail`, `omada_alerts_list`, `omada_audit_logs`                               |
+| Skill                                                                       | Persona          | Goal                                                                           | Tools invoked                                                                                                       |
+| --------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| [`omada-bulk-site-onboard`](../skills/omada-bulk-site-onboard/SKILL.md)     | MSP              | Onboard a list of customer sites from a template with consistent SSIDs / VLANs | `omada_discover_scope`, `omada_list_sites`, `omada_apply_site_template`, `omada_bulk_onboard`, `omada_batch_change` |
+| [`omada-alert-triage`](../skills/omada-alert-triage/SKILL.md)               | MSP / SI         | Group, prioritise, and draft handoffs for a batch of alerts                    | `omada_alerts_list`, `omada_alerts_triage`, `omada_device_detail`, `omada_topology`                                 |
+| [`omada-guest-portal-wizard`](../skills/omada-guest-portal-wizard/SKILL.md) | SI               | Stand up a branded Captive Portal end-to-end                                   | `omada_portal_wizard`, `omada_apply_site_template`                                                                  |
+| [`omada-wifi-troubleshoot`](../skills/omada-wifi-troubleshoot/SKILL.md)     | Prosumer / SI    | Answer "why is my Wi-Fi slow?" via a fixed diagnostic playbook                 | `omada_wifi_diagnose`, `omada_client_journey`, `omada_device_detail`                                                |
+| [`omada-support-assist`](../skills/omada-support-assist/SKILL.md)           | Internal Support | Draft tier-1 tickets with evidence attached                                    | `omada_site_overview`, `omada_device_detail`, `omada_alerts_list`, `omada_audit_logs`                               |
 
 ## Skill format
 
@@ -75,14 +77,23 @@ is pinned to the server's version, which pins to the spec baseline.
 A fallback is the `Claude plugin bundle` format — ship skills +
 `omada-mcp` binary as a single installable artefact for Claude Desktop.
 
-Neither mechanism is implemented in M1.
+Neither mechanism is wired up yet: M4 ships the skills as plain
+markdown under `skills/**`; exposing them as MCP resources or
+bundling them as a plugin is **M5** work. See `HANDOFF.md` §4 for
+the proposed kickoff.
 
-## Dogfood plan (M4)
+## Dogfood plan
 
-1. Write M4's five skills against a real staging controller.
-2. Record 10+ conversation samples per skill to calibrate the
-   `description` triggers / non-triggers.
-3. Run two design-partner MSP engagements through
+1. ✅ **Author** — the five skills land in `skills/**` with
+   calibrated frontmatter, two `examples/*.md`, one
+   `checklists/*.md`, and `RESOURCES.md` each.
+2. ⏭ **Calibrate** — record 10+ conversation samples per skill
+   against a staging controller to refine the triggers / non-
+   triggers in the frontmatter.
+3. ⏭ **Design-partner drill** — run two MSP engagements through
    `omada-bulk-site-onboard` and `omada-alert-triage` end-to-end,
-   including rollback drills.
-4. Convert friction points into `checklists/*.md` and `Pitfalls` bullets.
+   including rollback. Feed friction points back into
+   `checklists/*.md` and the `Pitfalls` bullets.
+4. ⏭ **Distribute (M5)** — expose the five skills as
+   `resource://omada-skills/<name>` MCP resources and/or bundle
+   them as a Claude plugin.
