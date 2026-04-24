@@ -6,6 +6,50 @@ Versioning: [SemVer](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added — M3 (intent tools)
+
+- **21 new MCP intent tools** rounding out the 22-tool M3 surface
+  (`omada_list_sites` from M1 remains the seed). All tools live in
+  `packages/mcp-tools/src/tools/**`, register into
+  `createDefaultRegistry()`, and return a terse text summary with
+  structured JSON in `structuredContent`.
+- **Read-only discovery / health** — `omada_discover_scope`,
+  `omada_site_overview`, `omada_list_devices`, `omada_device_detail`
+  (kind-routed over AP / switch / gateway / stack endpoints),
+  `omada_list_clients`, `omada_client_journey`, `omada_topology`
+  (v2 + v3), `omada_wifi_diagnose`.
+- **Read-only monitoring** — `omada_alerts_list`, `omada_alerts_triage`
+  (client-side grouping by module / severity / target),
+  `omada_voip_overview`, `omada_vpn_status`, `omada_audit_logs`,
+  `omada_firmware_plan`, `omada_exec_report` (MSP dashboard).
+- **Two-phase write helper** — `packages/mcp-tools/src/helpers/two_phase.ts`
+  issues + verifies `@omada/guardrails` confirm tokens, tagging severity
+  from the whitelist. Every write tool routes through it.
+- **Medium-risk writes** — `omada_apply_site_template`
+  (`bindSiteTemplate`), `omada_bulk_onboard` (`batchSiteImport`),
+  `omada_portal_wizard` (`addPortal`).
+- **High-risk writes** — `omada_device_action` (reboot / forget),
+  `omada_firmware_rollout` (`onlineRollingUpgrade`),
+  `omada_batch_change` (`batchController`).
+- **Escape hatch** — `omada_script` invokes any registered operationId
+  by name. GETs run immediately; non-GETs require the confirm-token
+  handshake.
+
+### Changed — M3
+
+- `HIGH_RISK_OPERATION_IDS` now tags `batchController` as high-risk
+  (severity `high`) because the `/batch` wrapper can chain arbitrary
+  writes. Existing guardrail tests still pass.
+
+### Notes — M3
+
+- Test count rose from 89 (end of M2) to 142 with M3.
+  `@omada/mcp-tools` alone grew from 12 → 64 tests across 16 files.
+- `pnpm turbo run typecheck lint test build` ≈ 5 s warm; still fully
+  green.
+- Tool routing by directory: `scope/`, `inventory/`, `monitor/`,
+  `deploy/`, `lifecycle/`, `advanced/`.
+
 ### Added — M2 (SDK maturation)
 
 - **`.env.local` loading** (M2-01) — `dev:stdio` / `dev:http` / `start`
