@@ -20,7 +20,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc -b && node -e \"require('node:fs').copyFileSync('src/generated/schema.d.ts','dist/generated/schema.d.ts')\"",
     "typecheck": "tsc -b --pretty",
     "test": "vitest run",
     "test:staging": "vitest run test/staging.test.ts --config vitest.staging.config.ts",

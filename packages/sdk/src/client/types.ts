@@ -1,8 +1,72 @@
 import type { Logger, RetryOptions } from "@omada/shared";
 
 import type { HttpMethod, OperationId } from "../generated/operations.js";
+import type { schemaOperations } from "../generated/index.js";
 
 export type { HttpMethod, OperationId, RetryOptions };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Operation-level type derivations from the openapi-typescript schema.
+//
+// `OperationId` comes from the runtime `operations` map (keys that actually
+// ship in operations.ts). `schemaOperations` is the openapi-typescript type
+// export — it contains every operation node in the spec, occasionally with a
+// `_1` suffix when two paths share the same operationId. The runtime map
+// always picks one of those, so `OperationId` is a subset of
+// `keyof schemaOperations`; the conditional below just pleases TypeScript.
+//
+// Call sites get `ResponseFor<Op>` for free on every `client.call(op, …)` —
+// the old `Promise<unknown>` return type is gone. `ParamsFor<Op>` is opt-in
+// (callers pass the generic `CallParams` shape by default; narrow to
+// `ParamsFor<Op>` when they want path/query/body autocompletion).
+// ─────────────────────────────────────────────────────────────────────────────
+
+type SchemaOp<Op extends OperationId> = Op extends keyof schemaOperations
+  ? schemaOperations[Op]
+  : never;
+
+type ResponseBody<Op extends OperationId> =
+  SchemaOp<Op> extends { responses: { 200: { content: infer C } } }
+    ? C extends { "application/json": infer R }
+      ? R
+      : C extends { "*/*": infer R }
+        ? R
+        : unknown
+    : unknown;
+
+/**
+ * Response body type for `Op` (the `200` content, stripped of the media-type
+ * wrapper). Defaults to `unknown` for operations the schema doesn't enumerate.
+ */
+export type ResponseFor<Op extends OperationId> = ResponseBody<Op>;
+
+type SchemaParams<Op extends OperationId> =
+  SchemaOp<Op> extends { parameters: infer P } ? P : never;
+
+type PathParamsFor<Op extends OperationId> =
+  SchemaParams<Op> extends { path?: infer P } ? P : never;
+
+type QueryParamsFor<Op extends OperationId> =
+  SchemaParams<Op> extends { query?: infer Q } ? Q : never;
+
+type RequestBodyFor<Op extends OperationId> =
+  SchemaOp<Op> extends { requestBody: { content: { "application/json": infer B } } }
+    ? B
+    : SchemaOp<Op> extends { requestBody?: { content: { "application/json": infer B } } }
+      ? B | undefined
+      : unknown;
+
+/**
+ * Fully narrowed call-params shape for `Op`: the path/query/body derived from
+ * the OpenAPI spec. Optional to use — the runtime `call()` still accepts the
+ * looser `CallParams` shape so existing callers don't need changes.
+ */
+export interface ParamsFor<Op extends OperationId> {
+  path?: PathParamsFor<Op>;
+  query?: QueryParamsFor<Op>;
+  body?: RequestBodyFor<Op>;
+  headers?: Record<string, string>;
+}
 
 export interface HttpRequest {
   method: HttpMethod;

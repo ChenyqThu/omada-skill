@@ -40,19 +40,12 @@ export const omadaListSitesTool = defineTool({
       ...(searchKey !== undefined ? { searchKey } : {}),
     };
 
-    const response = (await ctx.client.call("getSiteList", {
+    // Response type is derived from the OpenAPI schema via ResponseFor<"getSiteList">,
+    // so errorCode/msg/result/data all have IDE autocompletion — no manual cast.
+    const response = await ctx.client.call("getSiteList", {
       path: { omadacId },
       query,
-    })) as {
-      errorCode?: number;
-      msg?: string;
-      result?: {
-        totalRows?: number;
-        currentPage?: number;
-        currentSize?: number;
-        data?: SiteRow[];
-      };
-    } | null;
+    });
 
     if (!response || (response.errorCode !== undefined && response.errorCode !== 0)) {
       return {

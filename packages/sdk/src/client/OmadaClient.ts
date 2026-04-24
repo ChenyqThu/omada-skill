@@ -19,6 +19,7 @@ import type {
   CallParams,
   HttpResponse,
   OmadaClientOptions,
+  ResponseFor,
   Transport,
 } from "./types.js";
 
@@ -68,7 +69,10 @@ export class OmadaClient {
       : DEFAULT_SENSITIVE_KEYS;
   }
 
-  async call<Op extends OperationId>(operationId: Op, params: CallParams = {}): Promise<unknown> {
+  async call<Op extends OperationId>(
+    operationId: Op,
+    params: CallParams = {},
+  ): Promise<ResponseFor<Op>> {
     const info = operations[operationId];
     if (!info) {
       throw new OmadaFatalError(`Unknown operationId: ${String(operationId)}`);
@@ -82,7 +86,13 @@ export class OmadaClient {
         path: info.path,
       });
       this.audit({ operationId, method: info.method, path: info.path, dryRun: true });
-      return { __dryRun: true, operationId, method: info.method, path: info.path, params };
+      return {
+        __dryRun: true,
+        operationId,
+        method: info.method,
+        path: info.path,
+        params,
+      } as unknown as ResponseFor<Op>;
     }
 
     const url = this.buildUrl(info.path, params.path, params.query);
@@ -136,7 +146,7 @@ export class OmadaClient {
         dryRun: false,
         status: res.status,
       });
-      return res.body;
+      return res.body as ResponseFor<Op>;
     } catch (err) {
       const tagged = err as TaggedError;
       this.audit({
