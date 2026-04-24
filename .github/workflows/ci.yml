@@ -41,6 +41,9 @@ jobs:
       - name: Typecheck / lint / test / build
         run: pnpm turbo run typecheck lint test build
 
+      - name: Validate skills
+        run: pnpm skill:validate --strict
+
       - name: Regenerate SDK from spec
         run: pnpm generate
 

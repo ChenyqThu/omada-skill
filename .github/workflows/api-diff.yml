@@ -1,0 +1,74 @@
+name: API diff
+
+on:
+  pull_request:
+    paths:
+      - "specs/omada_api.json"
+      - "specs/snapshots/**"
+      - "scripts/diff-api.ts"
+      - ".github/workflows/api-diff.yml"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  diff:
+    name: OpenAPI operation diff
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Compute operation diff
+        run: pnpm spec:diff --output /tmp/api-diff.md
+
+      - name: Upload diff as artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-diff
+          path: /tmp/api-diff.md
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("node:fs");
+            const body = fs.readFileSync("/tmp/api-diff.md", "utf8");
+            const marker = "<!-- api-diff-comment -->";
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.data.find((c) => c.body && c.body.includes(marker));
+            const payload = `${marker}\n${body}`;
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body: payload,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: payload,
+              });
+            }
