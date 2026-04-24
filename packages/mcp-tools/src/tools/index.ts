@@ -1,6 +1,8 @@
 import { ToolRegistry } from "../registry.js";
+import { omadaListDevicesTool } from "./inventory/list_devices.js";
 import { omadaListSitesTool } from "./scope/list_sites.js";
 
+export { omadaListDevicesTool } from "./inventory/list_devices.js";
 export { omadaListSitesTool } from "./scope/list_sites.js";
 
 /**
@@ -11,5 +13,6 @@ export { omadaListSitesTool } from "./scope/list_sites.js";
 export function createDefaultRegistry(): ToolRegistry {
   const registry = new ToolRegistry();
   registry.register(omadaListSitesTool);
+  registry.register(omadaListDevicesTool);
   return registry;
 }
