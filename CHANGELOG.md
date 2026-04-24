@@ -6,6 +6,59 @@ Versioning: [SemVer](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added — M5 (distribution + tooling)
+
+- **Skill loader** in `@omada/mcp-tools` (`src/skills/`) with pure
+  frontmatter parser, filesystem loader, and a layout linter. Parses
+  the M4 YAML shape (`name` / `description: |` / `version` / `tags[]`
+  / `requires-mcp-server`) without adding a YAML dependency. Exposes
+  `SKILL_RESOURCE_PREFIX` + `SKILL_MIME_TYPE` constants.
+- **MCP-resource publisher** in `apps/mcp-server` — the server now
+  advertises each skill as `resource://omada-skills/<slug>` with
+  `text/markdown` content. `buildMcpServer` accepts an optional
+  `skills` override (tests) or `skillsDir` (explicit path); the
+  default resolves `<repoRoot>/skills` from the compiled module.
+- **`pnpm skill:validate`** (`scripts/validate-skills.ts`) — walks
+  `skills/**`, parses each SKILL.md, optionally runs the strict
+  layout lint (`--strict` for CI), exits non-zero on errors.
+- **`pnpm spec:diff`** (`scripts/diff-api.ts`) — diffs the current
+  OpenAPI spec against the latest snapshot at operation granularity
+  (added / removed / changed operations; method · path ·
+  `deprecated` · `summary`). Supports `--baseline`, `--output`,
+  `--fail-on-change`.
+- **`.github/workflows/api-diff.yml`** — runs the operation diff on
+  any PR that touches `specs/**` or the diff script; uploads the
+  markdown as an artefact and posts/updates a sticky PR comment.
+- **`auth-stubs` validation** — `CIMDIntegration` and `AuthCodeFlow`
+  now validate their options in the constructor (non-empty required
+  fields, `https://` scheme, loopback redirect per RFC 8252, TTL
+  range) instead of only throwing from `getToken()`. Method bodies
+  are still M5 placeholders.
+
+### Changed — M5
+
+- `apps/mcp-server/src/server.ts` now declares `resources: {}` in
+  capabilities when at least one skill is loaded, and registers
+  `ListResourcesRequestSchema` + `ReadResourceRequestSchema`
+  handlers. The existing tool surface is unchanged.
+- `ci.yml` gained a `pnpm skill:validate --strict` step between the
+  turbo pipeline and `pnpm generate`.
+- `docs/mcp-tools.md` — back-filled per-tool reference sections for
+  the M3 surface (22 tools), with a table of contents, source
+  links, and per-tool backing operations / risk tier.
+
+### Notes — M5
+
+- `@omada/mcp-tools` grew from 64 → 76 tests (12 new
+  `skills.test.ts` cases covering frontmatter parsing + layout lint
+  + loader happy path against the real `skills/` tree).
+- `@omada/mcp-server` grew from 7 → 11 tests (4 new resource-layer
+  cases over the MCP protocol).
+- `@omada/sdk` grew from 30 → 39 tests (9 new option-validation
+  cases on the two auth stubs).
+- Total: **166 tests** (was 142), still under 2 s.
+- `pnpm turbo run typecheck lint test build` stays green.
+
 ### Added — M4 (skills)
 
 - **5 new agent skills** under `skills/<skill-name>/`, following
