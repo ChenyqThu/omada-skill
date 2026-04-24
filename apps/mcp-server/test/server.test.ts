@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { join } from "node:path";
 
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
@@ -9,7 +10,9 @@ import { buildMcpServer } from "../src/server.js";
 import { loadConfig } from "../src/config.js";
 import { buildOmadaClient } from "../src/buildClient.js";
 
-async function connectPair() {
+const REPO_SKILLS_DIR = join(__dirname, "..", "..", "..", "skills");
+
+async function connectPair(opts: { skillsDir?: string } = {}) {
   const transport = new MockTransport().route({
     method: "get",
     urlMatch: "/openapi/v1/",
@@ -25,7 +28,11 @@ async function connectPair() {
     },
   });
   const omada = new OmadaClient({ auth: new MockAuth(), transport });
-  const server = buildMcpServer({ client: omada, logger: rootLogger.child("test") });
+  const server = buildMcpServer({
+    client: omada,
+    logger: rootLogger.child("test"),
+    ...(opts.skillsDir !== undefined ? { skillsDir: opts.skillsDir } : { skills: [] }),
+  });
 
   const [serverSide, clientSide] = InMemoryTransport.createLinkedPair();
   const mcp = new Client({ name: "test-client", version: "0.0.0" });
@@ -80,6 +87,52 @@ describe("omada-mcp over the MCP protocol", () => {
     const result = await mcp.callTool({ name: "does_not_exist", arguments: {} });
     expect(result.isError).toBe(true);
     expect((result.content as Array<{ text: string }>)[0]?.text).toMatch(/Unknown tool/);
+  });
+});
+
+describe("skill resources over the MCP protocol", () => {
+  it("publishes the 5 M4 skills on resources/list with canonical URIs", async () => {
+    const { mcp } = await connectPair({ skillsDir: REPO_SKILLS_DIR });
+    const { resources } = await mcp.listResources();
+    const uris = resources.map((r) => r.uri).sort();
+    expect(uris).toEqual([
+      "resource://omada-skills/omada-alert-triage",
+      "resource://omada-skills/omada-bulk-site-onboard",
+      "resource://omada-skills/omada-guest-portal-wizard",
+      "resource://omada-skills/omada-support-assist",
+      "resource://omada-skills/omada-wifi-troubleshoot",
+    ]);
+    for (const r of resources) {
+      expect(r.mimeType).toBe("text/markdown");
+      expect(typeof r.description).toBe("string");
+      expect(r.description?.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("returns the full SKILL.md body for resources/read", async () => {
+    const { mcp } = await connectPair({ skillsDir: REPO_SKILLS_DIR });
+    const result = await mcp.readResource({
+      uri: "resource://omada-skills/omada-alert-triage",
+    });
+    expect(result.contents).toHaveLength(1);
+    const content = result.contents[0] as { uri: string; mimeType: string; text: string };
+    expect(content.uri).toBe("resource://omada-skills/omada-alert-triage");
+    expect(content.mimeType).toBe("text/markdown");
+    expect(content.text.startsWith("---")).toBe(true);
+    expect(content.text).toContain("name: omada-alert-triage");
+    expect(content.text).toContain("## Workflow");
+  });
+
+  it("rejects an unknown resource URI", async () => {
+    const { mcp } = await connectPair({ skillsDir: REPO_SKILLS_DIR });
+    await expect(
+      mcp.readResource({ uri: "resource://omada-skills/does-not-exist" }),
+    ).rejects.toThrow();
+  });
+
+  it("does not advertise resource support when no skills are loaded", async () => {
+    const { mcp } = await connectPair();
+    await expect(mcp.listResources()).rejects.toThrow();
   });
 });
 
