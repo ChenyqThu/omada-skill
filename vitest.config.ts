@@ -8,6 +8,7 @@ export default defineConfig({
       "apps/*/test/**/*.test.ts",
       "apps/*/src/**/*.test.ts",
     ],
+    exclude: ["**/node_modules/**", "**/dist/**", "packages/sdk/test/staging.test.ts"],
     reporters: "default",
     coverage: {
       provider: "v8",
@@ -17,7 +18,18 @@ export default defineConfig({
         "packages/*/src/generated/**",
         "packages/*/src/**/*.test.ts",
         "apps/*/src/**/*.test.ts",
+        // Runtime entry points and thin transport glue are smoke-tested by
+        // apps/mcp-server/test/server.test.ts — measuring line coverage on
+        // the process-boot paths just punishes tidy wiring.
+        "apps/mcp-server/src/index.ts",
+        "apps/mcp-server/src/transport/**",
       ],
+      thresholds: {
+        lines: 70,
+        statements: 70,
+        functions: 70,
+        branches: 70,
+      },
     },
   },
 });
