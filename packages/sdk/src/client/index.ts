@@ -4,5 +4,7 @@ export * from "./transport.js";
 export { OmadaClient } from "./OmadaClient.js";
 export * from "./pagination.js";
 export * from "./auth/OAuthTokenStore.js";
+export * from "./auth/CIMDIntegration.js";
+export * from "./auth/AuthCodeFlow.js";
 export * from "./mock/MockTransport.js";
 export * from "./audit/JsonlAuditSink.js";
