@@ -8,6 +8,7 @@ import { omadaAlertsTriageTool } from "./monitor/alerts_triage.js";
 import { omadaApplySiteTemplateTool } from "./deploy/apply_site_template.js";
 import { omadaBulkOnboardTool } from "./deploy/bulk_onboard.js";
 import { omadaPortalWizardTool } from "./deploy/portal_wizard.js";
+import { omadaScriptTool } from "./advanced/script.js";
 import { omadaBatchChangeTool } from "./lifecycle/batch_change.js";
 import { omadaDeviceActionTool } from "./lifecycle/device_action.js";
 import { omadaFirmwareRolloutTool } from "./lifecycle/firmware_rollout.js";
@@ -31,6 +32,7 @@ export { omadaAlertsTriageTool } from "./monitor/alerts_triage.js";
 export { omadaApplySiteTemplateTool } from "./deploy/apply_site_template.js";
 export { omadaBulkOnboardTool } from "./deploy/bulk_onboard.js";
 export { omadaPortalWizardTool } from "./deploy/portal_wizard.js";
+export { omadaScriptTool } from "./advanced/script.js";
 export { omadaBatchChangeTool } from "./lifecycle/batch_change.js";
 export { omadaDeviceActionTool } from "./lifecycle/device_action.js";
 export { omadaFirmwareRolloutTool } from "./lifecycle/firmware_rollout.js";
@@ -74,5 +76,6 @@ export function createDefaultRegistry(): ToolRegistry {
   registry.register(omadaDeviceActionTool);
   registry.register(omadaFirmwareRolloutTool);
   registry.register(omadaBatchChangeTool);
+  registry.register(omadaScriptTool);
   return registry;
 }
