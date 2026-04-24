@@ -1,11 +1,13 @@
 import { ToolRegistry } from "../registry.js";
 import { omadaListClientsTool } from "./inventory/list_clients.js";
 import { omadaListDevicesTool } from "./inventory/list_devices.js";
+import { omadaSiteOverviewTool } from "./monitor/site_overview.js";
 import { omadaDiscoverScopeTool } from "./scope/discover_scope.js";
 import { omadaListSitesTool } from "./scope/list_sites.js";
 
 export { omadaListClientsTool } from "./inventory/list_clients.js";
 export { omadaListDevicesTool } from "./inventory/list_devices.js";
+export { omadaSiteOverviewTool } from "./monitor/site_overview.js";
 export { omadaDiscoverScopeTool } from "./scope/discover_scope.js";
 export { omadaListSitesTool } from "./scope/list_sites.js";
 
@@ -18,6 +20,7 @@ export function createDefaultRegistry(): ToolRegistry {
   const registry = new ToolRegistry();
   registry.register(omadaDiscoverScopeTool);
   registry.register(omadaListSitesTool);
+  registry.register(omadaSiteOverviewTool);
   registry.register(omadaListDevicesTool);
   registry.register(omadaListClientsTool);
   return registry;
