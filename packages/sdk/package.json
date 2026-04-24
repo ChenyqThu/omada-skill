@@ -23,6 +23,7 @@
     "build": "tsc -b",
     "typecheck": "tsc -b --pretty",
     "test": "vitest run",
+    "test:staging": "vitest run test/staging.test.ts --config vitest.staging.config.ts",
     "lint": "eslint src",
     "clean": "rimraf dist *.tsbuildinfo"
   },
