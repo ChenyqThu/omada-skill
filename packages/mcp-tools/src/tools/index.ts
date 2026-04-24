@@ -6,6 +6,7 @@ import { omadaListDevicesTool } from "./inventory/list_devices.js";
 import { omadaAlertsListTool } from "./monitor/alerts_list.js";
 import { omadaAlertsTriageTool } from "./monitor/alerts_triage.js";
 import { omadaSiteOverviewTool } from "./monitor/site_overview.js";
+import { omadaTopologyTool } from "./monitor/topology.js";
 import { omadaDiscoverScopeTool } from "./scope/discover_scope.js";
 import { omadaListSitesTool } from "./scope/list_sites.js";
 
@@ -16,6 +17,7 @@ export { omadaListDevicesTool } from "./inventory/list_devices.js";
 export { omadaAlertsListTool } from "./monitor/alerts_list.js";
 export { omadaAlertsTriageTool } from "./monitor/alerts_triage.js";
 export { omadaSiteOverviewTool } from "./monitor/site_overview.js";
+export { omadaTopologyTool } from "./monitor/topology.js";
 export { omadaDiscoverScopeTool } from "./scope/discover_scope.js";
 export { omadaListSitesTool } from "./scope/list_sites.js";
 
@@ -35,5 +37,6 @@ export function createDefaultRegistry(): ToolRegistry {
   registry.register(omadaClientJourneyTool);
   registry.register(omadaAlertsListTool);
   registry.register(omadaAlertsTriageTool);
+  registry.register(omadaTopologyTool);
   return registry;
 }
