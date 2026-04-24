@@ -7,6 +7,7 @@ import { omadaAlertsListTool } from "./monitor/alerts_list.js";
 import { omadaAlertsTriageTool } from "./monitor/alerts_triage.js";
 import { omadaSiteOverviewTool } from "./monitor/site_overview.js";
 import { omadaTopologyTool } from "./monitor/topology.js";
+import { omadaWifiDiagnoseTool } from "./monitor/wifi_diagnose.js";
 import { omadaDiscoverScopeTool } from "./scope/discover_scope.js";
 import { omadaListSitesTool } from "./scope/list_sites.js";
 
@@ -18,6 +19,7 @@ export { omadaAlertsListTool } from "./monitor/alerts_list.js";
 export { omadaAlertsTriageTool } from "./monitor/alerts_triage.js";
 export { omadaSiteOverviewTool } from "./monitor/site_overview.js";
 export { omadaTopologyTool } from "./monitor/topology.js";
+export { omadaWifiDiagnoseTool } from "./monitor/wifi_diagnose.js";
 export { omadaDiscoverScopeTool } from "./scope/discover_scope.js";
 export { omadaListSitesTool } from "./scope/list_sites.js";
 
@@ -38,5 +40,6 @@ export function createDefaultRegistry(): ToolRegistry {
   registry.register(omadaAlertsListTool);
   registry.register(omadaAlertsTriageTool);
   registry.register(omadaTopologyTool);
+  registry.register(omadaWifiDiagnoseTool);
   return registry;
 }
