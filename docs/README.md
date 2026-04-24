@@ -1,24 +1,52 @@
 # omada-skill docs
 
+> English · [中文](./README.zh.md)
+
 Navigation for the `omada-skill` monorepo.
 
 ## For users of the MCP server
 
-- **[Deployment](./deployment.md)** — run `omada-mcp` in stdio (Claude Desktop, Cursor) or HTTP (web Claude, managed agents)
-- **[MCP tool reference](./mcp-tools.md)** — what every tool does, its input schema, and example transcripts
-- **[Skills](./skills.md)** — Claude Agent Skills bundled with the server (roadmap)
-- **[Security](./security.md)** — authentication, scopes, dry-run, confirm tokens, audit logs
+- **[Deployment](./deployment.md)** — run `omada-mcp` in stdio
+  (Claude Desktop, Cursor) or HTTP (web Claude, managed agents).
+- **[MCP tool reference](./mcp-tools.md)** — every intent tool's input
+  schema, backing operation, risk tier, and source link. Covers all 22
+  tools shipped in M3.
+- **[Skills](./skills.md)** · [中文版](./skills.zh.md) — how the five
+  Claude Agent Skills under [`skills/`](../skills/) are structured and
+  published as `resource://omada-skills/<name>` MCP resources.
+- **[Security & guardrails](./security.md)** — authentication scopes,
+  dry-run, the two-phase confirm-token handshake, and the JSONL audit
+  sink.
 
 ## For contributors
 
-- **[Architecture](./architecture.md)** — the mental model: SDK → guardrails → mcp-tools → mcp-server, and why
-- **[API regeneration SOP](./api-regeneration.md)** — when TP-Link ships a new `omada_api.json`, how to absorb it safely
-- **[Contributing](./contributing.md)** — commit style, lint hooks, how to add a tool
+- **[Architecture](./architecture.md)** — the mental model: SDK →
+  guardrails → mcp-tools → mcp-server.
+- **[API regeneration SOP](./api-regeneration.md)** — absorbing a new
+  `specs/omada_api.json`, plus how `pnpm spec:diff` surfaces
+  operation-level drift against the latest snapshot.
+- **[Contributing](./contributing.md)** — commit style (Conventional
+  Commits), lint hooks (lefthook), and how to add a new intent tool
+  or a new skill.
+
+## Milestone history
+
+- **[STATUS.zh.md](./STATUS.zh.md)** — M1 → M5 milestone summary
+  (Chinese), with test counts per package and what's deferred to M6.
+- **[HANDOFF.md](../HANDOFF.md)** — the current
+  "next-operator-read-me-first" doc. One was written at every milestone
+  boundary; historical versions live under [`archive/`](./archive/).
 
 ## Reference
 
-- [Anthropic: Building agents that reach production systems with MCP](./Building%20agents%20that%20reach%20production%20systems%20with%20MCP.md) — the design principles this project implements
+- [Anthropic · Building agents that reach production systems with MCP](./Building%20agents%20that%20reach%20production%20systems%20with%20MCP.md)
+  (Apr 2026) — the design principles this project implements.
 
-## Planning
+## Archive
 
-- `~/.claude/plans/omada-mcp-fizzy-owl.md` — the original M1–M5 plan (plan-mode artefact, not in the repo)
+Historical per-milestone handoffs:
+
+- [M1 → M2](./archive/HANDOFF-m1-to-m2.md)
+- [M2 → M3](./archive/HANDOFF-m2-to-m3.md)
+- [M3 → M4](./archive/HANDOFF-m3-to-m4.md)
+- [M4 → M5](./archive/HANDOFF-m4-to-m5.md)
