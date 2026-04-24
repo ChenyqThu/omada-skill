@@ -5,3 +5,4 @@ export { OmadaClient } from "./OmadaClient.js";
 export * from "./pagination.js";
 export * from "./auth/OAuthTokenStore.js";
 export * from "./mock/MockTransport.js";
+export * from "./audit/JsonlAuditSink.js";

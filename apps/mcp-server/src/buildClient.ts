@@ -6,13 +6,16 @@ import {
   OmadaClient,
   REGIONS,
   SAMPLE_SITES,
+  createJsonlAuditSink,
 } from "@omada/sdk";
+import type { AuditSink } from "@omada/sdk";
 import type { Logger } from "@omada/shared";
 
 import type { RuntimeConfig } from "./config.js";
 
 export function buildOmadaClient(cfg: RuntimeConfig, logger: Logger): OmadaClient {
   const sdkLogger = logger.child("sdk");
+  const onAudit = buildAuditSink(cfg, sdkLogger);
   if (cfg.mode === "mock") {
     return new OmadaClient({
       region: cfg.region,
@@ -20,6 +23,7 @@ export function buildOmadaClient(cfg: RuntimeConfig, logger: Logger): OmadaClien
       transport: buildMockTransport(),
       logger: sdkLogger,
       dryRun: cfg.dryRun,
+      ...(onAudit ? { onAudit } : {}),
     });
   }
   if (!cfg.clientId || !cfg.clientSecret) {
@@ -39,6 +43,15 @@ export function buildOmadaClient(cfg: RuntimeConfig, logger: Logger): OmadaClien
     transport,
     logger: sdkLogger,
     dryRun: cfg.dryRun,
+    ...(onAudit ? { onAudit } : {}),
+  });
+}
+
+function buildAuditSink(cfg: RuntimeConfig, logger: Logger): AuditSink | undefined {
+  if (!cfg.auditDir) return undefined;
+  return createJsonlAuditSink({
+    dir: cfg.auditDir,
+    onError: (err) => logger.error("audit sink write failed", { err: String(err) }),
   });
 }
 
