@@ -5,6 +5,9 @@ import { omadaListClientsTool } from "./inventory/list_clients.js";
 import { omadaListDevicesTool } from "./inventory/list_devices.js";
 import { omadaAlertsListTool } from "./monitor/alerts_list.js";
 import { omadaAlertsTriageTool } from "./monitor/alerts_triage.js";
+import { omadaApplySiteTemplateTool } from "./deploy/apply_site_template.js";
+import { omadaBulkOnboardTool } from "./deploy/bulk_onboard.js";
+import { omadaPortalWizardTool } from "./deploy/portal_wizard.js";
 import { omadaAuditLogsTool } from "./monitor/audit_logs.js";
 import { omadaExecReportTool } from "./monitor/exec_report.js";
 import { omadaFirmwarePlanTool } from "./monitor/firmware_plan.js";
@@ -22,6 +25,9 @@ export { omadaListClientsTool } from "./inventory/list_clients.js";
 export { omadaListDevicesTool } from "./inventory/list_devices.js";
 export { omadaAlertsListTool } from "./monitor/alerts_list.js";
 export { omadaAlertsTriageTool } from "./monitor/alerts_triage.js";
+export { omadaApplySiteTemplateTool } from "./deploy/apply_site_template.js";
+export { omadaBulkOnboardTool } from "./deploy/bulk_onboard.js";
+export { omadaPortalWizardTool } from "./deploy/portal_wizard.js";
 export { omadaAuditLogsTool } from "./monitor/audit_logs.js";
 export { omadaExecReportTool } from "./monitor/exec_report.js";
 export { omadaFirmwarePlanTool } from "./monitor/firmware_plan.js";
@@ -56,5 +62,8 @@ export function createDefaultRegistry(): ToolRegistry {
   registry.register(omadaAuditLogsTool);
   registry.register(omadaFirmwarePlanTool);
   registry.register(omadaExecReportTool);
+  registry.register(omadaApplySiteTemplateTool);
+  registry.register(omadaBulkOnboardTool);
+  registry.register(omadaPortalWizardTool);
   return registry;
 }
