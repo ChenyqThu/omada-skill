@@ -6,6 +6,8 @@ import { omadaListDevicesTool } from "./inventory/list_devices.js";
 import { omadaAlertsListTool } from "./monitor/alerts_list.js";
 import { omadaAlertsTriageTool } from "./monitor/alerts_triage.js";
 import { omadaAuditLogsTool } from "./monitor/audit_logs.js";
+import { omadaExecReportTool } from "./monitor/exec_report.js";
+import { omadaFirmwarePlanTool } from "./monitor/firmware_plan.js";
 import { omadaSiteOverviewTool } from "./monitor/site_overview.js";
 import { omadaTopologyTool } from "./monitor/topology.js";
 import { omadaVoipOverviewTool } from "./monitor/voip_overview.js";
@@ -21,6 +23,8 @@ export { omadaListDevicesTool } from "./inventory/list_devices.js";
 export { omadaAlertsListTool } from "./monitor/alerts_list.js";
 export { omadaAlertsTriageTool } from "./monitor/alerts_triage.js";
 export { omadaAuditLogsTool } from "./monitor/audit_logs.js";
+export { omadaExecReportTool } from "./monitor/exec_report.js";
+export { omadaFirmwarePlanTool } from "./monitor/firmware_plan.js";
 export { omadaSiteOverviewTool } from "./monitor/site_overview.js";
 export { omadaTopologyTool } from "./monitor/topology.js";
 export { omadaVoipOverviewTool } from "./monitor/voip_overview.js";
@@ -50,5 +54,7 @@ export function createDefaultRegistry(): ToolRegistry {
   registry.register(omadaVoipOverviewTool);
   registry.register(omadaVpnStatusTool);
   registry.register(omadaAuditLogsTool);
+  registry.register(omadaFirmwarePlanTool);
+  registry.register(omadaExecReportTool);
   return registry;
 }
