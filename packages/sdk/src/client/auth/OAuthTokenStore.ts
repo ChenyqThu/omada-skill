@@ -1,5 +1,6 @@
 import { OmadaAuthError } from "@omada/shared";
 
+import { assertSecureUrl } from "../regions.js";
 import type { AuthStrategy, HttpResponse, Transport } from "../types.js";
 
 export interface OAuthClientCredentials {
@@ -11,6 +12,12 @@ export interface OAuthClientCredentials {
   scope?: string;
   /** Refresh `refreshLeadMs` before the cached token would expire. Default: 60_000. */
   refreshLeadMs?: number;
+  /**
+   * Permit `http://` tokenUrl on loopback hosts. Defaults to false — credentials
+   * are sent in the request body, so plaintext HTTP would leak them. Intended
+   * for local dev/CI against a mock OAuth server only.
+   */
+  allowInsecureLoopback?: boolean;
 }
 
 interface CachedToken {
@@ -37,6 +44,12 @@ export class OAuthTokenStore implements AuthStrategy {
     private readonly transport: Transport,
   ) {
     this.refreshLeadMs = creds.refreshLeadMs ?? 60_000;
+    // Refuse to construct with a URL that would leak client_secret in
+    // plaintext. Operators who truly need dev-local HTTP can opt in via
+    // allowInsecureLoopback.
+    assertSecureUrl(creds.tokenUrl, {
+      allowInsecureLoopback: creds.allowInsecureLoopback ?? false,
+    });
   }
 
   async getToken(): Promise<string> {
@@ -97,6 +110,14 @@ function parseTokenResponse(res: HttpResponse): CachedToken {
   if (!accessToken || !Number.isFinite(expiresIn)) {
     throw new OmadaAuthError(
       `OAuth response missing access_token / expires_in: ${summarizeBody(res.body)}`,
+    );
+  }
+  // Reject non-positive expires_in — a zero or negative TTL would cache a
+  // token that is already expired and cause every subsequent call to refetch,
+  // producing a credentials storm against the token endpoint.
+  if (expiresIn <= 0) {
+    throw new OmadaAuthError(
+      `OAuth response has non-positive expires_in (${expiresIn}): ${summarizeBody(res.body)}`,
     );
   }
   return {

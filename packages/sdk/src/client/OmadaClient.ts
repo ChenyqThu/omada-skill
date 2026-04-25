@@ -57,6 +57,9 @@ export class OmadaClient {
     this.baseUrl = resolveBaseUrl({
       ...(opts.region !== undefined ? { region: opts.region } : {}),
       ...(opts.baseUrl !== undefined ? { baseUrl: opts.baseUrl } : {}),
+      ...(opts.allowInsecureLoopback !== undefined
+        ? { allowInsecureLoopback: opts.allowInsecureLoopback }
+        : {}),
     });
     this.transport = opts.transport ?? new FetchTransport();
     this.auth = opts.auth;
@@ -211,8 +214,17 @@ export class OmadaClient {
 function parseRetryAfter(header: string | undefined): number | undefined {
   if (!header) return undefined;
   const asSeconds = Number(header);
-  if (Number.isFinite(asSeconds)) return asSeconds * 1000;
+  if (Number.isFinite(asSeconds)) {
+    // Clock-skewed or misbehaving servers may send a negative delta-seconds;
+    // treat as "unknown" so the caller falls back to exponential backoff rather
+    // than retrying immediately.
+    return asSeconds > 0 ? asSeconds * 1000 : undefined;
+  }
   const asDate = new Date(header).getTime();
-  if (Number.isFinite(asDate)) return Math.max(0, asDate - Date.now());
+  if (Number.isFinite(asDate)) {
+    const delta = asDate - Date.now();
+    // Past dates indicate stale headers or clock skew; same reasoning as above.
+    return delta > 0 ? delta : undefined;
+  }
   return undefined;
 }

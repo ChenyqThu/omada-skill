@@ -29,11 +29,21 @@ export function buildOmadaClient(cfg: RuntimeConfig, logger: Logger): OmadaClien
   if (!cfg.clientId || !cfg.clientSecret) {
     throw new Error("internal: real mode requires clientId and clientSecret");
   }
-  const baseUrl = cfg.baseUrl ?? REGIONS[cfg.region as keyof typeof REGIONS] ?? REGIONS.use1;
+  if (!(cfg.region in REGIONS) && !cfg.baseUrl) {
+    throw new Error(
+      `Unknown region "${cfg.region}" and no OMADA_BASE_URL override — refusing to fall back silently`,
+    );
+  }
+  const baseUrl = cfg.baseUrl ?? REGIONS[cfg.region as keyof typeof REGIONS]!;
   const tokenUrl = cfg.tokenUrl ?? `${stripTrailingSlash(baseUrl)}/openapi/authorize/token`;
   const transport = new FetchTransport();
   const auth = new OAuthTokenStore(
-    { clientId: cfg.clientId, clientSecret: cfg.clientSecret, tokenUrl },
+    {
+      clientId: cfg.clientId,
+      clientSecret: cfg.clientSecret,
+      tokenUrl,
+      allowInsecureLoopback: cfg.allowInsecureLoopback,
+    },
     transport,
   );
   return new OmadaClient({
@@ -43,6 +53,7 @@ export function buildOmadaClient(cfg: RuntimeConfig, logger: Logger): OmadaClien
     transport,
     logger: sdkLogger,
     dryRun: cfg.dryRun,
+    allowInsecureLoopback: cfg.allowInsecureLoopback,
     ...(onAudit ? { onAudit } : {}),
   });
 }

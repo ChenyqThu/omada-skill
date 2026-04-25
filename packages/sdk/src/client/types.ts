@@ -137,4 +137,10 @@ export interface OmadaClientOptions {
    * and re-throw so the caller's next call can acquire a fresh token.
    */
   retry?: RetryOptions;
+  /**
+   * Permit `http://` base URLs that point at loopback hosts (127.0.0.0/8, ::1,
+   * localhost). Defaults to false — real controllers must be HTTPS. Exists for
+   * local development against a mock HTTP server; never enable in production.
+   */
+  allowInsecureLoopback?: boolean;
 }
