@@ -40,6 +40,10 @@ export interface PagedRouteOptions<T> {
  * Minimal in-memory Transport implementation for unit tests and offline
  * development. Supports multiple routes tried in registration order plus a
  * captured request log for assertions.
+ *
+ * @internal — test/dev fixture; NOT part of the published public API. Do not
+ *   import from application code. Packaged consumers should depend on
+ *   `@omada/sdk` (public surface) not this module.
  */
 export class MockTransport implements Transport {
   private readonly routes: MockRoute[] = [];
@@ -112,7 +116,11 @@ export class MockTransport implements Transport {
   }
 }
 
-/** AuthStrategy that always returns the same token — use with MockTransport. */
+/**
+ * AuthStrategy that always returns the same token — use with MockTransport.
+ *
+ * @internal — test/dev fixture; NOT part of the published public API.
+ */
 export class MockAuth implements AuthStrategy {
   constructor(private readonly token: string = "mock-token") {}
   async getToken(): Promise<string> {
@@ -123,6 +131,9 @@ export class MockAuth implements AuthStrategy {
   }
 }
 
+/**
+ * @internal — test/dev fixture; NOT part of the published public API.
+ */
 export const SAMPLE_SITES = [
   { siteId: "site-001", name: "HQ — San Jose", region: "USA", type: 0, scenario: "Office" },
   { siteId: "site-002", name: "Store — Brooklyn", region: "USA", type: 0, scenario: "Retail" },

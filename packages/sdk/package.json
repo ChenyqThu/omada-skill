@@ -10,6 +10,10 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./public": {
+      "types": "./dist/public.d.ts",
+      "default": "./dist/public.js"
+    },
     "./operations": {
       "types": "./dist/generated/operations.d.ts",
       "default": "./dist/generated/operations.js"
