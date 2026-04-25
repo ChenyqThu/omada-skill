@@ -6,6 +6,73 @@ Versioning: [SemVer](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Security — quality pass (post-M5)
+
+- **HTTP transport hardening.** The `/mcp` endpoint now requires a shared
+  bearer (`OMADA_MCP_BEARER`) whenever bound to a non-loopback interface, and
+  CORS no longer defaults to `*`. Requests with a non-allowlisted `Origin` or
+  a `Host` header that doesn't match the bound interface are rejected — the
+  latter defeats DNS-rebinding. Token comparison is `timingSafeEqual`.
+  Added env vars: `OMADA_MCP_BEARER`, `OMADA_MCP_ALLOWED_ORIGINS`,
+  `OMADA_MCP_HOST`, `OMADA_MCP_PORT`.
+- **URL scheme enforcement.** `resolveBaseUrl` and `OAuthTokenStore` refuse
+  any `http://` URL unless it targets a loopback host and the caller has
+  explicitly opted in via `allowInsecureLoopback` / `OMADA_ALLOW_INSECURE_LOOPBACK`.
+  Stops `client_secret` from being sent over plaintext to an attacker-controlled
+  `OMADA_TOKEN_URL`.
+- **Confirm token crypto.** Switched from `createHash("sha256").update(secret)`
+  to `crypto.createHmac("sha256", secret)`, replaced string equality with
+  `timingSafeEqual`, capped the `canonicalize()` recursion depth, and accept
+  the bucket-ahead-by-one window so clock-skewed callers verify cleanly.
+- **Dependency audit.** Forced `vite >= 6.4.2` and `esbuild >= 0.25.0` via
+  `pnpm.overrides` — clears GHSA-4w7w-66w2-5vf9 + GHSA-67mh-4wv8-2f99.
+  `pnpm audit` now reports 0 advisories.
+
+### Fixed — quality pass (post-M5)
+
+- `OAuthTokenStore` rejects non-positive `expires_in` values so callers can't
+  loop refetching a pre-expired token.
+- `parseRetryAfter()` returns `undefined` for past `Retry-After` HTTP-dates
+  (clock skew / stale headers) instead of yielding a zero delay that triggered
+  thundering-herd retries.
+- `paginate()` now has a hard upper bound (`PAGINATE_HARD_CAP = 10_000`) that
+  `maxPages` can only narrow, preventing misbehaving servers from driving an
+  infinite generator loop.
+- SKILL.md frontmatter parser no longer mis-handles block scalars whose
+  follow-up lines are less-indented than the first content line.
+- `redact()` guards cyclic object graphs with a `WeakSet` instead of
+  blowing the stack.
+
+### Changed — quality pass (post-M5)
+
+- `createJsonlAuditSink`: `onError` is now required (audit loss is not a
+  silent-default case), returns a `JsonlAuditSink` that also exposes
+  `flush()` for SIGTERM drain, rotates when a line would cross `maxBytes`
+  (optional), and resets the internal write-tail chain once drained so
+  long-running servers don't grow an unbounded microtask history.
+- `scripts/validate-skills.ts` cross-checks `omada_*` / `omada-*` references
+  in every SKILL.md against the tool registry + sibling skill ids. A
+  rename or typo now fails pre-commit / CI instead of at MCP runtime.
+- `scripts/diff-api.ts` gained `--fail-on-breaking`; `.github/workflows/api-diff.yml`
+  runs it in addition to the comment step, failing PRs that remove an
+  operation or move a method/path.
+- `apps/mcp-server` CLI flips `parseArgs({ strict: true })` so unknown flags
+  are rejected at startup rather than silently ignored.
+- `packages/sdk/src/public.ts` — curated public barrel (opt-in via the
+  `@omada/sdk/public` exports subpath). `MockTransport`, `MockAuth`, and
+  `SAMPLE_SITES` are marked `@internal`; they stay reachable from the
+  workspace-wide `@omada/sdk` import but are excluded from the public
+  surface for when the package flips `private: false`.
+
+### Added — quality pass (post-M5)
+
+- `.github/workflows/release.yml` — Changesets versioning/publishing workflow.
+  No-op while packages are `private: true`, but opens the "Version Packages"
+  PR muscle so we find out about missing changesets during development rather
+  than at publish time.
+- `TODO.md` — living punch list of review findings, P0/P1/P2/A/T, updated as
+  items land.
+
 ### Added — M5 (distribution + tooling)
 
 - **Skill loader** in `@omada/mcp-tools` (`src/skills/`) with pure

@@ -15,12 +15,12 @@ Omada sites the way an expert network engineer would.
 | **Internal SDK** — [`packages/sdk`](./packages/sdk)             | Typed TypeScript client for the Omada Open API (2,269 operations), regenerated from the single source of truth in [`specs/omada_api.json`](./specs/omada_api.json).         |
 | **Guardrails** — [`packages/guardrails`](./packages/guardrails) | High-risk operation whitelist with severity tiers, deterministic HMAC-bucketed confirm tokens for the two-phase helper.                                                     |
 
-## Project status (M5 landed)
+## Project status (M5 landed · quality pass on top)
 
-**166 tests green**, `pnpm turbo run typecheck lint test build` under 6 s
-cold. Detailed milestone history in
-[`docs/STATUS.zh.md`](./docs/STATUS.zh.md) and the fresh handoff in
-[`HANDOFF.md`](./HANDOFF.md).
+`pnpm turbo run typecheck lint test build` is green in under 6 s cold.
+Detailed milestone history in [`docs/STATUS.zh.md`](./docs/STATUS.zh.md);
+current state summary in [`HANDOFF.md`](./HANDOFF.md); in-flight review
+punch list in [`TODO.md`](./TODO.md).
 
 - **M1** — monorepo scaffold, SDK generated, guardrails, mcp-server, seed
   tool, specs baseline. 54 tests.
@@ -72,7 +72,7 @@ development.
 
 ```bash
 pnpm build                 # turbo run build
-pnpm test                  # turbo run test (166 tests)
+pnpm test                  # turbo run test
 pnpm test:staging          # real-controller integration (needs creds)
 pnpm typecheck             # turbo run typecheck
 pnpm lint                  # turbo run lint

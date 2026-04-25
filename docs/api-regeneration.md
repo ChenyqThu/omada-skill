@@ -100,10 +100,21 @@ If the diff removes any operationId or changes any method/path that
 existing tools use, open a CHANGELOG entry under
 `## Changed` or `## Removed` and ping downstream consumers.
 
-## M5 will automate most of this
+## Automation in place
 
-- `scripts/diff-api.ts` will emit a structured JSON diff
-- `.github/workflows/api-diff.yml` will comment on PRs with a breaking
-  vs non-breaking summary and auto-fail on unapproved breaks
-- `operationAliases.ts` will let us provide a soft-landing rename
-  window
+- `scripts/diff-api.ts` emits an operation-level markdown diff. Supports
+  `--fail-on-change` (all changes) and `--fail-on-breaking` (removed
+  ops + method/path changes).
+- `.github/workflows/api-diff.yml` runs the diff on every PR touching
+  `specs/`, posts a sticky comment, and fails the job when the diff is
+  breaking.
+- `.github/workflows/ci.yml` regenerates the SDK and fails on any
+  `packages/sdk/src/generated/` drift — stale generated code can't
+  land.
+
+Still manual (future work):
+
+- No soft-landing alias layer for renamed operationIds — renames show
+  up as remove-then-add and the diff action flags them breaking.
+- No automated high-risk op scan — the `highRiskOps.ts` update in
+  §5 is still a human review step.
