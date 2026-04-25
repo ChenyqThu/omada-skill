@@ -37,6 +37,12 @@ jobs:
       - name: Compute operation diff
         run: pnpm spec:diff --output /tmp/api-diff.md
 
+      - name: Fail on breaking operation changes
+        # Non-additive changes (removed operations, moved method/path) break
+        # downstream SDK callers at compile time. Additions are reported in
+        # the PR comment but do not fail the workflow.
+        run: pnpm spec:diff --fail-on-breaking
+
       - name: Upload diff as artefact
         uses: actions/upload-artifact@v4
         with:

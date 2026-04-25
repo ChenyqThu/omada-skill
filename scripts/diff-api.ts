@@ -53,6 +53,7 @@ interface Args {
   baselinePath: string | null;
   output: string | null;
   failOnChange: boolean;
+  failOnBreaking: boolean;
 }
 
 function parseArgs(argv: string[], repoRoot: string): Args {
@@ -61,6 +62,7 @@ function parseArgs(argv: string[], repoRoot: string): Args {
     baselinePath: null,
     output: null,
     failOnChange: false,
+    failOnBreaking: false,
   };
   const args = argv.slice(2);
   for (let i = 0; i < args.length; i += 1) {
@@ -76,12 +78,30 @@ function parseArgs(argv: string[], repoRoot: string): Args {
       i += 1;
     } else if (a === "--fail-on-change") {
       out.failOnChange = true;
+    } else if (a === "--fail-on-breaking") {
+      out.failOnBreaking = true;
     } else {
       console.error(`[spec-diff] unknown flag: ${a}`);
       process.exit(2);
     }
   }
   return out;
+}
+
+/**
+ * Classify a diff entry as breaking.
+ *
+ * - Any removed operation is breaking (SDK callers disappear at compile time).
+ * - Changed method/path is breaking (the operation moved; generated callers
+ *   would send requests to the wrong endpoint).
+ * - Newly deprecated operations are NOT breaking — callers still work, but
+ *   we surface them in the comment.
+ * - Summary-only changes are documentation, not breaking.
+ * - Pure additions are never breaking.
+ */
+function isBreaking(diff: Diff): boolean {
+  if (diff.removed.length > 0) return true;
+  return diff.changed.some((c) => c.fields.includes("method") || c.fields.includes("path"));
 }
 
 function requireValue(args: string[], i: number, flag: string): string {
@@ -271,6 +291,13 @@ function main(): void {
   const changeCount = diff.added.length + diff.removed.length + diff.changed.length;
   if (args.failOnChange && changeCount > 0) {
     console.error(`[spec-diff] exiting 1 (${changeCount} change(s), --fail-on-change set)`);
+    process.exit(1);
+  }
+  if (args.failOnBreaking && isBreaking(diff)) {
+    console.error(
+      `[spec-diff] exiting 1 — spec contains breaking operation change(s) ` +
+        `(removed: ${diff.removed.length}, method/path-changed: ${diff.changed.filter((c) => c.fields.includes("method") || c.fields.includes("path")).length})`,
+    );
     process.exit(1);
   }
 }

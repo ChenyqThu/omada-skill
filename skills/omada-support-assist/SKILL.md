@@ -9,8 +9,8 @@ description: |
   "who changed config on `site-hq` this morning, and what broke?".
   TRIGGER when the request asks for a compile-it-for-me artefact, not
   an interactive diagnosis.
-  SKIP for live root-cause investigation — use `omada-wifi-
-  troubleshoot` or `omada-alert-triage` first.
+  SKIP for live root-cause investigation — use
+  `omada-wifi-troubleshoot` or `omada-alert-triage` first.
   SKIP when the operator wants to *act* (reboot / upgrade / rebind)
   — the matching write skill.
   SKIP for multi-site MSP KPI reports — use `omada_exec_report`
