@@ -63,8 +63,11 @@ export function parseFrontmatter(
     const inlineValue = (keyMatch[2] ?? "").trim();
 
     if (inlineValue === "|" || inlineValue === ">") {
-      // Multi-line block scalar. Collect all subsequent lines that are indented
-      // at least 2 spaces. `|` keeps newlines; `>` folds them into spaces.
+      // Multi-line block scalar. Collect all subsequent lines indented at or
+      // beyond the first content line's indent; the block ends as soon as a
+      // non-blank line is less-indented than that baseline (this includes the
+      // top-level `indent === 0` case). `|` keeps newlines; `>` folds them
+      // into spaces.
       const collected: string[] = [];
       let j = i + 1;
       let firstIndent = -1;
@@ -76,10 +79,13 @@ export function parseFrontmatter(
           continue;
         }
         const indent = peek.length - peek.trimStart().length;
-        if (indent === 0) break;
-        if (firstIndent === -1) firstIndent = indent;
-        const trimLen = Math.min(indent, firstIndent);
-        collected.push(peek.slice(trimLen));
+        if (firstIndent === -1) {
+          if (indent === 0) break;
+          firstIndent = indent;
+        } else if (indent < firstIndent) {
+          break;
+        }
+        collected.push(peek.slice(firstIndent));
         j += 1;
       }
       const joined =
