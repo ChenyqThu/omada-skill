@@ -129,4 +129,148 @@ describe("omada_alerts_triage tool", () => {
     expect(res.isError).toBe(true);
     expect(res.content[0]?.text).toMatch(/errorCode=-1007/);
   });
+
+  it("defaults missing fields to Unknown/unknown/— in the group key", async () => {
+    const transport = new MockTransport().route({
+      urlMatch: /\/openapi\/v1\//,
+      body: {
+        errorCode: 0,
+        result: {
+          totalRows: 1,
+          data: [{ timestamp: 1_700_000_000_000, message: "mystery alert" }],
+        },
+      },
+    });
+    const client = new OmadaClient({ auth: new MockAuth(), transport });
+    const res = await omadaAlertsTriageTool.handler(
+      { omadacId: "oc", siteId: "s", pageSize: 500 },
+      { client, logger },
+    );
+    const structured = res.structuredContent as {
+      groups: { key: string; module: string; severity: string; target: string }[];
+    };
+    expect(structured.groups[0]).toMatchObject({
+      module: "Unknown",
+      severity: "unknown",
+      target: "—",
+    });
+  });
+
+  it("sorts higher-severity groups ahead of lower ones with more count", async () => {
+    const transport = new MockTransport().route({
+      urlMatch: /\/openapi\/v1\//,
+      body: {
+        errorCode: 0,
+        result: {
+          totalRows: 4,
+          data: [
+            {
+              timestamp: 1,
+              module: "Client",
+              severity: "warning",
+              clientMac: "aa",
+              message: "w",
+            },
+            {
+              timestamp: 2,
+              module: "Client",
+              severity: "warning",
+              clientMac: "aa",
+              message: "w",
+            },
+            {
+              timestamp: 3,
+              module: "Client",
+              severity: "warning",
+              clientMac: "aa",
+              message: "w",
+            },
+            {
+              timestamp: 4,
+              module: "Device",
+              severity: "critical",
+              deviceName: "AP-X",
+              message: "c",
+            },
+          ],
+        },
+      },
+    });
+    const client = new OmadaClient({ auth: new MockAuth(), transport });
+    const res = await omadaAlertsTriageTool.handler(
+      { omadacId: "oc", siteId: "s", pageSize: 500 },
+      { client, logger },
+    );
+    const structured = res.structuredContent as {
+      groups: { severity: string; count: number }[];
+    };
+    // Critical (count=1) must come ahead of warning (count=3).
+    expect(structured.groups[0]?.severity).toBe("critical");
+    expect(structured.groups[1]?.severity).toBe("warning");
+  });
+
+  it("counts resolved alerts within a group and keeps the latest sample", async () => {
+    const transport = new MockTransport().route({
+      urlMatch: /\/openapi\/v1\//,
+      body: {
+        errorCode: 0,
+        result: {
+          totalRows: 3,
+          data: [
+            {
+              timestamp: 10,
+              module: "Device",
+              severity: "warning",
+              deviceName: "sw-1",
+              message: "first",
+              resolved: true,
+            },
+            {
+              timestamp: 20,
+              module: "Device",
+              severity: "warning",
+              deviceName: "sw-1",
+              message: "second",
+              resolved: false,
+            },
+            {
+              timestamp: 30,
+              module: "Device",
+              severity: "warning",
+              deviceName: "sw-1",
+              message: "latest",
+              resolved: true,
+            },
+          ],
+        },
+      },
+    });
+    const client = new OmadaClient({ auth: new MockAuth(), transport });
+    const res = await omadaAlertsTriageTool.handler(
+      { omadacId: "oc", siteId: "s", pageSize: 500 },
+      { client, logger },
+    );
+    const structured = res.structuredContent as {
+      groups: { count: number; resolved: number; lastSeen: number; sample: string }[];
+    };
+    const group = structured.groups[0]!;
+    expect(group.count).toBe(3);
+    expect(group.resolved).toBe(2);
+    expect(group.lastSeen).toBe(30);
+    expect(group.sample).toBe("latest");
+  });
+
+  it("renders 'No alerts to triage' when the window is empty", async () => {
+    const transport = new MockTransport().route({
+      urlMatch: /\/openapi\/v1\//,
+      body: { errorCode: 0, result: { totalRows: 0, data: [] } },
+    });
+    const client = new OmadaClient({ auth: new MockAuth(), transport });
+    const res = await omadaAlertsTriageTool.handler(
+      { omadacId: "oc", siteId: "s", pageSize: 500 },
+      { client, logger },
+    );
+    expect(res.isError).toBeUndefined();
+    expect(res.content[0]?.text).toMatch(/No alerts to triage/);
+  });
 });

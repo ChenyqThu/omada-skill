@@ -53,11 +53,18 @@ describe("createJsonlAuditSink", () => {
   });
 
   it("appends each event as one JSON line to the dated file", async () => {
-    const sink = createJsonlAuditSink({ dir, dateFn: () => "2026-04-23" });
+    const errors: unknown[] = [];
+    const sink = createJsonlAuditSink({
+      dir,
+      dateFn: () => "2026-04-23",
+      onError: (e) => errors.push(e),
+    });
     sink(sampleEvent("listSites", 200));
     sink(sampleEvent("getSiteDetail", 200));
     sink(sampleEvent("listClients", 429));
+    await sink.flush();
 
+    expect(errors).toEqual([]);
     const file = join(dir, "2026-04-23.jsonl");
     const raw = await waitForFile(file, 100);
     const lines = raw.trimEnd().split("\n");
@@ -69,16 +76,52 @@ describe("createJsonlAuditSink", () => {
 
   it("rotates to a new file when the date changes", async () => {
     let today = "2026-04-23";
-    const sink = createJsonlAuditSink({ dir, dateFn: () => today });
+    const sink = createJsonlAuditSink({
+      dir,
+      dateFn: () => today,
+      onError: () => {},
+    });
     sink(sampleEvent("listSites"));
-    await waitForFile(join(dir, "2026-04-23.jsonl"), 1);
+    await sink.flush();
 
     today = "2026-04-24";
     sink(sampleEvent("listClients"));
-    await waitForFile(join(dir, "2026-04-24.jsonl"), 1);
+    await sink.flush();
 
     const files = (await readdir(dir)).sort();
     expect(files).toEqual(["2026-04-23.jsonl", "2026-04-24.jsonl"]);
+  });
+
+  it("rotates the active file when maxBytes is reached", async () => {
+    const sink = createJsonlAuditSink({
+      dir,
+      dateFn: () => "2026-04-23",
+      maxBytes: 100,
+      onError: () => {},
+    });
+    // Each sample line is ~75 bytes, so the second write will trigger rotation.
+    sink(sampleEvent("listSites"));
+    await sink.flush();
+    sink(sampleEvent("listClients"));
+    await sink.flush();
+    sink(sampleEvent("listDevices"));
+    await sink.flush();
+
+    const files = (await readdir(dir)).sort();
+    expect(files).toContain("2026-04-23.jsonl");
+    expect(files).toContain("2026-04-23.1.jsonl");
+  });
+
+  it("drains pending writes via flush()", async () => {
+    const sink = createJsonlAuditSink({
+      dir,
+      dateFn: () => "2026-04-23",
+      onError: () => {},
+    });
+    for (let i = 0; i < 10; i += 1) sink(sampleEvent(`op${i}`));
+    await sink.flush();
+    const raw = await readFile(join(dir, "2026-04-23.jsonl"), "utf8");
+    expect(raw.trimEnd().split("\n")).toHaveLength(10);
   });
 
   it("routes write failures through onError instead of throwing", async () => {

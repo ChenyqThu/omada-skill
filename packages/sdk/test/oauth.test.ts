@@ -97,4 +97,60 @@ describe("OAuthTokenStore", () => {
     await store.getToken();
     expect(transport.calls).toHaveLength(2);
   });
+
+  it("rejects a zero expires_in as a misbehaving response", async () => {
+    const transport = new MockTransport().route({
+      method: "post",
+      urlMatch: "/oauth2/token",
+      body: { access_token: "tok-zero", expires_in: 0 },
+    });
+    const store = new OAuthTokenStore(
+      { clientId: "id", clientSecret: "sec", tokenUrl: "https://example.com/oauth2/token" },
+      transport,
+    );
+    await expect(store.getToken()).rejects.toThrow(/non-positive expires_in/);
+  });
+
+  it("rejects a negative expires_in instead of caching a pre-expired token", async () => {
+    const transport = new MockTransport().route({
+      method: "post",
+      urlMatch: "/oauth2/token",
+      body: { access_token: "tok-neg", expires_in: -3600 },
+    });
+    const store = new OAuthTokenStore(
+      { clientId: "id", clientSecret: "sec", tokenUrl: "https://example.com/oauth2/token" },
+      transport,
+    );
+    await expect(store.getToken()).rejects.toThrow(/non-positive expires_in/);
+  });
+
+  it("refuses to construct with an http:// tokenUrl (unless allowInsecureLoopback)", () => {
+    expect(
+      () =>
+        new OAuthTokenStore(
+          { clientId: "id", clientSecret: "sec", tokenUrl: "http://evil.example.com/token" },
+          new MockTransport(),
+        ),
+    ).toThrow(/Refusing insecure URL/);
+  });
+
+  it("permits http:// tokenUrl on loopback when allowInsecureLoopback is set", () => {
+    const transport = new MockTransport().route({
+      method: "post",
+      urlMatch: "/oauth2/token",
+      body: { access_token: "tok-lo", expires_in: 3600 },
+    });
+    expect(
+      () =>
+        new OAuthTokenStore(
+          {
+            clientId: "id",
+            clientSecret: "sec",
+            tokenUrl: "http://127.0.0.1:8787/oauth2/token",
+            allowInsecureLoopback: true,
+          },
+          transport,
+        ),
+    ).not.toThrow();
+  });
 });

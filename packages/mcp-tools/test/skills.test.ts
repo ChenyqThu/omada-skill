@@ -104,6 +104,73 @@ describe("parseFrontmatter", () => {
     );
     expect(issues.some((i) => i.message.includes("expected inline array"))).toBe(true);
   });
+
+  it("exits a block scalar when a subsequent line is less-indented than the first content line", () => {
+    // `description` opens with `|`; line 1 is indented 4 spaces, and the
+    // next line is `version:` at column 0 — which must end the block so
+    // the parser can see the new key (not swallow the key into the scalar).
+    // Regression: the earlier implementation sliced off `firstIndent` chars
+    // blindly and lost leading characters of any less-indented line.
+    const { frontmatter } = parseFrontmatter(
+      ["name: s", "description: |", "    four-space indent body", "version: 0.1.0"].join("\n"),
+      "fixture",
+    );
+    expect(frontmatter?.description).toBe("four-space indent body");
+    expect(frontmatter?.version).toBe("0.1.0");
+  });
+
+  it("folded (>) scalars collapse newlines to spaces", () => {
+    const { frontmatter } = parseFrontmatter(
+      ["name: s", "description: >", "  one", "  two", "  three", "version: 0"].join("\n"),
+      "fixture",
+    );
+    expect(frontmatter?.description).toBe("one two three");
+  });
+
+  it("tolerates CRLF line endings in the frontmatter block", () => {
+    const raw = ["name: s", "description: |", "  one line", "version: 0.1"].join("\r\n");
+    const { frontmatter } = parseFrontmatter(raw, "fixture");
+    expect(frontmatter?.description).toBe("one line");
+    expect(frontmatter?.version).toBe("0.1");
+  });
+
+  it("strips matching quotes from inline values", () => {
+    const { frontmatter } = parseFrontmatter(
+      ['name: "quoted"', "description: d", "version: '0.1.0'"].join("\n"),
+      "fixture",
+    );
+    expect(frontmatter?.name).toBe("quoted");
+    expect(frontmatter?.version).toBe("0.1.0");
+  });
+
+  it("ignores `#` comment lines inside frontmatter", () => {
+    const { frontmatter, issues } = parseFrontmatter(
+      ["# top comment", "name: s", "# mid comment", "description: d", "version: 0"].join("\n"),
+      "fixture",
+    );
+    expect(frontmatter?.name).toBe("s");
+    expect(issues.filter((i) => i.severity === "error")).toEqual([]);
+  });
+
+  it("flags unparseable lines as errors (and returns null frontmatter when any error is present)", () => {
+    const { frontmatter, issues } = parseFrontmatter(
+      ["name: s", "description: d", "version: 0", "~not a key"].join("\n"),
+      "fixture",
+    );
+    // Any error → null frontmatter. This is the documented behaviour and the
+    // reason authors see a loud failure instead of a half-loaded skill.
+    expect(frontmatter).toBeNull();
+    expect(issues.some((i) => i.severity === "error" && /unparseable/.test(i.message))).toBe(true);
+  });
+
+  it("recognises an empty inline array `tags: []`", () => {
+    const { frontmatter, issues } = parseFrontmatter(
+      ["name: s", "description: d", "version: 0", "tags: []"].join("\n"),
+      "fixture",
+    );
+    expect(issues.filter((i) => i.severity === "error")).toEqual([]);
+    expect(frontmatter?.tags).toEqual([]);
+  });
 });
 
 describe("loadSkillsFromDir", () => {
@@ -175,6 +242,76 @@ describe("loadSkillsFromDir", () => {
       const issues = lintSkillLayout(skills[0]!, { strict: true });
       expect(issues.length).toBeGreaterThan(0);
       expect(issues.every((i) => i.severity === "error")).toBe(true);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  it("rejects directories that do not contain SKILL.md", () => {
+    const root = makeTempRoot();
+    try {
+      mkdirSync(join(root, "bogus"), { recursive: true });
+      writeFileSync(join(root, "bogus", "NOT_SKILL.md"), "hi", "utf8");
+      const { skills, issues } = loadSkillsFromDir(root);
+      expect(skills).toHaveLength(0);
+      // The missing SKILL.md must be surfaced so authors see it instead of
+      // the directory silently dropping off the discovered list.
+      expect(issues.some((i) => /SKILL\.md/.test(i.message))).toBe(true);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  it("records an error when two sibling skills declare the same name", () => {
+    const root = makeTempRoot();
+    try {
+      writeSkill(root, "one", {
+        frontmatter: "name: one\ndescription: d\nversion: 0",
+        body: "body",
+        withAssets: true,
+      });
+      writeSkill(root, "two", {
+        // Intentional collision — "two" claims the same name as "one".
+        frontmatter: "name: one\ndescription: d\nversion: 0",
+        body: "body",
+        withAssets: true,
+      });
+      const { skills, issues } = loadSkillsFromDir(root);
+      // At least one directory fails to load (name-does-not-match-dir).
+      expect(skills.length).toBeLessThanOrEqual(1);
+      expect(issues.some((i) => i.severity === "error")).toBe(true);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  it("reports the malformed-frontmatter error without crashing the loader", () => {
+    const root = makeTempRoot();
+    try {
+      const dir = join(root, "broken");
+      mkdirSync(dir, { recursive: true });
+      writeFileSync(join(dir, "SKILL.md"), "no frontmatter fence — body only\n", "utf8");
+      const { skills, issues } = loadSkillsFromDir(root);
+      expect(skills).toHaveLength(0);
+      expect(issues.some((i) => i.severity === "error")).toBe(true);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  it("parses a SKILL.md that starts with a UTF-8 BOM", () => {
+    const root = makeTempRoot();
+    try {
+      const dir = join(root, "bommy");
+      mkdirSync(dir, { recursive: true });
+      writeFileSync(
+        join(dir, "SKILL.md"),
+        "\uFEFF---\nname: bommy\ndescription: d\nversion: 0\n---\nbody\n",
+        "utf8",
+      );
+      const { skills, issues } = loadSkillsFromDir(root);
+      expect(issues.filter((i) => i.severity === "error")).toEqual([]);
+      expect(skills[0]?.name).toBe("bommy");
     } finally {
       rmSync(root, { recursive: true, force: true });
     }

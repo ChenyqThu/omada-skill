@@ -77,7 +77,10 @@ describe.skipIf(!credsAvailable)("OmadaClient against staging controller", () =>
       baseUrl,
       auth,
       transport,
-      onAudit: createJsonlAuditSink({ dir: auditDir }),
+      onAudit: createJsonlAuditSink({
+        dir: auditDir,
+        onError: (err) => console.error("[staging audit]", err),
+      }),
     });
   });
 
