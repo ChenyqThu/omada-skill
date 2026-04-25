@@ -15,7 +15,7 @@ controller. The relevant threats are:
 
 ## Authentication
 
-**OAuth2 Client Credentials** is the only fully-implemented flow in M1.
+**OAuth2 Client Credentials** is the fully-implemented flow today.
 
 ```
 POST <baseUrl>/openapi/authorize/token
@@ -31,9 +31,17 @@ Tokens are cached in memory until `expires_in - 60 s`. Concurrent
 `getToken()` calls de-duplicate into a single network fetch. On 401
 the cache is invalidated so the next call forces a refresh.
 
-**Authorization Code** flow (delegated login) and **CIMD + Claude
-Vault** (delegated credential management) are stubbed in
-`packages/sdk/src/client/auth/` and planned for M5.
+Post-M5 hardening: `OAuthTokenStore` rejects non-positive `expires_in`
+(no token storms), refuses `http://` token URLs unless the host is
+loopback and the caller opted in via `allowInsecureLoopback` /
+`OMADA_ALLOW_INSECURE_LOOPBACK` (no `client_secret` over plaintext).
+
+**Authorization Code** flow (delegated user) and **CIMD** (delegated
+credential broker) are stubbed in `packages/sdk/src/client/auth/`. M5
+landed eager option-shape validation so misconfiguration fails at
+construction; only the method bodies are still placeholder. The
+research contract these bodies need is tracked in
+[`m6-auth-research-questions.md`](./m6-auth-research-questions.md).
 
 ## Scopes
 
@@ -127,6 +135,9 @@ node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'
 }
 ```
 
-M1 keeps the sink in-process (`onAudit` option on `OmadaClient`).
-M2 routes it to `~/.omada-mcp/audit/YYYY-MM-DD.jsonl` and applies
-`redact()` before serialising.
+Sinks are pluggable via the `onAudit` option on `OmadaClient`. The
+default deployment routes events through `createJsonlAuditSink({ dir })`
+(set `OMADA_AUDIT_DIR`) which appends to `${dir}/YYYY-MM-DD.jsonl`,
+applies `redact()` before serialising, rotates on date or `maxBytes`,
+and exposes `flush()` for clean SIGTERM drain. `onError` is required —
+audit loss is never a silent default.

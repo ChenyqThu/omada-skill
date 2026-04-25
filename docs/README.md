@@ -29,6 +29,15 @@ Navigation for the `omada-skill` monorepo.
   Commits), lint hooks (lefthook), and how to add a new intent tool
   or a new skill.
 
+## M6 — what's next
+
+- **[M6 auth research questions](./m6-auth-research-questions.md)** —
+  the contract questions for TP-Link engineering that gate filling in
+  the CIMD / Authorization-Code stub bodies.
+- **[Staging runbook](./staging-runbook.md)** — step-by-step playbook
+  for the first end-to-end pass against a real controller. Skeleton
+  today; the first operator to dogfood replaces every `TBD` cell.
+
 ## Milestone history
 
 - **[STATUS.zh.md](./STATUS.zh.md)** — M1 → M5 milestone summary

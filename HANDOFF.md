@@ -26,17 +26,23 @@ every time a test lands.
 
 ## What to open first
 
-Three starter moves, rough priority order:
+Three starter moves, rough priority order. Each is gated on a different
+external input — see the linked doc for the exact contract we're waiting
+on.
 
 1. **Close the auth loop.** Fill `fetchEnvelope()` / `exchange()` bodies in
    `packages/sdk/src/client/auth/{CIMDIntegration,AuthCodeFlow}.ts` using
    TP-Link IdP documentation. Wire through `apps/mcp-server/src/buildClient.ts`
    (`OMADA_AUTH_STRATEGY=cc|cimd|authcode`). Add integration tests under
    `packages/sdk/test/`.
+   See [`docs/m6-auth-research-questions.md`](./docs/m6-auth-research-questions.md)
+   — the questions that need answers from TP-Link engineering before any
+   line of code is safe to write here.
 2. **Run the staging harness.** `pnpm test:staging` with real credentials;
-   capture a `docs/staging-runbook.md` as you go. Verify each M3 read-only
-   tool round-trips, then exercise one dry-run write via the two-phase
-   helper, then one real write in a sandbox.
+   the runbook skeleton at [`docs/staging-runbook.md`](./docs/staging-runbook.md)
+   covers env setup, read-only smoke, two-phase dry-run, and one real
+   write under sandbox. Each `TBD` cell gets replaced as the run produces
+   actual values.
 3. **Calibrate skill triggers from transcripts.** Land a
    `skills/_calibration/transcripts/` corpus (ignored by `skill:validate`)
    and tune each SKILL.md's frontmatter bullets against actual utterances.
