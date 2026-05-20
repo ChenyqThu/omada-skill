@@ -1,0 +1,42 @@
+# Errors
+
+Every SDK error extends `OmadaError`. The concrete subclasses tell you three things: **retry**, **re-auth**, and **transient vs permanent**.
+
+| Class | HTTP | Retry? | Meaning |
+| --- | --- | --- | --- |
+| `OmadaTransportError` | network | yes (backoff) | Connection failure before a response |
+| `OmadaRateLimitError` | 429 | yes (`Retry-After`) | Throttled; the SDK auto-retries |
+| `OmadaAuthError` | 401, 403 | only after re-auth | Token expired or insufficient scope |
+| `OmadaFatalError` | 4xx (other) | no | Bad request, unknown `operationId`, schema mismatch |
+| `OmadaServerError` | 5xx | yes | Controller-side failure; retried per backoff |
+
+## Retry behaviour
+
+The SDK retries automatically on 429 and 5xx, honouring `Retry-After` headers. Past `Retry-After` HTTP dates fall back to exponential backoff (no thundering herd). Configure with `retry` on `OmadaClient`:
+
+```ts
+const client = new OmadaClient({
+  region: "use1",
+  auth,
+  retry: { maxAttempts: 4, baseDelayMs: 250, jitter: true },
+});
+```
+
+## Audit sink
+
+Every terminal call (after retries) lands in the audit sink as one JSONL line. Configure with `onAudit` on the client, or via `OMADA_AUDIT_DIR` for the MCP server. Files rotate daily with an optional size cap.
+
+```ts
+import { JsonlAuditSink } from "@omada/sdk";
+
+const sink = new JsonlAuditSink({
+  dir: "./audit",
+  onError: (err) => console.error("[audit] write failed", err),
+});
+
+const client = new OmadaClient({ region: "use1", auth, onAudit: sink });
+```
+
+## Dry-run
+
+Set `dryRun: true` (or `OMADA_DRY_RUN=1`) to short-circuit every write without touching the controller. The SDK still emits an audit line marked `dryRun: true`.

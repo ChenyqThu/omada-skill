@@ -1,0 +1,47 @@
+# Typed SDK — `@omada/sdk`
+
+A zero-runtime-cost wrapper over the 2,269 operations. Generated from the same spec this portal renders.
+
+## Call convention
+
+One method, fully typed against `operationId`:
+
+```ts
+await client.call("getUser", {
+  path: { omadacId: "oc-123", userID: "user-456" },
+});
+```
+
+The `path` / `query` / `body` / `headers` keys are inferred from the operation. Compile-time errors if you supply the wrong shape.
+
+## What you get for free
+
+- **Retry pipeline** — 429 / 5xx with `Retry-After` honouring and exponential backoff.
+- **Audit sink** — one JSONL line per terminal call; daily rotation + size cap.
+- **Pagination** — `callPaginated()` async iterator for any list endpoint.
+- **Dry-run mode** — `dryRun: true` short-circuits writes.
+- **Mock transport** — deterministic in-memory controller for tests.
+- **Redaction** — sensitive log fields auto-redacted; allowlist configurable.
+
+## Pagination example
+
+```ts
+import { collect } from "@omada/shared";
+import { callPaginated } from "@omada/sdk";
+
+const allSites = await collect(
+  callPaginated(client, "listSites", {
+    path: { omadacId: "oc-123" },
+  }, { pageSize: 100 }),
+);
+```
+
+## Sub-packages
+
+| Package | Purpose |
+| --- | --- |
+| `@omada/sdk` | The client + types |
+| `@omada/sdk/operations` | The operation map (id → method, path, tags, summary) |
+| `@omada/sdk/public` | Curated re-exports for downstream consumers |
+| `@omada/guardrails` | High-risk operation whitelist + HMAC confirm tokens |
+| `@omada/mcp-tools` | MCP tool layer atop the SDK |

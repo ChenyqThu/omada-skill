@@ -58,3 +58,4 @@ Thumbs.db
 # Temporary / scratch
 tmp/
 .cache/
+.gstack/

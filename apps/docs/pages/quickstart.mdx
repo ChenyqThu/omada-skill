@@ -1,0 +1,52 @@
+# Quick start
+
+## Install the SDK
+
+```bash
+pnpm add @omada/sdk
+```
+
+## Read your first endpoint
+
+```ts
+import { OmadaClient, ClientCredentialsAuth } from "@omada/sdk";
+
+const client = new OmadaClient({
+  region: "use1",
+  auth: new ClientCredentialsAuth({
+    clientId: process.env.OMADA_CLIENT_ID!,
+    clientSecret: process.env.OMADA_CLIENT_SECRET!,
+  }),
+});
+
+const sites = await client.call("listSites", {
+  path: { omadacId: process.env.OMADA_OMADAC_ID! },
+  query: { page: 1, pageSize: 50 },
+});
+```
+
+`client.call` is the single typed entry point — `operationId` autocompletes against all 2,269 operations, and the `path` / `query` / `body` keys are inferred from the spec.
+
+## Run the MCP server
+
+For LLM agent clients (Claude Desktop, Cursor, web Claude):
+
+```bash
+# stdio transport — for desktop/IDE clients
+npx omada-mcp --stdio
+
+# HTTP transport — for hosted/web agents
+npx omada-mcp --http --port 8787
+```
+
+Without `OMADA_CLIENT_ID` the server boots in **mock mode** with three in-memory sample sites. Useful for offline iteration and CI.
+
+## Two-phase commit on writes
+
+All write operations go through a two-phase confirm protocol enforced by `@omada/guardrails`. The first call returns a `confirmToken`; the second call replays the same payload plus that token. This prevents agents from causing irreversible damage on a hallucinated request.
+
+## Next
+
+- **Authentication** — three credential strategies (client-credentials, CIMD, Auth Code) and region routing.
+- **Errors** — the five error classes the SDK surfaces and how to retry.
+- **API Reference** — the full 2,269-operation surface, grouped by domain.

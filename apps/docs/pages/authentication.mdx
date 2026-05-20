@@ -1,0 +1,66 @@
+# Authentication
+
+Omada Open API uses OAuth 2.0. The SDK ships three strategies plus a mock.
+
+## Client credentials (default)
+
+Server-to-server. No user in the loop. Get `clientId` / `clientSecret` from the controller's **Settings → Open API** page.
+
+```ts
+import { OmadaClient, ClientCredentialsAuth } from "@omada/sdk";
+
+const auth = new ClientCredentialsAuth({
+  clientId: process.env.OMADA_CLIENT_ID!,
+  clientSecret: process.env.OMADA_CLIENT_SECRET!,
+});
+
+const client = new OmadaClient({ region: "use1", auth });
+```
+
+## CIMD (TP-Link workload identity) — M6
+
+For TP-Link first-party services. Stub today; real envelope/exchange bodies land in M6. The open questions for TP-Link engineering are tracked in `docs/m6-auth-research-questions.md`.
+
+```ts
+import { CIMDIntegration } from "@omada/sdk";
+
+const auth = new CIMDIntegration({
+  cimdBaseUrl: "https://cimd.example.com",
+  principalId: "workload-abc",
+  principalKeyPath: "/etc/keys/workload.pem",
+});
+```
+
+## Authorization Code — M6
+
+User-in-the-loop flow for CLI/desktop apps. Same M6 status.
+
+```ts
+import { AuthCodeFlow } from "@omada/sdk";
+
+const auth = new AuthCodeFlow({
+  clientId: process.env.OMADA_CLIENT_ID!,
+  authorizeUrl: "https://controller.example/openapi/authorize/code",
+  tokenUrl: "https://controller.example/openapi/authorize/token",
+  redirectUri: "http://127.0.0.1:41729/callback",
+});
+```
+
+## Mock auth (development)
+
+Pair `MockAuth` with `MockTransport` for fully offline development and tests.
+
+```ts
+import { OmadaClient, MockAuth, MockTransport } from "@omada/sdk";
+
+const client = new OmadaClient({
+  auth: new MockAuth(),
+  transport: new MockTransport(),
+});
+```
+
+## Region routing
+
+`region: "use1"` resolves to `https://use1-omada-northbound.tplinkcloud.com`. Other regions follow the same pattern (`euw1`, `aps1`, …).
+
+For self-hosted controllers, pass `baseUrl` directly — the SDK enforces `https://` outside loopback. Set `OMADA_ALLOW_INSECURE_LOOPBACK=1` for local dev against a non-TLS controller.

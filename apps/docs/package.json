@@ -1,0 +1,24 @@
+{
+  "name": "@omada/docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Developer portal for omada-skill — OpenAPI reference + narrative guides, powered by Zudoku.",
+  "scripts": {
+    "predev": "tsx ../../scripts/build-docs.ts",
+    "prebuild": "tsx ../../scripts/build-docs.ts",
+    "dev": "zudoku dev",
+    "build": "zudoku build",
+    "preview": "zudoku preview",
+    "clean": "rimraf dist .zudoku apis"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "zudoku": "0.75.1"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.2"
+  }
+}

@@ -1,0 +1,23 @@
+# Omada Skill — Developer Portal
+
+AI-native integration layer for the **TP-Link Omada Controller**.
+
+One source of truth — `specs/omada_api.json` — feeds three surfaces:
+
+| Surface | What it is | When to use |
+| --- | --- | --- |
+| **MCP server** | 22 intent-grouped tools + one operation escape hatch | LLM/agent clients (Claude Desktop, web Claude, Cursor) |
+| **Typed SDK** | `@omada/sdk` — TS client over 2,269 operations | Server-side Node/TS code; tests; the MCP server itself |
+| **Open API** | The full controller surface, OpenAPI 3.0 | Anything else (Python, Go, curl) and rare write paths |
+
+Start at **Quick start** if you want code in your hands in five minutes, or jump straight to **API Reference** if you already know the endpoint.
+
+## What's in this controller
+
+The 2,269 operations are grouped into a dozen domains in the sidebar — wireless, switching, routing & security, VoIP, identity, sites & templates, devices, clients & insights, reports & health, services & portal, controller, and a small "Other" bucket for unmapped tags.
+
+## Status
+
+- **M5 shipped** — skill loader, MCP-resource publisher, validators, CI wiring.
+- **M6 in flight** — real CIMD + Authorization-Code flows; staging dogfood.
+- **Stage 1 docs** — this portal. Reference regenerates from spec on every build.

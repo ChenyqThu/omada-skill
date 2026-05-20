@@ -1,0 +1,41 @@
+# MCP server
+
+The MCP server exposes **22 intent-grouped tools** plus one operation escape hatch. It's the surface LLM agents see — never the raw 2,269 endpoints — and every write goes through two-phase commit.
+
+## Run it
+
+```bash
+# Local (Claude Desktop, Cursor)
+npx omada-mcp --stdio
+
+# Remote (web Claude, managed agents)
+npx omada-mcp --http --port 8787
+```
+
+## Required env
+
+| Var | Required when | Notes |
+| --- | --- | --- |
+| `OMADA_CLIENT_ID` / `_SECRET` | live mode | Omit for mock mode |
+| `OMADA_REGION` | always | Default `use1` |
+| `OMADA_MCP_CONFIRM_SECRET` | write tools | ≥ 16 chars |
+| `OMADA_MCP_BEARER` | HTTP transport, non-loopback bind | Server refuses to start without it |
+| `OMADA_MCP_ALLOWED_ORIGINS` | HTTP transport, browser callers | CSV allowlist |
+| `OMADA_DRY_RUN` | optional | Short-circuits every write |
+| `OMADA_AUDIT_DIR` | optional | JSONL audit sink directory |
+
+## Two-phase commit
+
+Write tools return `{ confirmToken, plannedAction }` on the first call. The agent then re-issues the same call with `confirmToken` set, and only then does the write fire. The token is HMAC-bucketed by `OMADA_MCP_CONFIRM_SECRET` and timing-safe-compared — a hallucinated token doesn't pass.
+
+## Agent Skills
+
+Five Claude Agent Skills ship as MCP resources at `resource://omada-skills/<name>`:
+
+- `bulk-site-onboard`
+- `alert-triage`
+- `guest-portal-wizard`
+- `wifi-troubleshoot`
+- `support-assist`
+
+Each skill is a markdown file with YAML frontmatter, validated by `pnpm skill:validate`. The MCP server loads `skills/` once at startup.
