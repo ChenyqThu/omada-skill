@@ -33,6 +33,24 @@ describe("OmadaClient", () => {
     expect(client.baseUrl).toBe("https://use1-omada-northbound.tplinkcloud.com");
   });
 
+  it("resolves euw1 (Europe West) region", () => {
+    const client = new OmadaClient({
+      region: "euw1",
+      auth: new MockAuth(),
+      transport: new MockTransport(),
+    });
+    expect(client.baseUrl).toBe("https://euw1-omada-northbound.tplinkcloud.com");
+  });
+
+  it("resolves aps1 (Asia Pacific Singapore) region", () => {
+    const client = new OmadaClient({
+      region: "aps1",
+      auth: new MockAuth(),
+      transport: new MockTransport(),
+    });
+    expect(client.baseUrl).toBe("https://aps1-omada-northbound.tplinkcloud.com");
+  });
+
   it("interpolates path params, appends query, attaches bearer token", async () => {
     const { opId, pathParams } = pickReadOperation();
     const transport = new MockTransport().route({

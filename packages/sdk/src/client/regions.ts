@@ -2,9 +2,15 @@
 //
 // The canonical spec only ships one base URL (use1). Additional regions are
 // declared here so the Omada operations team can extend this map without
-// touching the runtime client.
+// touching the runtime client. Region keys match the host prefix used by
+// the controller dashboard (Settings > Platform Integration > Open API).
 export const REGIONS = {
+  // US East (default — canonical spec)
   use1: "https://use1-omada-northbound.tplinkcloud.com",
+  // Europe West
+  euw1: "https://euw1-omada-northbound.tplinkcloud.com",
+  // Asia Pacific Singapore
+  aps1: "https://aps1-omada-northbound.tplinkcloud.com",
 } as const satisfies Record<string, string>;
 
 export type RegionKey = keyof typeof REGIONS;
