@@ -25,6 +25,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "generate": "tsx scripts/generate.ts",
+    "spec:fetch": "tsx scripts/fetch-spec.ts",
     "spec:diff": "tsx scripts/diff-api.ts",
     "skill:validate": "tsx scripts/validate-skills.ts",
     "changeset": "changeset",

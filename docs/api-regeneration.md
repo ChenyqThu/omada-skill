@@ -13,15 +13,26 @@ git add specs/snapshots/
 git commit -m "chore(spec): snapshot $(date +%Y-%m-%d) baseline"
 ```
 
-## 2. Drop in the new JSON
+## 2. Pull the latest spec
+
+The spec is published live by the controller's springdoc endpoint — no
+auth required — so fetch it directly instead of hand-copying:
 
 ```bash
-cp path/to/new/omada_api.json specs/omada_api.json
+pnpm spec:fetch                          # use1 cloud, group "00 All" → specs/omada_api.json
+pnpm spec:fetch --region euw1            # other cloud region (use1|euw1|aps1|apne1|sa1)
+pnpm spec:fetch --base-url https://<controller>:8043   # self-hosted controller
 ```
 
+`spec:fetch` downloads `<base>/v3/api-docs/00%20All`, validates it's an
+OpenAPI doc, refuses to write if the op count drops >10% (broken-payload
+guard), and re-serializes to 2-space JSON so `git diff` stays reviewable.
+Discover all 18 springdoc groups at `<base>/v3/api-docs/swagger-config`;
+group `00 All` is the complete superset the SDK is built from.
+
 Do not hand-edit. If TP-Link hasn't declared `components.securitySchemes`
-(known gap), inject the OAuth2 type override in the SDK codegen
-post-process step instead of mutating the spec.
+(known gap), it's injected in `scripts/build-docs.ts` for the docs portal,
+not by mutating the spec.
 
 ## 3. Regenerate
 
@@ -102,6 +113,9 @@ existing tools use, open a CHANGELOG entry under
 
 ## Automation in place
 
+- `scripts/fetch-spec.ts` (`pnpm spec:fetch`) downloads the live spec from
+  the controller's public `/v3/api-docs` endpoint, guards against truncated
+  payloads, and normalizes formatting — replacing the old manual copy.
 - `scripts/diff-api.ts` emits an operation-level markdown diff. Supports
   `--fail-on-change` (all changes) and `--fail-on-breaking` (removed
   ops + method/path changes).

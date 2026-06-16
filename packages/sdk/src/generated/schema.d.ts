@@ -239,7 +239,7 @@ export interface paths {
         post?: never;
         /**
          * Delete time range profile template
-         * @description Delete time range profile template<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33701  -  Failed to delete this time range profile because it is applied in wireless networks.<br/>-33710  -  This profile does not exist.<br/>-33722  -  Cannot delete the time range. It is being used in PoE Schedule.<br/>-33754  -  Failed to delete this time range profile because it is applied in ACL.<br/>-33776  -  Failed to delete this time range profile because it is applied in IPS.<br/>-34555  -  Cannot delete the time range. It is being used in Port Schedule.<br/>-35106  -  Failed to delete this time range profile because it is applied in DPI.
+         * @description Delete time range profile template<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33701  -  Failed to delete this time range profile because it is applied in wireless networks.<br/>-33710  -  This profile does not exist.<br/>-33722  -  Cannot delete the time range. It is being used in PoE Schedule.<br/>-33754  -  Failed to delete this time range profile because it is applied in ACL.<br/>-33776  -  Failed to delete this time range profile because it is applied in IPS.<br/>-33853  -  Failed to delete this time range profile because it is applied in RRM settings.<br/>-34555  -  Cannot delete the time range. It is being used in Port Schedule.<br/>-35106  -  Failed to delete this time range profile because it is applied in DPI.
          */
         delete: operations["deleteTimeRangeProfileTemplate"];
         options?: never;
@@ -257,13 +257,15 @@ export interface paths {
         get?: never;
         /**
          * Modify vrf template
-         * @description Modify vrf template.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify
+         * @deprecated
+         * @description Modify vrf template. This interface has been deprecated.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify
          */
         put: operations["modifyOswVrfTemplate"];
         post?: never;
         /**
          * Delete vrf template
-         * @description Delete vrf template.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify
+         * @deprecated
+         * @description Delete vrf template. This interface has been deprecated.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify
          */
         delete: operations["deleteOswVrfTemplate"];
         options?: never;
@@ -1897,7 +1899,7 @@ export interface paths {
         post?: never;
         /**
          * Delete time range profile
-         * @description Delete time range profile<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Network Config Page Modify<br/>Site Device Manager Modify<br/>Device Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33701  -  Failed to delete this time range profile because it is applied in wireless networks.<br/>-33710  -  This profile does not exist.<br/>-33722  -  Cannot delete the time range. It is being used in PoE Schedule.<br/>-33754  -  Failed to delete this time range profile because it is applied in ACL.<br/>-33776  -  Failed to delete this time range profile because it is applied in IPS.<br/>-34555  -  Cannot delete the time range. It is being used in Port Schedule.<br/>-35106  -  Failed to delete this time range profile because it is applied in DPI.
+         * @description Delete time range profile<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Network Config Page Modify<br/>Site Device Manager Modify<br/>Device Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33701  -  Failed to delete this time range profile because it is applied in wireless networks.<br/>-33710  -  This profile does not exist.<br/>-33722  -  Cannot delete the time range. It is being used in PoE Schedule.<br/>-33754  -  Failed to delete this time range profile because it is applied in ACL.<br/>-33776  -  Failed to delete this time range profile because it is applied in IPS.<br/>-33853  -  Failed to delete this time range profile because it is applied in RRM settings.<br/>-34555  -  Cannot delete the time range. It is being used in Port Schedule.<br/>-35106  -  Failed to delete this time range profile because it is applied in DPI.
          */
         delete: operations["deleteTimeRangeProfile"];
         options?: never;
@@ -2250,7 +2252,7 @@ export interface paths {
         };
         /**
          * Get switch QoS mode.
-         * @description Get switch QoS mode.<br/><br/>The interface requires one of the permissions: <br/>Network Config Page View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.
+         * @description Get switch QoS mode.<br/><br/>The interface requires one of the permissions: <br/>Network Config Page View Only<br/>Device Config Page View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.
          */
         get: operations["getOswQosMode"];
         /**
@@ -2657,7 +2659,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/openapi/v1/{omadacId}/sites/{siteId}/rfPlanning/excludeAps": {
+    "/openapi/v1/{omadacId}/sites/{siteId}/rfPlanning/schedule/config": {
         parameters: {
             query?: never;
             header?: never;
@@ -2665,6 +2667,30 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
+        /**
+         * modify RF Planning Schedule Config
+         * @description modify RF Planning Schedule Config<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Network Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        put: operations["modifyRFPlanningScheduleConfig"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/rfPlanning/excludeAps": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * get ExcludeAps
+         * @description get ExcludeAps<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager View Only<br/>Network Config Page View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        get: operations["getExcludeAps"];
         /**
          * modify Exclude Aps
          * @description modify Exclude Aps<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Network Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
@@ -3087,7 +3113,7 @@ export interface paths {
         get?: never;
         /**
          * Modify Switch Vrrp
-         * @description Modify Switch Vrrp.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Device Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-40100  -  This switch VRRP Name already exists.<br/>-40101  -  Virtual IP cannot be duplicated.<br/>-40102  -  Invalid Virtual IP address.<br/>-40104  -  Virtual IP cannot be empty.<br/>-40107  -  This switch VRID already exists.<br/>-40109  -  The target VRRP does not exist.<br/>-40112  -  VRRP key cannot be empty when authentication type is MD5 or simple.<br/>-40113  -  VRRP key should be empty when authentication type is none.<br/>-40116  -  The IPv6 link-local address is invalid.
+         * @description Modify Switch Vrrp.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Device Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-40100  -  This switch VRRP Name already exists.<br/>-40101  -  Virtual IP cannot be duplicated.<br/>-40102  -  Invalid Virtual IP address.<br/>-40104  -  Virtual IP cannot be empty.<br/>-40107  -  The combination of VRID and VLAN interface for switch already exists<br/>-40109  -  The target VRRP does not exist.<br/>-40112  -  VRRP key cannot be empty when authentication type is MD5 or simple.<br/>-40113  -  VRRP key should be empty when authentication type is none.<br/>-40116  -  The IPv6 link-local address is invalid.
          */
         put: operations["modifyOswVrrp"];
         post?: never;
@@ -3808,7 +3834,11 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /**
+         * Get AP management ssid config
+         * @description Get AP management ssid config<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-39050  -  This device does not exist.
+         */
+        get: operations["getApManagementSsidConfig"];
         /**
          * Modify AP management ssid config
          * @description Modify AP management ssid config<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-39050  -  This device does not exist.
@@ -5522,7 +5552,8 @@ export interface paths {
         put?: never;
         /**
          * Create site template's otonat
-         * @description Create site template's otonat.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify
+         * @deprecated
+         * @description Create site template's otonat. This interface had been deprecated.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify
          */
         post: operations["addOtoNatTemplates"];
         delete?: never;
@@ -5564,15 +5595,57 @@ export interface paths {
         };
         /**
          * Get the vrfs on the switch template
-         * @description Get the vrfs on the switch template.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager View Only
+         * @deprecated
+         * @description Get the vrfs on the switch template. This interface has been deprecated.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager View Only
          */
         get: operations["getGridVrfTemplate"];
         put?: never;
         /**
          * Create new vrf template
-         * @description Create new vrf template.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify
+         * @deprecated
+         * @description Create new vrf template. This interface has been deprecated.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify
          */
         post: operations["createOswVrfTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/switchtemplates/{deviceTemplateId}/stp/instance-detail": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Get StpInstanceDetail Template
+         * @description Get StpInstanceDetail Template.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-39700  -  Switch does not exist
+         */
+        post: operations["getRpvstInstancesDetailTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/switchtemplates/rpvst-instances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Get Batch Rpvst Instances Template
+         * @description Get Batch Rpvst Instances Template.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-39700  -  Switch does not exist
+         */
+        post: operations["getBatchRpvstInstancesTemplate"];
         delete?: never;
         options?: never;
         head?: never;
@@ -6185,6 +6258,50 @@ export interface paths {
          * @description Create siteTemplate's new bandwidth control rule.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-1001  -  Invalid request parameters.<br/>-34265  -  The adopted or preconfigured gateway does not support QoS.<br/>-43310  -  The WAN Port is being used by other bandwidths.
          */
         post: operations["createTemplateBwCtrl"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/profiles/wifi-calling": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get wifi calling profile template list
+         * @description Get wifi calling profile template list of the site with the given omadacId and siteId.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.
+         */
+        get: operations["getWifiCallingProfilesTemplate"];
+        put?: never;
+        /**
+         * Create a new wifi calling profile template
+         * @description Create a new wifi calling profile template with the given params.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.<br/>-44900  -  The Wi-Fi calling profile already exists.<br/>-44901  -  The number of ePDGs has exceeded the limit.
+         */
+        post: operations["createWifiCallingProfileTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/profiles/wifi-calling/{profileId}/copy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Copy wifi calling profile template
+         * @description Copy wifi calling profile template with the given params.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.<br/>-44900  -  The Wi-Fi calling profile already exists.<br/>-44901  -  The number of ePDGs has exceeded the limit.
+         */
+        post: operations["copyWifiCallingProfileTemplate"];
         delete?: never;
         options?: never;
         head?: never;
@@ -8291,6 +8408,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/sites/{siteId}/switches/{switchMac}/stp/instance-detail": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Get StpInstanceDetail
+         * @description Get StpInstanceDetail.<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-39700  -  Switch does not exist
+         */
+        post: operations["getStpInstancesDetail"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/sites/{siteId}/switches/{switchMac}/networks": {
         parameters: {
             query?: never;
@@ -8349,6 +8486,26 @@ export interface paths {
          * @description Switch port poe recovery.<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.<br/>-39051  -  Operation failed. Please try again later.<br/>-39700  -  Switch does not exist<br/>-60004  -  The device is not activated.
          */
         post: operations["batchPortPoERecovery"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/switches/rpvst-instances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Get Batch Rpvst Instances
+         * @description Get Batch Rpvst Instances.<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-39700  -  Switch does not exist
+         */
+        post: operations["getBatchRpvstInstances"];
         delete?: never;
         options?: never;
         head?: never;
@@ -8885,6 +9042,26 @@ export interface paths {
          * @description Detect switch stack members.<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-40200  -  This switch stack is not existed.
          */
         post: operations["detectSwitchStackMembers"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/stack/{stackId}/stp/instance-detail": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Get Stack StpInstanceDetail
+         * @description Get Stack StpInstanceDetail.<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-40200  -  This switch stack is not existed.
+         */
+        post: operations["getRpvstInstancesDetail"];
         delete?: never;
         options?: never;
         head?: never;
@@ -9738,6 +9915,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/sites/{siteId}/rfPlanning/excludeAps/delete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Delete ExcludeAps
+         * @description Delete ExcludeAps<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Network Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        post: operations["deleteExcludeAps"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/sites/{siteId}/report/cards": {
         parameters: {
             query?: never;
@@ -9916,6 +10113,50 @@ export interface paths {
          * @description Create new bandwidth control rule.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Network Config Page Modify<br/>Site Device Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-1001  -  Invalid request parameters.<br/>-33474  -  This feature is not supported for the DS-Lite or Map-E WAN connection types.<br/>-34265  -  The adopted or preconfigured gateway does not support QoS.<br/>-43310  -  The WAN Port is being used by other bandwidths.
          */
         post: operations["createBwCtrl"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/profiles/wifi-calling": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get wifi calling profile list
+         * @description Get wifi calling profile list of the site with the given omadacId and siteId.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager View Only<br/>Device Config Page View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.
+         */
+        get: operations["getWifiCallingProfiles"];
+        put?: never;
+        /**
+         * Create a new wifi calling profile
+         * @description Create a new wifi calling profile with the given params.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Device Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.<br/>-44900  -  The Wi-Fi calling profile already exists.<br/>-44901  -  The number of ePDGs has exceeded the limit.
+         */
+        post: operations["createWifiCallingProfile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/profiles/wifi-calling/{profileId}/copy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Copy wifi calling profile
+         * @description Copy wifi calling profile with the given params.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Device Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.<br/>-44900  -  The Wi-Fi calling profile already exists.<br/>-44901  -  The number of ePDGs has exceeded the limit.
+         */
+        post: operations["copyWifiCallingProfile"];
         delete?: never;
         options?: never;
         head?: never;
@@ -10359,6 +10600,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/sites/{siteId}/planningHistory/batch/delete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Batch Delete PlanningHistory
+         * @description Batch Delete PlanningHistory<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        post: operations["batchDeletePlanningHistory"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/sites/{siteId}/oui-profiles": {
         parameters: {
             query?: never;
@@ -10398,7 +10659,7 @@ export interface paths {
         put?: never;
         /**
          * Create Switch Vrrp
-         * @description Create Switch Vrrp.<br/><br/>The interface requires one of the permissions: <br/>Device Config Page View Only<br/>Site Settings Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33503  -  This network does not exist.<br/>-34223  -  When the rule enabled, the same VLAN should not be bound with the same device port/LAG in different rules. Please check the settings.<br/>-39700  -  Switch does not exist<br/>-40100  -  This switch VRRP Name already exists.<br/>-40101  -  Virtual IP cannot be duplicated.<br/>-40102  -  Invalid Virtual IP address.<br/>-40103  -  Switch VLAN interface is disabled.<br/>-40104  -  Virtual IP cannot be empty.<br/>-40105  -  VLAN interface and tracked interface cannot be the same.<br/>-40107  -  This switch VRID already exists.<br/>-40110  -  The tracked interface should not be empty when Reduced Priority is specified.<br/>-40112  -  VRRP key cannot be empty when authentication type is MD5 or simple.<br/>-40113  -  VRRP key should be empty when authentication type is none.<br/>-40114  -  The number of VRRP entries has reached the limit.<br/>-40115  -  The number of VRRP groups that a device can join has reached the limit.<br/>-40116  -  The IPv6 link-local address is invalid.<br/>-40117  -  The value of reduced priority must be smaller than the value of priority.
+         * @description Create Switch Vrrp.<br/><br/>The interface requires one of the permissions: <br/>Device Config Page View Only<br/>Site Settings Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33503  -  This network does not exist.<br/>-34223  -  When the rule enabled, the same VLAN should not be bound with the same device port/LAG in different rules. Please check the settings.<br/>-39700  -  Switch does not exist<br/>-40100  -  This switch VRRP Name already exists.<br/>-40101  -  Virtual IP cannot be duplicated.<br/>-40102  -  Invalid Virtual IP address.<br/>-40103  -  Switch VLAN interface is disabled.<br/>-40104  -  Virtual IP cannot be empty.<br/>-40105  -  VLAN interface and tracked interface cannot be the same.<br/>-40107  -  The combination of VRID and VLAN interface for switch already exists<br/>-40110  -  The tracked interface should not be empty when Reduced Priority is specified.<br/>-40112  -  VRRP key cannot be empty when authentication type is MD5 or simple.<br/>-40113  -  VRRP key should be empty when authentication type is none.<br/>-40114  -  The number of VRRP entries has reached the limit.<br/>-40115  -  The number of VRRP groups that a device can join has reached the limit.<br/>-40116  -  The IPv6 link-local address is invalid.<br/>-40117  -  The value of reduced priority must be smaller than the value of priority.
          */
         post: operations["createOswVrrp"];
         delete?: never;
@@ -14157,7 +14418,8 @@ export interface paths {
         put?: never;
         /**
          * SpeedTest
-         * @description SpeedTest.<br/><br/>The interface requires one of the permissions: <br/>Site Dashboard Manager View Only
+         * @deprecated
+         * @description SpeedTest. This interface had been deprecated.<br/><br/>The interface requires one of the permissions: <br/>Site Dashboard Manager View Only
          */
         post: operations["speedTest"];
         delete?: never;
@@ -15899,6 +16161,7 @@ export interface paths {
         put?: never;
         /**
          * Check SD-WAN IP pool conflict.
+         * @deprecated
          * @description Check whether the IP pool conflicts with the IP pool of other SD-WAN groups.<br/><br/>The interface requires one of the permissions: <br/>SD WAN View Only
          */
         post: operations["checkSdWanGroupIpPool"];
@@ -16526,6 +16789,26 @@ export interface paths {
          * @description Upload CA profile file of the omadac with the given omadacId.<br/><br/>The interface requires one of the permissions: <br/>Network Config Page Modify<br/>Site Settings Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-30025  -  Failed to import the certificate.<br/>-30028  -  Operation failed because other operations (backuping, site copying, customer copying, etc.) are being performed on this organization. Please wait and try again later.<br/>-33796  -  The size of the certificate file has exceeded the limit. It should be less than 10KB.<br/>-33797  -  The certificate file cannot be parsed, please check the file or try uploading another file
          */
         post: operations["uploadCaCertFile_1"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/files/sites/{siteId}/rfPlanning/history/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Export PlanningHistory
+         * @description Export PlanningHistory<br/><br/>The interface requires one of the permissions: <br/>Site Export Data Access<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        post: operations["exportRfPlanningHistory"];
         delete?: never;
         options?: never;
         head?: never;
@@ -18133,6 +18416,26 @@ export interface paths {
         patch: operations["updateSsidWlanScheduleTemplate"];
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/wireless-network/wlans/{wlanId}/ssids/{ssidId}/update-wifi-calling": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update SSID template wifi calling config
+         * @description Update SSID template Wi-Fi Calling config<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33009  -  This site template does not exist.
+         */
+        patch: operations["updateSsidWifiCallingConfigTemplate"];
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/wireless-network/wlans/{wlanId}/ssids/{ssidId}/update-rate-limit": {
         parameters: {
             query?: never;
@@ -18213,6 +18516,26 @@ export interface paths {
         patch: operations["updateSsidMacFilterConfigTemplate"];
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/wireless-network/wlans/{wlanId}/ssids/{ssidId}/update-load-balance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update SSID template load balance config
+         * @description Update SSID template load balance config<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33009  -  This site template does not exist.
+         */
+        patch: operations["updateSsidLoadBalanceConfigTemplate"];
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/wireless-network/wlans/{wlanId}/ssids/{ssidId}/update-hotspotv2": {
         parameters: {
             query?: never;
@@ -18271,6 +18594,26 @@ export interface paths {
          * @description Update SSID template basic config<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33009  -  This site template does not exist.<br/>-33217  -  Invalid SSID security mode.<br/>-33219  -  This SSID already exists.<br/>-33220  -  Enter a different SSID to override the current SSID.<br/>-33231  -  The ssid' s name should not be the same with emergency ssid.<br/>-33235  -  PPSK without RADIUS do not support WPA Mode with WPA3-SAE.<br/>-33238  -  The number of SSIDs on %band% has reached the limit. At most 8 SSIDs can be created on each band.<br/>-33240  -  The SSID name should be between 1 and 32 bytes.<br/>-33807  -  Invalid VLAN ID. Enter a number from 1 to 4094.<br/>-34017  -  Only the EKMS authentication method in PPSK with RADIUS supports domain name.
          */
         patch: operations["updateSsidBasicConfigTemplate"];
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/wireless-network/wlans/{wlanId}/ssids/{ssidId}/update-band-steer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update SSID template band steer config
+         * @description Update SSID template band steer config<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33009  -  This site template does not exist.
+         */
+        patch: operations["updateSsidBandSteerConfigTemplate"];
         trace?: never;
     };
     "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/voip/telephone-book/{contactId}": {
@@ -18975,6 +19318,30 @@ export interface paths {
          * @description Modify site template remote logging setting<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-1300  -  Failed to get site information.
          */
         patch: operations["updateRemoteLoggingTemplateSetting"];
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/profiles/wifi-calling/{profileId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete an exist wifi calling profile template
+         * @description Delete an exist wifi calling profile template with the given params.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.<br/>-44900  -  The Wi-Fi calling profile already exists.
+         */
+        delete: operations["deleteWifiCallingProfileTemplate"];
+        options?: never;
+        head?: never;
+        /**
+         * Modify a wifi calling profile template
+         * @description Modify a wifi calling profile template with the given params.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.<br/>-44900  -  The Wi-Fi calling profile already exists.<br/>-44901  -  The number of ePDGs has exceeded the limit.
+         */
+        patch: operations["modifyWifiCallingProfileTemplate"];
         trace?: never;
     };
     "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/profiles/radius/{radiusProfileId}": {
@@ -19885,6 +20252,26 @@ export interface paths {
         patch: operations["updateSsidWlanSchedule"];
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/sites/{siteId}/wireless-network/wlans/{wlanId}/ssids/{ssidId}/update-wifi-calling": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update SSID wifi calling config
+         * @description Update SSID Wi-Fi Calling config<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Network Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        patch: operations["updateSsidWifiCallingConfig"];
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/sites/{siteId}/wireless-network/wlans/{wlanId}/ssids/{ssidId}/update-rate-limit": {
         parameters: {
             query?: never;
@@ -19965,6 +20352,26 @@ export interface paths {
         patch: operations["updateSsidMacFilterConfig"];
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/sites/{siteId}/wireless-network/wlans/{wlanId}/ssids/{ssidId}/update-load-balance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update SSID load balance config
+         * @description Update SSID load balance config<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Network Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        patch: operations["updateSsidLoadBalanceConfig"];
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/sites/{siteId}/wireless-network/wlans/{wlanId}/ssids/{ssidId}/update-hotspotv2": {
         parameters: {
             query?: never;
@@ -20023,6 +20430,26 @@ export interface paths {
          * @description Update SSID basic config<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Network Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.<br/>-33217  -  Invalid SSID security mode.<br/>-33219  -  This SSID already exists.<br/>-33220  -  Enter a different SSID to override the current SSID.<br/>-33231  -  The ssid' s name should not be the same with emergency ssid.<br/>-33235  -  PPSK without RADIUS do not support WPA Mode with WPA3-SAE.<br/>-33238  -  The number of SSIDs on %band% has reached the limit. At most 8 SSIDs can be created on each band.<br/>-33240  -  The SSID name should be between 1 and 32 bytes.<br/>-33807  -  Invalid VLAN ID. Enter a number from 1 to 4094.<br/>-34017  -  Only the EKMS authentication method in PPSK with RADIUS supports domain name.
          */
         patch: operations["updateSsidBasicConfig"];
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/wireless-network/wlans/{wlanId}/ssids/{ssidId}/update-band-steer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update SSID band steer config
+         * @description Update SSID band steer config<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Network Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        patch: operations["updateSsidBandSteerConfig"];
         trace?: never;
     };
     "/openapi/v1/{omadacId}/sites/{siteId}/wan/networks/port-setting": {
@@ -21284,6 +21711,30 @@ export interface paths {
          * @description Modify site remote logging setting<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Global Dashboard Manager Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-1300  -  Failed to get site information.
          */
         patch: operations["updateRemoteLoggingSetting"];
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/profiles/wifi-calling/{profileId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete an exist wifi calling profile
+         * @description Delete an exist wifi calling profile with the given params.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Device Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.<br/>-44900  -  The Wi-Fi calling profile already exists.
+         */
+        delete: operations["deleteWifiCallingProfile"];
+        options?: never;
+        head?: never;
+        /**
+         * Modify a wifi calling profile
+         * @description Modify a wifi calling profile with the given params.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager Modify<br/>Device Config Page Modify<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.<br/>-44900  -  The Wi-Fi calling profile already exists.<br/>-44901  -  The number of ePDGs has exceeded the limit.
+         */
+        patch: operations["modifyWifiCallingProfile"];
         trace?: never;
     };
     "/openapi/v1/{omadacId}/sites/{siteId}/profiles/radius/{radiusProfileId}": {
@@ -23791,6 +24242,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/openapi/v2/{omadacId}/sites/{siteId}/wireless-network/wlans/{wlanId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get WLAN group by wlan id
+         * @description Get WLAN group by wlan id<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager View Only<br/>Network Config Page View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        get: operations["getWlanGroup"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/openapi/v2/{omadacId}/sites/{siteId}/vpn/usergroups/{userGroupId}/users": {
         parameters: {
             query?: never;
@@ -24507,6 +24978,26 @@ export interface paths {
          * @description Get switch template info.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-44402  -  Device template does not exist.
          */
         get: operations["getSwitchTemplateInfo"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sitetemplates/{siteTemplateId}/switchtemplates/{deviceTemplateId}/rpvst-instances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Rpvst Instances Template
+         * @description Get Rpvst Instances Template.<br/><br/>The interface requires one of the permissions: <br/>Global Site Template Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-39700  -  Switch does not exist
+         */
+        get: operations["getRpvstInstancesTemplate"];
         put?: never;
         post?: never;
         delete?: never;
@@ -26552,6 +27043,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/sites/{siteId}/switches/{switchMac}/rpvst-instances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Rpvst Instances
+         * @description Get Rpvst Instances.<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-39700  -  Switch does not exist
+         */
+        get: operations["getRpvstInstances"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/sites/{siteId}/switches/{switchMac}/routingTable": {
         parameters: {
             query?: never;
@@ -26664,6 +27175,26 @@ export interface paths {
          * @description Get switch lldp neighbor table.<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager View Only
          */
         get: operations["getGridLldpNeighborTable"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/switches/{switchMac}/l3-sdm-used": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get the used sdm template num on the campus series switches
+         * @description Get the used template num on the campus series switches.<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-39700  -  Switch does not exist
+         */
+        get: operations["getL3SwitchUsedSdmNum"];
         put?: never;
         post?: never;
         delete?: never;
@@ -27224,6 +27755,46 @@ export interface paths {
          * @description Get discovery stack list.<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager View Only
          */
         get: operations["getGridDiscoveryStackList"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/stack/{stackId}/sdm-used": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get the used sdm template num on the stack
+         * @description Get the used template num on the stack.<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-40200  -  This switch stack is not existed.
+         */
+        get: operations["getStackUsedSdmNum"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/stack/{stackId}/rpvst-instances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Stack Rpvst Instances
+         * @description Get Stack Rpvst Instances.<br/><br/>The interface requires one of the permissions: <br/>Site Device Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-40200  -  This switch stack is not existed.
+         */
+        get: operations["getStackRpvstInstances"];
         put?: never;
         post?: never;
         delete?: never;
@@ -27952,6 +28523,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/sites/{siteId}/setting/service/snmp/incompatible-devices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get the list of site devices that do not support SNMP v3 enhanced configuration
+         * @description Get the list of site devices that do not support SNMP v3 enhanced configuration.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager View Only<br/>Network Config Page View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.<br/>-33004  -  Operation failed because other operations (site copying, restoring, template synchronizing, etc.) are being performed on this site. Please wait and try again later.
+         */
+        get: operations["getSnmpIncompatibleDevices"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/sites/{siteId}/setting/service/files/dhcp/import-result": {
         parameters: {
             query?: never;
@@ -28252,6 +28843,106 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/sites/{siteId}/rfPlanning/history/timeline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get the planningHistory
+         * @description Get the planningHistory drawing of the past period of time<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager View Only<br/>Network Config Page View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        get: operations["getTimeLinePlanningHistorys"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/rfPlanning/history/last20times": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * get Last 20 PlanningHistorys
+         * @description get Last 20 PlanningHistorys<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager View Only<br/>Network Config Page View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        get: operations["getLast20PlanningHistorys"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/rfPlanning/dashboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get RRM AI time line
+         * @description Get RRM AI time line<br/><br/>The interface requires one of the permissions: <br/>Site Dashboard Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-1001  -  Invalid request parameters.
+         */
+        get: operations["queryRFPlanningBoard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/rfPlanning/dashboard/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get RRM AI dashboard status
+         * @description Get RRM AI dashboard status<br/><br/>The interface requires one of the permissions: <br/>Site Dashboard Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-1001  -  Invalid request parameters.
+         */
+        get: operations["queryRFPlanningBoardStatus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/rfPlanning/dashboard/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get RRM AI dashboard history time line
+         * @description Get RRM AI dashboard history time line<br/><br/>The interface requires one of the permissions: <br/>Site Dashboard Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-1001  -  Invalid request parameters.
+         */
+        get: operations["queryRFPlanningDashboardHistory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/sites/{siteId}/report/{tabId}": {
         parameters: {
             query?: never;
@@ -28312,6 +29003,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/sites/{siteId}/remoteAccess/tunnel/{tunnelId}/ewebInfo": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get tunnel eweb info
+         * @description Get tunnel eweb info<br/><br/>The interface requires one of the permissions: <br/>Site Tools Manager View Only
+         */
+        get: operations["getTunnelsEwebInfo"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/sites/{siteId}/remoteAccess/tunnel/status": {
         parameters: {
             query?: never;
@@ -28324,6 +29035,26 @@ export interface paths {
          * @description Get all remote access tunnel's status<br/><br/>The interface requires one of the permissions: <br/>Site Tools Manager View Only<br/>Site Tools Manager View Only
          */
         get: operations["getTunnelsStatus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/remoteAccess/tunnel/deviceTunnel/{localMac}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get single device tunnel
+         * @description Get single device tunnel<br/><br/>The interface requires one of the permissions: <br/>Site Tools Manager View Only
+         */
+        get: operations["getSingleDeviceTunnel"];
         put?: never;
         post?: never;
         delete?: never;
@@ -28384,6 +29115,26 @@ export interface paths {
          * @description Get WAN ports info for Gateway QoS.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager View Only<br/>Network Config Page View Only<br/>Site Device Manager View Only
          */
         get: operations["getQosWans"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/profiles/wifi-calling/grid/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Wi-Fi Calling Summary
+         * @description Get Wi-Fi Calling Summary.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager View Only<br/>Device Config Page View Only
+         */
+        get: operations["getGridWifiCallingTrafficResult"];
         put?: never;
         post?: never;
         delete?: never;
@@ -28588,6 +29339,26 @@ export interface paths {
          * @description get Gird Planning Historys<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager View Only<br/>Network Config Page View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
          */
         get: operations["getGirdPlanningHistorys"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/sites/{siteId}/planningHistoryByTime": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get the planningHistory
+         * @description Get the planningHistory by time<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager View Only<br/>Network Config Page View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-33000  -  This site does not exist.
+         */
+        get: operations["getPlanningHistorysByTime"];
         put?: never;
         post?: never;
         delete?: never;
@@ -34659,6 +35430,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/openapi/v1/{omadacId}/files/sites/{siteId}/wifi-calling/summary/{format}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Export wi-fi calling traffic summary
+         * @description Export wi-fi calling traffic summary.<br/><br/>The interface requires one of the permissions: <br/>Site Settings Manager View Only<br/>Device Config Page View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-1001  -  Invalid request parameters.
+         */
+        get: operations["exportBatchFullChannelDetectResultData"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/openapi/v1/{omadacId}/files/sites/{siteId}/vpn/{vpnId}/certificate": {
         parameters: {
             query?: never;
@@ -34690,7 +35481,27 @@ export interface paths {
          * Export batch interference detection results
          * @description Export batch interference detection results<br/><br/>The interface requires one of the permissions: <br/>Site Tools Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-1001  -  Invalid request parameters.
          */
-        get: operations["exportBatchFullChannelDetectResultData"];
+        get: operations["exportBatchFullChannelDetectResultData_1"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/openapi/v1/{omadacId}/files/sites/{siteId}/aps/{apMac}/full-channel-detect/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Export interference detection results
+         * @description Export interference detection results<br/><br/>The interface requires one of the permissions: <br/>Site Tools Manager View Only<br/><br/>The possible error code for the interface in the returned body is one of the following error codes (non generic error codes): <br/>-1001  -  Invalid request parameters.
+         */
+        get: operations["exportFullChannelDetectResult"];
         put?: never;
         post?: never;
         delete?: never;
@@ -37199,17 +38010,17 @@ export interface components {
              * Format: int32
              * @description The system automatically removes a device's registry entry if no data reports are received within a predefined aging period.<br/>When format = 0, The parameter aging time should be within the range of 30-86400.<br/>When format = 1, The parameter aging time should be within the range of 1-1440.<br/>When format = 2, The parameter aging time should be within the range of 1-24.<br/>
              */
-            agingTime: number;
+            agingTime_iotAgingTime: number;
             /**
              * Format: int32
              * @description The parameter [format] should be a value as follows: [0:second 1:minute; 2:hour]
              */
-            format: number;
+            format_iotAgingTime: number;
         };
         RrmSettingOpenApiVO: {
             /**
              * Format: int32
-             * @description The mode of Auto WLAN Optimization.
+             * @description The mode of Auto WLAN Optimization, such as: 0: disable, 1: adaptive
              */
             mode: number;
             /**
@@ -37217,6 +38028,15 @@ export interface components {
              * @description The anomaly event setting creation resource, such as: 0: new created, 1: from template, 2: override
              */
             resource?: number;
+            /** @description Whether the Time Range is enabled. True: enable, false: disable. */
+            timeRangeEnable: boolean;
+            /** @description This field represents Time Range Profile ID. Time Range Profile can be created using Create time range profile interface, and Time Range Profile ID can be obtained from Get time range profile list interface. */
+            timeRangeId?: string;
+            /**
+             * Format: int32
+             * @description The Time Range Action, such as: 0: out of range, 1: in range
+             */
+            timeRangeAction?: number;
         };
         StaticRoutingConfigTemplate: {
             /** @description Name, name should contain 1 to 64 characters. */
@@ -37619,6 +38439,11 @@ export interface components {
         "Dhcp Servers setting": {
             /** @description The switch of DHCP Guarding */
             enable: boolean;
+            /**
+             * Format: int32
+             * @description The fill mode of DHCP Guarding, 1：follow Server 2：custom
+             */
+            mode?: number;
             /** @description DHCP Server IP1 */
             dhcpSvr1?: string;
             /** @description DHCP Server IP2 */
@@ -37806,6 +38631,8 @@ export interface components {
         };
         /** @description ModifyVlanParamOpenApiVO */
         ModifyVlanParamOpenApiVO: {
+            /** @description Whether skip the second step when modify vlan */
+            skipEnable?: boolean;
             lanNetwork: components["schemas"]["LanNetworkOpenApiV3VO"];
             deviceConfig: components["schemas"]["SelectPortBindingBriefVO"];
         };
@@ -38557,7 +39384,10 @@ export interface components {
         };
         /** @description Daylight Saving Time config of the site */
         ModifyDstDTO: {
-            /** @description DST config status; If false, other parameters are not required. */
+            /**
+             * @deprecated
+             * @description DST config status; If false, other parameters are not required. Deprecated, use mode instead.
+             */
             enable?: boolean;
             /**
              * Format: int32
@@ -38568,7 +39398,7 @@ export interface components {
             end?: components["schemas"]["DstTimeOpenApiDTO"];
             /**
              * Format: int64
-             * @description DST offset config(Unit: ms); It should be a value as follows: [1800000, 3600000, 5400000, 7200000].
+             * @description DST offset config(Unit: ms); It should be a value as follows: [1800000, 3600000, 5400000, 7200000]. When DST mode is 2(manually), offset is required.
              */
             offset?: number;
         };
@@ -38943,7 +39773,7 @@ export interface components {
             /** @description Parameter [vlan] should be between 1 and 4094. */
             vlan: string;
         };
-        /** @description STP MSTP Config */
+        /** @description STP MSTP Config, must not be null when stp is 3. */
         OswStpMstpConfigOpenApiVO: {
             region: components["schemas"]["OswStpRegionConfigOpenApiVO"];
             /** @description Instances */
@@ -38959,12 +39789,32 @@ export interface components {
              */
             revision: number;
         };
+        /** @description Instances */
+        OswStpRpvstInstanceVO: {
+            /**
+             * Format: int32
+             * @description Priority
+             */
+            priority?: number;
+            /** @description Vlan */
+            vlan?: string;
+            /**
+             * Format: int32
+             * @description Enable
+             */
+            enable?: number;
+        };
+        /** @description STP RPVST Config, must not be null when stp is 4. */
+        OswStpRpvstVO: {
+            /** @description Instances */
+            instances?: components["schemas"]["OswStpRpvstInstanceVO"][];
+        };
         SwitchLoopbackControl: {
             /** @description LoopbackDetectEnable */
             loopbackDetectEnable?: boolean;
             /**
              * Format: int32
-             * @description STP should be a value as follows: 0: OFF 1: STP 2: RSTP 3: MSTP
+             * @description STP should be a value as follows: 0: OFF 1: STP 2: RSTP 3: MSTP 4: RPVST
              */
             stp?: number;
             /**
@@ -38998,6 +39848,7 @@ export interface components {
              */
             maxHops?: number;
             mstp?: components["schemas"]["OswStpMstpConfigOpenApiVO"];
+            rpvst?: components["schemas"]["OswStpRpvstVO"];
         };
         EasyManagedSwitchLoopbackControl: {
             /** @description LoopbackDetectEnable */
@@ -39112,6 +39963,36 @@ export interface components {
             deviceList?: components["schemas"]["DeviceOuiModeOpenApiVO"][];
             /** @description Basic vlan-oui-priority configuration of oui based rule. Cannot be empty. */
             ruleCombine: components["schemas"]["VlanOuiModeOpenApiVO"][];
+        };
+        /** @description Instances */
+        InstancesVO: {
+            /**
+             * Format: int32
+             * @description stp, 0: MSTP / 1: RPVST
+             */
+            stp?: number;
+            /**
+             * Format: int32
+             * @description mstp instanceId
+             */
+            id?: number;
+            /** @description rpvst vlanId */
+            vlan?: string;
+            /**
+             * Format: int32
+             * @description priority
+             */
+            priority?: number;
+            /**
+             * Format: int32
+             * @description costMode, 0: auto / 1: custom
+             */
+            costMode?: number;
+            /**
+             * Format: int32
+             * @description cost
+             */
+            cost?: number;
         };
         /** @description Monitored LAG */
         MirroredLag: {
@@ -39417,8 +40298,10 @@ export interface components {
             profileId?: string;
             /** @description Lan Profile Name */
             profileName?: string;
-            /** @description Indicates whether to enable Profile Override */
+            /** @description Indicates whether to enable Profile Override before v6.2.10; Indicates the fill mode of port configuration after v6.2.10: true: custom; false: follow profile */
             profileOverrideEnable?: boolean;
+            /** @description Indicates the fill mode of vlan configuration: true: custom; false: follow profile */
+            profileVlanOverrideEnable?: boolean;
             /**
              * Format: int32
              * @description Link Speed should be a value as follows: 0: auto; 1: 10M; 2: 100M; 3: 1000M; 4: 2.5G; 5: 10G
@@ -39818,8 +40701,10 @@ export interface components {
             profileId?: string;
             /** @description Lan Profile Name */
             profileName?: string;
-            /** @description Indicates whether to enable Profile Override */
+            /** @description Indicates whether to enable Profile Override before v6.2.10; Indicates the fill mode of port configuration after v6.2.10: true: custom; false: follow profile */
             profileOverrideEnable?: boolean;
+            /** @description Indicates the fill mode of vlan configuration: true: custom; false: follow profile */
+            profileVlanOverrideEnable?: boolean;
             /** @description Operation should be a value as follows: SWITCHING; MIRRORING; AGGREGATING */
             operation?: string;
             /** @description Monitored Port */
@@ -40073,6 +40958,12 @@ export interface components {
             loopbackNum?: number;
             /** @description Loopback port */
             loop?: string;
+            /** @description Indicates whether the member device supports configuring the link speed of the stack port aggregation group */
+            supportStackGroupSpeed?: boolean;
+            /** @description Ports capability that support configuration as stack port */
+            stackPortConfigCaps?: components["schemas"]["OswStackPortCapVO"][];
+            /** @description Stack port aggregation group default link speed capability */
+            defaultGroupSpeedCap?: number[];
             /** @description Port Information */
             portCaps?: components["schemas"]["OswStackMemberPortCapAndStatusVO"][];
             /** @description Including some port configuration information and port real-time status */
@@ -40111,6 +41002,12 @@ export interface components {
             /** @description Downlink Omada device list */
             downlinkList?: components["schemas"]["OswDownlinkVO"][];
         };
+        /** @description Ports capability that support configuration as stack port */
+        OswStackPortCapVO: {
+            standardPort?: components["schemas"]["OswStandPortVO"];
+            /** @description Stack port aggregation group link speed capability */
+            groupSpeedCap?: number[];
+        };
         /** @description Stack port list */
         OswStackPortGroupVO: {
             /**
@@ -40121,7 +41018,12 @@ export interface components {
             /** @description Name of the stacking port aggregation group */
             name?: string;
             /** @description Stack port aggregation group member port */
-            ports: components["schemas"]["OswStandPortVO"][];
+            ports?: components["schemas"]["OswStandPortVO"][];
+            /**
+             * Format: int32
+             * @description Stack port aggregation group link speed config
+             */
+            groupSpeed?: number;
         };
         /** @description Stack port aggregation group member port */
         OswStandPortVO: {
@@ -40300,6 +41202,10 @@ export interface components {
             bpduFilter?: boolean;
             /** @description Indicates whether bpdu forward is enabled */
             bpduForward?: boolean;
+            /** @description Indicates whether instance is enabled */
+            instanceEnable?: boolean;
+            /** @description Instances */
+            instances?: components["schemas"]["InstancesVO"][];
         };
         ModifyOswVrfOpenApiVO: {
             /** @description Whether to enable ipv6 */
@@ -40404,6 +41310,39 @@ export interface components {
              * @description Metric should be within the range of 0–15.
              */
             metric: number;
+        };
+        RFPlanningScheduleConfigOpenApiVO: {
+            /** @description Whether by WLAN Optimization schedule. The optimization schedule function is temporarily offline. */
+            scheduleEnable: boolean;
+            occurrence: components["schemas"]["occurrence"];
+        };
+        /** @description The optimization schedule function is temporarily offline. */
+        occurrence: {
+            /**
+             * Format: int32
+             * @description Time type should be a value as follows: 1:Daily; 2:Weekly; 3:Monthly
+             */
+            timingType: number;
+            /**
+             * Format: int32
+             * @description It should be within the range of 0~23
+             */
+            hour: number;
+            /**
+             * Format: int32
+             * @description It should be within the range of 0~59
+             */
+            minute: number;
+            /**
+             * Format: int32
+             * @description It should be within the range of 0(Sunday)~6(Saturday). Required when parameter [timingType] is 2.
+             */
+            dayOfWeek?: number;
+            /**
+             * Format: int32
+             * @description It should be within the range of 1~31. Required when parameter [timingType] is 3.
+             */
+            dayOfMonth?: number;
         };
         "Excluded APs Config": {
             /** @description Whether to delete device(s) from the excluded AP list. */
@@ -42063,126 +43002,97 @@ export interface components {
         };
         SdWanGroup: {
             /** @description The name of the SD-WAN group */
-            name?: string;
+            name: string;
             /** @description The description of the SD-WAN group */
             description?: string;
-            /** @description The start of the IP pool of the SD-WAN group, it is recommended to ignore it as it will be generated automatically */
+            /**
+             * @deprecated
+             * @description The start of the IP pool of the SD-WAN group, it is recommended to ignore it as it will be generated automatically
+             */
             ipPoolStart?: string;
-            /** @description The end of the IP pool of the SD-WAN group， it is recommended to ignore it as it will be generated automatically */
+            /**
+             * @deprecated
+             * @description The end of the IP pool of the SD-WAN group, it is recommended to ignore it as it will be generated automatically
+             */
             ipPoolEnd?: string;
             /** @description A list of members of the SD-WAN group */
-            memberList?: components["schemas"]["SdWanMemberInfo"][];
+            memberList: components["schemas"]["SdWanMemberConfig"][];
             /** @description A list of linked-spokes of the SD-WAN group */
-            linkedSpokes?: components["schemas"]["SdWanLinkedSpoke"][];
+            linkedSpokes?: components["schemas"]["SdWanLinkedSpokeConfig"][];
             /** @description Whether the group enable SD-WAN virtual network Map */
-            enableNat?: boolean;
-            natInfo?: components["schemas"]["SdWanNatInfo"];
+            enableNat: boolean;
+            natInfo?: components["schemas"]["SdWanNatInfoConfig"];
         };
         /** @description A list of linked-spokes of the SD-WAN group */
-        SdWanLinkedSpoke: {
+        SdWanLinkedSpokeConfig: {
             /** @description The device MAC of one of the two linked-spokes */
             deviceMac1?: string;
             /** @description Another device MAC of the two linked-spokes */
             deviceMac2?: string;
-            /**
-             * Format: int32
-             * @description The connection status of SD-WAN tunnel between spokes
-             */
-            status?: number;
         };
         /** @description A list of members of the SD-WAN group */
-        SdWanMemberInfo: {
+        SdWanMemberConfig: {
             /**
              * Format: int32
              * @description The role of sdWan member, hub or spoke.
              */
             role: number;
             /** @description The device MAC of the sdWan member. */
-            deviceMac?: string;
-            /** @description The device name of the sdWan member. */
-            deviceName?: string;
-            /**
-             * Format: int32
-             * @description The device online status of the sdWan member.
-             */
-            onlineStatus?: number;
-            /** @description The device type of the sdWan member. */
-            type?: string;
-            /** @description The device model of the sdWan member. */
-            model?: string;
-            /** @description The device model version of the sdWan member. */
-            modelVersion?: string;
-            /** @description The device showmodel of the sdWan member. */
-            showModel?: string;
+            deviceMac: string;
             /** @description The ID of the site where the sdWan member is located. */
-            siteId?: string;
+            siteId: string;
             /** @description The name of the site where the sdWan member is located. */
             siteName?: string;
-            /** @description The region where the site is located. */
-            region?: string;
-            /**
-             * Format: double
-             * @description The map longitude of the site.
-             */
-            longitude?: number;
-            /**
-             * Format: double
-             * @description The map latitude of the site.
-             */
-            latitude?: number;
-            /**
-             * Format: double
-             * @description The region longitude of the site.
-             */
-            regionLongitude?: number;
-            /**
-             * Format: double
-             * @description The region latitude of the site.
-             */
-            regionLatitude?: number;
-            /** @description Whether the site is placed on the map. */
-            unplaced?: boolean;
-            /** @description The address where the site is located. */
-            address?: string;
             /** @description A list of device port status info for SdWan Member. */
             wanPortsInfo?: components["schemas"]["OsgPortStatBrief"][];
             /** @description A list of lan network info for SdWan Member. */
             lanNetworkInfo?: components["schemas"]["LanNetworkBrief"][];
             /** @description Whether the sdWan member has a public IP. */
             publicIp?: boolean;
-            /** @description The sdWan IP of the sdWan member. */
-            sdWanIp?: string;
-            /**
-             * Format: int32
-             * @description If a member is a spoke, the link connection to the hub is identified.
-             */
-            linkedToHub?: number;
-            /** @description Whether the device support SD-WAN NAT. */
-            supportSdWanNat?: boolean;
         };
         /** @description The NAT info of the SD-WAN group */
-        SdWanNatInfo: {
+        SdWanNatInfoConfig: {
             /** @description A list of the default mapping network */
             defaultMapNetworkList?: string[];
             /** @description A list of the customized mapping network */
             customMapNetworkList?: string[];
             /** @description A list of the network map item */
-            networkMapList?: components["schemas"]["SdWanNetworkMap"][];
+            networkMapList?: components["schemas"]["SdWanNatItemConfig"][];
         };
         /** @description A list of the network map item */
-        SdWanNetworkMap: {
+        SdWanNatItemConfig: {
             /** @description The ID of the site */
-            siteId?: string;
-            /** @description The name of the site */
-            siteName?: string;
-            /** @description The name of the device */
-            deviceName?: string;
+            siteId: string;
             /** @description The ID of the original network before mapping */
             lanNetworkId?: string;
             /** @description The IP range of the original network before mapping */
-            gatewaySubnet?: string;
+            gatewaySubnet: string;
             /** @description mapped network */
             mappedNetwork?: string;
+            /**
+             * Format: int32
+             * @description Network type, 0/null: LAN network, 1: custom route
+             */
+            networkType?: number;
+        };
+        ModifyLanNetworkBrief: {
+            /** @description The ID of the lan network */
+            id: string;
+            /** @description The site ID of the lan network */
+            siteId: string;
+            /** @description The name of the lan network */
+            name: string;
+            /**
+             * Format: int32
+             * @description The vlan number of the lan network
+             */
+            vlan?: number;
+            /** @description The Gateway Subnet of the lan network */
+            gatewaySubnet: string;
+            /** @description The starting host IP address of gatewaySubnet */
+            ipaddrStart: string;
+            /** @description The ending host IP address of gatewaySubnet */
+            ipaddrEnd: string;
         };
         /** @description Role privilege */
         ControllerRoleVO: {
@@ -42966,7 +43876,7 @@ export interface components {
              */
             format?: number;
         };
-        LanProfileConfigOpenApiVO: {
+        LanProfileSettingOpenApiVO: {
             /** @description Name should contain 1 to 128 characters. */
             name: string;
             /**
@@ -42974,14 +43884,54 @@ export interface components {
              * @description PoE should be a value as follows: 0: on, 1: off, 2: "do not modify"
              */
             poe: number;
-            /** @description Native network ID, Native Network cannot be selected from Tagged Networks or Untagged Networks. */
-            nativeNetworkId: string;
-            /** @description Tag network IDs */
+            /** @description Vlan configuration enable status */
+            vlanConfigEnable?: boolean;
+            /**
+             * Format: int32
+             * @description network Tags configuration mode should be a value as follows: 0:allow all, 1:block all, 2:custom
+             */
+            networkTagsSetting?: number;
+            /** @description Native Network ID, Native Network cannot be selected from Tagged Networks or Untagged Networks. */
+            nativeNetworkId?: string;
+            /**
+             * Format: int32
+             * @description Native Network Bridge Vlan.
+             */
+            nativeBridgeVlan?: number;
+            /** @description Tag Network IDs */
             tagNetworkIds?: string[];
-            /** @description Untag network IDs */
+            /** @description Tag Network Bridge Vlan Map */
+            tagBridgeVlanMap?: {
+                [key: string]: number[];
+            };
+            /** @description Untag Network IDs */
             untagNetworkIds?: string[];
+            /** @description Untag Network Bridge Vlan Map */
+            untagBridgeVlanMap?: {
+                [key: string]: number[];
+            };
+            /** @description Indicates whether voice network is enabled */
+            voiceNetworkEnable?: boolean;
             /** @description Voice Network ID */
             voiceNetworkId?: string;
+            /**
+             * Format: int32
+             * @description Voice Network Bridge Vlan
+             */
+            voiceBridgeVlan?: number;
+            /** @description Indicates whether voice DSCP is enabled */
+            voiceDscpEnable?: boolean;
+            /**
+             * Format: int32
+             * @description Voice DSCP
+             */
+            voiceDscp?: number;
+            /** @description ES enable status */
+            esEnable?: boolean;
+            /** @description Indicates whether ES Tagged is modified */
+            esTaggedModified?: boolean;
+            /** @description ES enable tagged network ids */
+            esEnableTaggedNetworkIds?: string[];
             /**
              * Format: int32
              * @description Dot1x should be a value as follows: 0: force unauthorized, 1: force authorized, 2:auto
@@ -43683,7 +44633,7 @@ export interface components {
         /** @description Client uplink information while connection is wired. */
         TopologyClientWiredUpInfo: {
             port?: components["schemas"]["TopologyClientUplinkPort"];
-            uplinkPort?: components["schemas"]["WiredPortV3DTO"];
+            upLinkPort?: components["schemas"]["WiredPortV3DTO"];
             /**
              * Format: int32
              * @description Link Speed, it should be a value as follows: 1:10Mbps, 2:100Mbps, 3:1000Mbps, 4:2.5Gbps, 5:10Gbps, 6:5Gbps, 7:25Gbps.
@@ -43707,6 +44657,11 @@ export interface components {
              * @description Channel.
              */
             channel?: number;
+            /**
+             * Format: int32
+             * @description Signal strength, unit: dBm
+             */
+            rssi?: number;
         };
         /** @description Client uplink information while connection is wireless. */
         TopologyClientWirelessUpInfo: {
@@ -43722,6 +44677,11 @@ export interface components {
              * @description Channel.
              */
             channel?: number;
+            /**
+             * Format: int32
+             * @description Signal strength, unit: dBm
+             */
+            rssi?: number;
             /** @description Whether the device supports the 5G2 frequency band. */
             support5g2?: boolean;
             /** @description Client link information while client connects to multiple frequency bands. */
@@ -43734,7 +44694,7 @@ export interface components {
             /** @description Device Mac. */
             devMac?: string;
         };
-        /** @description Uplink port. */
+        /** @description UpLink port. */
         WiredPortV3DTO: {
             /** @description Port Id */
             port?: string;
@@ -44048,59 +45008,6 @@ export interface components {
              * @description Vlan Bound With PSK, should be within the range of 1-4094.
              */
             vlan?: number;
-        };
-        LanProfileSettingOpenApiVO: {
-            /** @description Name should contain 1 to 128 characters. */
-            name: string;
-            /**
-             * Format: int32
-             * @description PoE should be a value as follows: 0: on, 1: off, 2: "do not modify"
-             */
-            poe: number;
-            /**
-             * Format: int32
-             * @description Dot1x should be a value as follows: 0: force unauthorized, 1: force authorized, 2:auto
-             */
-            dot1x: number;
-            /** @description Port-isolation enable status */
-            portIsolationEnable: boolean;
-            /** @description LLDP-MED enable status */
-            lldpMedEnable: boolean;
-            /**
-             * Format: int32
-             * @description BandWidthCtrlType should be a value as follows: 0: off, 1: rate limit, 2: storming control
-             */
-            bandWidthCtrlType: number;
-            stormCtrl?: components["schemas"]["StormCtrlVO"];
-            bandCtrl?: components["schemas"]["BandCtrlVO"];
-            /** @description SpanningTree enable status */
-            spanningTreeEnable: boolean;
-            spanningTreeSetting?: components["schemas"]["SpanningTreeSettingVO"];
-            /** @description LoopbackDetect enable status */
-            loopbackDetectEnable: boolean;
-            /** @description EEE enable status */
-            eeeEnable?: boolean;
-            /** @description FlowControl enable status */
-            flowControlEnable?: boolean;
-            /** @description LoopbackDetectVLANBased enable status */
-            loopbackDetectVlanBasedEnable?: boolean;
-            /** @description Indicates whether igmp fast leave is enabled */
-            igmpFastLeaveEnable?: boolean;
-            /** @description Indicates whether mld fast leave is enabled */
-            mldFastLeaveEnable?: boolean;
-            dhcpL2RelaySettings?: components["schemas"]["DhcpL2RelayVO"];
-            /** @description IGMP Snooping fast leave enable status */
-            fastLeaveEnable?: boolean;
-            /**
-             * Format: int32
-             * @description 802.1p Priority
-             */
-            dot1pPriority?: number;
-            /**
-             * Format: int32
-             * @description Trust mode
-             */
-            trustMode?: number;
         };
         /** @description LANNetworkOpenApiVO */
         LanNetworkOpenApiV2VO: {
@@ -45147,6 +46054,10 @@ export interface components {
             vlanSetting?: components["schemas"]["SsidVlanSettingOpenApiVO"];
             /** @description SSID prohibitWifiShare config status. True: enable, false: disable. */
             prohibitWifiShare?: boolean;
+            /** @description SSID Wifi Calling config status. True: enable, false: disable. */
+            wifiCallingEnable?: boolean;
+            /** @description The ID of the Wi-Fi calling profile bound to the SSID. When parameter [wifiCallingEnable] is true, it should not be null. */
+            wifiCallingId?: string;
         };
         /** @description WPA-Enterprise SSID config. This is necessary when the value of security is 2(WPA-Enterprise). */
         SsidEnterpriseSettingOpenApiVO: {
@@ -45409,6 +46320,23 @@ export interface components {
             /** @description Time range profile schedule time config */
             timeList: components["schemas"]["ScheduleTimeOpenApiVO"][];
         };
+        StpInstanceDetailVO: {
+            /**
+             * Format: int32
+             * @description stp, 1: STP / 2: RSTP / 3: MSTP / 4: RPVST / 0: OFF
+             */
+            stp: number;
+            /**
+             * Format: int32
+             * @description instance ID
+             */
+            id?: number;
+            /**
+             * Format: int32
+             * @description instance vlanId
+             */
+            vlan?: number;
+        };
         CreatePortTagOpenApiVO: {
             /** @description Port label name should contain 1 to 128 ASCII characters. */
             name: string;
@@ -45592,7 +46520,7 @@ export interface components {
             /** @description The main virtual WAN IPv4 proto type, use static, dhcp, pppoe. */
             mainProto?: string;
             /** @description The second virtual WAN IPv4 proto type, use static, dhcp, pppoe. */
-            proto?: string;
+            proto: string;
             /** @description VPN server IP/domain. */
             server?: string;
             /** @description IP address. */
@@ -45620,23 +46548,23 @@ export interface components {
              * Format: int32
              * @description Parameter [mtu] should be a value between 576 and 1500.
              */
-            mtu?: number;
+            mtu: number;
             /** @description Virtual WAN custom DHCP options. */
             dhcpOptions?: components["schemas"]["custom DHCP Options"][];
         };
         /** @description VirtualWanIpv4IpoaOpenApiVO */
         VirtualWanIpv4IpoaOpenApiVO: {
             /** @description IP address. */
-            ipaddr?: string;
+            ipaddr: string;
             /** @description Subnet mask. */
-            netmask?: string;
+            netmask: string;
             /** @description Gateway IP. */
             gateway: string;
             /**
              * Format: int32
              * @description Parameter [mtu] should be a value between 576 and 1500.
              */
-            mtu?: number;
+            mtu: number;
             /** @description Primary DNS server. */
             dns1?: string;
             /** @description Secondary DNS server. */
@@ -45648,20 +46576,20 @@ export interface components {
             /** @description IP address. */
             ipaddr?: string;
             /** @description Username. Parameter [userName] should contain 1 to 255 ASCII characters. */
-            userName?: string;
+            userName: string;
             /** @description Password. Parameter [password] should contain 1 to 255 ASCII characters. */
-            password?: string;
+            password: string;
             /** @description Get IP address from ISP. */
-            ipFromIsp?: string;
+            ipFromIsp: string;
             /** @description Gateway IP. */
             gateway?: string;
             /** @description Connection Mode. Parameter [linkType] should be as follows: auto: Connect Automatically; demand: Connect Manually; time: Time-based. */
-            linkType?: string;
+            linkType: string;
             /**
              * Format: int32
              * @description It is required when [linkType] is 0. Unit: Second.
              */
-            redialInterval?: number;
+            redialInterval: number;
             /** @description It is required when [linkType] is 2. For example, 12:30. */
             startTime?: string;
             /** @description It is required when [linkType] is 2. For example, 12:30. */
@@ -45674,12 +46602,12 @@ export interface components {
              * Format: int32
              * @description Parameter [mtu] should be a value between 576 and 1492.
              */
-            mtu?: number;
+            mtu: number;
             /**
              * Format: int32
              * @description Parameter [mru] should be a value between 576 and 1492.
              */
-            mru?: number;
+            mru: number;
             /** @description Primary DNS server. */
             dns1?: string;
             /** @description Secondary DNS server. */
@@ -45689,7 +46617,7 @@ export interface components {
              * Format: int32
              * @description It should be a value as follows: 0: Disable, 1: Auto, 2: Custom.
              */
-            mssClampingType?: number;
+            mssClampingType: number;
             /**
              * Format: int32
              * @description It is required when [mssClampingType] is 2, which ranges 532 ~ 1452.
@@ -45701,20 +46629,20 @@ export interface components {
             /** @description IP address. */
             ipaddr?: string;
             /** @description Username. Parameter [userName] should contain 1 to 255 ASCII characters. */
-            userName?: string;
+            userName: string;
             /** @description Password. Parameter [password] should contain 1 to 255 ASCII characters. */
-            password?: string;
+            password: string;
             /** @description Get IP address from ISP. */
-            ipFromIsp?: string;
+            ipFromIsp: string;
             /** @description Gateway IP. */
             gateway?: string;
             /** @description Connection Mode. Parameter [linkType] should be as follows: auto: Connect Automatically; demand: Connect Manually; time: Time-based. */
-            linkType?: string;
+            linkType: string;
             /**
              * Format: int32
              * @description It is required when [linkType] is auto. Unit: Second
              */
-            redialInterval?: number;
+            redialInterval: number;
             /** @description It is required when [linkType] is 2. For example, 12:30. */
             startTime?: string;
             /** @description It is required when [linkType] is 2. For example, 12:30. */
@@ -45727,19 +46655,19 @@ export interface components {
              * Format: int32
              * @description Parameter [mtu] should be a value between 576 and 1492
              */
-            mtu?: number;
+            mtu: number;
             /**
              * Format: int32
              * @description Parameter [mru] should be a value between 576 and 1492
              */
-            mru?: number;
+            mru: number;
             /** @description Primary DNS */
             dns1?: string;
             /** @description Secondary DNS */
             dns2?: string;
-            ipv4Connection2?: components["schemas"]["VirtualWanIpv4Connection2OpenApiVO"];
+            ipv4Connection2: components["schemas"]["VirtualWanIpv4Connection2OpenApiVO"];
             /** Format: int32 */
-            mssClampingType?: number;
+            mssClampingType: number;
             /** Format: int32 */
             mssClampingValue?: number;
         };
@@ -45773,16 +46701,16 @@ export interface components {
         /** @description VirtualWanIpv4StaticOpenApiVO */
         VirtualWanIpv4StaticOpenApiVO: {
             /** @description IP address. */
-            ipaddr?: string;
+            ipaddr: string;
             /** @description Subnet mask. */
-            netmask?: string;
+            netmask: string;
             /** @description Gateway IP. */
             gateway: string;
             /**
              * Format: int32
              * @description Parameter [mtu] should be a value between 576 and 1500.
              */
-            mtu?: number;
+            mtu: number;
             /** @description Primary DNS. */
             dns1?: string;
             /** @description Secondary DNS. */
@@ -45796,8 +46724,8 @@ export interface components {
             mac?: string;
         };
         VirtualWanMultipleIpVO: {
-            enable?: boolean;
-            IP?: string;
+            enable: boolean;
+            IP: string;
         };
         ModifySpeedTestV2SettingOpenApiVO: {
             /** @description Whether enable scheduled speed testing. */
@@ -45982,6 +46910,42 @@ export interface components {
             outBandwidth: number;
             /** @description The ratio of class type, value's format is [class1 ratio, class2 ratio, class3 ratio, others ratio], and the total sum should be 100. */
             classRatio: number[];
+        };
+        /** @description carrierList */
+        CarrierOpenApiVO: {
+            /** @description Carrier Name. */
+            carrierName?: string;
+            /** @description epdgs */
+            epdgs?: components["schemas"]["EPDGOpenApiVO"][];
+        };
+        CreateWifiCallingProfileOpenApiVO: {
+            /** @description Wi-Fi Calling Profile Name. It should contain 1 to 32 UTF-8 characters. */
+            name?: string;
+            /** @description Description of the Wi-Fi calling profile. It should contain 1 to 32 UTF-8 characters. */
+            description?: string;
+            /** @description carrierList */
+            carrierList?: components["schemas"]["CarrierOpenApiVO"][];
+        };
+        /** @description epdgs */
+        EPDGOpenApiVO: {
+            /**
+             * Format: int32
+             * @description QOS Priority
+             */
+            qosPriority?: number;
+            /**
+             * Format: int32
+             * @description Type. Such as: 0: domain, 1:ip.
+             */
+            type?: number;
+            /** @description Domain. If parameter [type] is 0, it should not be null. */
+            domain?: string;
+            /** @description Ip. If parameter [type] is 1, it should not be null. */
+            ip?: string;
+        };
+        CopyWifiCallingProfileOpenApiVO: {
+            /** @description Wi-Fi Calling Profile Name */
+            name?: string;
         };
         CreateRadiusProfileOpenApiVO: {
             /** @description Radius profile name should contain 1 to 64 characters */
@@ -46489,7 +47453,7 @@ export interface components {
             welcomeTextFontSize?: number;
             /** @description Whether to display terms of service. */
             termsOfServiceEnable: boolean;
-            /** @description Terms of service text, should contain 0 to 100 characters. */
+            /** @description Terms of service text, should contain 0 to 512 characters. */
             termsOfServiceText?: string;
             /**
              * Format: int32
@@ -46609,6 +47573,13 @@ export interface components {
             pcAlign?: number;
             /** @description Whether to use different images in mobile and PC devices */
             enableDeviceSpecificBg?: boolean;
+            /** @description Language Selector text color. Hex color code such as: #ffffff. */
+            languageSelectorTextColor?: string;
+            /**
+             * Format: int32
+             * @description Language Selector text opacity, should be within the range of 0–100.
+             */
+            languageSelectorTextOpacity?: number;
         };
         /** @description Portal Setting. */
         PortalSetting: {
@@ -47512,6 +48483,67 @@ export interface components {
              * @description Effective device type should be a value as follows: 0: Gateway and Switch; 1: Switch
              */
             application?: number;
+        };
+        LanProfileConfigOpenApiVO: {
+            /** @description Name should contain 1 to 128 characters. */
+            name: string;
+            /**
+             * Format: int32
+             * @description PoE should be a value as follows: 0: on, 1: off, 2: "do not modify"
+             */
+            poe: number;
+            /** @description Native network ID, Native Network cannot be selected from Tagged Networks or Untagged Networks. */
+            nativeNetworkId: string;
+            /** @description Tag network IDs */
+            tagNetworkIds?: string[];
+            /** @description Untag network IDs */
+            untagNetworkIds?: string[];
+            /** @description Voice Network ID */
+            voiceNetworkId?: string;
+            /**
+             * Format: int32
+             * @description Dot1x should be a value as follows: 0: force unauthorized, 1: force authorized, 2:auto
+             */
+            dot1x: number;
+            /** @description Port-isolation enable status */
+            portIsolationEnable: boolean;
+            /** @description LLDP-MED enable status */
+            lldpMedEnable: boolean;
+            /**
+             * Format: int32
+             * @description BandWidthCtrlType should be a value as follows: 0: off, 1: rate limit, 2: storming control
+             */
+            bandWidthCtrlType: number;
+            stormCtrl?: components["schemas"]["StormCtrlVO"];
+            bandCtrl?: components["schemas"]["BandCtrlVO"];
+            /** @description SpanningTree enable status */
+            spanningTreeEnable: boolean;
+            spanningTreeSetting?: components["schemas"]["SpanningTreeSettingVO"];
+            /** @description LoopbackDetect enable status */
+            loopbackDetectEnable: boolean;
+            /** @description EEE enable status */
+            eeeEnable?: boolean;
+            /** @description FlowControl enable status */
+            flowControlEnable?: boolean;
+            /** @description LoopbackDetectVLANBased enable status */
+            loopbackDetectVlanBasedEnable?: boolean;
+            /** @description Indicates whether igmp fast leave is enabled */
+            igmpFastLeaveEnable?: boolean;
+            /** @description Indicates whether mld fast leave is enabled */
+            mldFastLeaveEnable?: boolean;
+            dhcpL2RelaySettings?: components["schemas"]["DhcpL2RelayVO"];
+            /** @description IGMP Snooping fast leave enable status */
+            fastLeaveEnable?: boolean;
+            /**
+             * Format: int32
+             * @description 802.1p Priority
+             */
+            dot1pPriority?: number;
+            /**
+             * Format: int32
+             * @description Trust mode
+             */
+            trustMode?: number;
         };
         /** @description Configure DHCP settings */
         DhcpSettingsConfigTemplateOpenApiVO: {
@@ -48915,6 +49947,44 @@ export interface components {
             wiredUpLink?: components["schemas"]["Wired Up Link Info"];
             wirelessUpLink?: components["schemas"]["Wireless Up Link Info"];
         };
+        /** @description Multi link info (MLO) */
+        "AP Multi link info": {
+            /**
+             * Format: int32
+             * @description Radio ID should be a value as follows: 0: 2.4GHz; 1: 5GHz-1; 2:5GHz-2; 3: 6GHz.
+             */
+            radioId?: number;
+            /**
+             * Format: int32
+             * @description (Wireless)  Actual channel.
+             */
+            channel?: number;
+            /**
+             * Format: int32
+             * @description Signal strength, unit: dBm.
+             */
+            rssi?: number;
+            /**
+             * Format: int64
+             * @description Downstream traffic (Byte).
+             */
+            trafficDown?: number;
+            /**
+             * Format: int64
+             * @description Upstream traffic (Byte).
+             */
+            trafficUp?: number;
+            /**
+             * Format: int64
+             * @description Downlink negotiation rate (Kbit/s)
+             */
+            txRate?: number;
+            /**
+             * Format: int64
+             * @description Uplink negotiation rate (Kbit/s)
+             */
+            rxRate?: number;
+        };
         /** @description Client node info. */
         "Client Node Info": {
             /** @description Client MAC Address. */
@@ -49157,6 +50227,8 @@ export interface components {
              * @description Uplink negotiation rate (Kbit/s)
              */
             rxRate?: number;
+            /** @description Multi link info (MLO) */
+            multiLink?: components["schemas"]["AP Multi link info"][];
         };
         /** @description Uplink switch info, exists when parameter [upDeviceType] is 1. */
         "Uplink Switch Info": {
@@ -49279,6 +50351,19 @@ export interface components {
              */
             endSec: number;
         };
+        /** @description (MLO) Client multi link info. */
+        "Client Multi Link Info": {
+            /**
+             * Format: int32
+             * @description (Wireless) Radio ID should be a value as follows: 0: 2.4GHz; 1: 5GHz; 2:5GHz-2; 3: 6GHz
+             */
+            radioId?: number;
+            /**
+             * Format: int32
+             * @description (Wireless) Signal strength, unit: dBm.
+             */
+            signal?: number;
+        };
         /** @description Client Statistical Data Detail list. */
         "Client Statistical Data Detail": {
             /** @description Client MAC Address. */
@@ -49326,10 +50411,17 @@ export interface components {
              */
             signal?: number;
             /**
+             * Format: int32
+             * @description (Wireless) Radio ID should be a value as follows: 0: 2.4GHz; 1: 5GHz; 2:5GHz-2; 3: 6GHz
+             */
+            radioId?: number;
+            /**
              * Format: int64
              * @description Number of downstream failed packets.
              */
             txFP?: number;
+            /** @description (MLO) Client multi link info. */
+            multiLinks?: components["schemas"]["Client Multi Link Info"][];
         };
         "Client Statistical Data Detail Result": {
             /**
@@ -49362,11 +50454,10 @@ export interface components {
              * @description (Wireless) Average uplink negotiation rate (bit/s).
              */
             avgRxR?: number;
-            /**
-             * Format: int32
-             * @description (Wireless) Average signal strength, unit: dBm.
-             */
-            avgSignal?: number;
+            /** @description (Wireless) Average signal on each channel, the key is radioId(0: 2.4GHz; 1: 5GHz-1; 2:5GHz-2; 3: 6GHz), the value is average signal(unit: dBm). */
+            avgSignal?: {
+                [key: string]: number;
+            };
             /**
              * Format: int64
              * @description Total number of downstream failed packets.
@@ -49749,7 +50840,7 @@ export interface components {
             maxLagNum?: number;
             /**
              * Format: int32
-             * @description Max Lag Member
+             * @description Max Lacp Member
              */
             maxLagMember?: number;
             /**
@@ -49762,6 +50853,16 @@ export interface components {
              * @description Mstp Instance Num
              */
             mstpInsNum?: number;
+            /**
+             * Format: int32
+             * @description Mstp Max InstanceId
+             */
+            mstpInsNo?: number;
+            /**
+             * Format: int32
+             * @description Max Rpvst Instance Num
+             */
+            rpvstInsNum?: number;
             /**
              * Format: int32
              * @description Vlan Interface Num
@@ -49832,6 +50933,8 @@ export interface components {
             vrrpSupport?: boolean;
             /** @description STP Extend Support */
             stpExtendSupport?: boolean;
+            /** @description RPVST Extend Support */
+            rpvstExtendSupport?: boolean;
             mirrorSupport?: boolean;
             uplinkSupport?: boolean;
             gponSupport?: boolean;
@@ -49864,6 +50967,8 @@ export interface components {
             supportEsHealth?: boolean;
             /** @description Whether the device supports DHCP relay multi Server */
             supportRelayMultiServer?: boolean;
+            /** @description Whether the device supports returning TPCL resource information */
+            supportTpclResInfo?: boolean;
             /**
              * Format: int32
              * @description Max DHCP relay server num
@@ -50013,8 +51118,10 @@ export interface components {
             profileId?: string;
             /** @description Lan Profile Name */
             profileName?: string;
-            /** @description Indicates whether to enable Profile Override */
+            /** @description Indicates whether to enable Profile Override before v6.2.10; Indicates the fill mode of port configuration after v6.2.10: true: custom; false: follow profile */
             profileOverrideEnable?: boolean;
+            /** @description Indicates the fill mode of vlan configuration: true: custom; false: follow profile */
+            profileVlanOverrideEnable?: boolean;
             /** @description Operation should be a value as follows: SWITCHING; MIRRORING; AGGREGATING */
             operation?: string;
             /** @description Monitored Port */
@@ -51250,6 +52357,10 @@ export interface components {
             type?: string;
             /** @description Search Key */
             searchKey?: string;
+            /** @description Sort rule, key: sort field, value: sort direction, value parameter may be one of asc or desc. */
+            sorts?: {
+                [key: string]: string;
+            };
         };
         DhcpReservationErrorVO: {
             /** @description Error details when importing some entries fails: 0: The imported MAC entries conflict; 1: The server device's user list has reached its limit. */
@@ -51349,6 +52460,12 @@ export interface components {
              * @description Max sessions should be within the range of 1–999999.
              */
             maxSession: number;
+        };
+        ExcludeApDeleteOpenApiVO: {
+            /** @description The value of parameter [selectType] must be in [all, include, exclude]. */
+            selectType?: string;
+            /** @description MAC list. When parameter [selectType] is 'all', it should be null.When parameter [selectType] is 'include', it means the MAC list that needs to be included.When parameter [selectType] is 'exclude', it means the MAC list that needs to be excluded. */
+            macs?: string[];
         };
         ReportCardQueryVO: {
             /** @description omadacId */
@@ -52495,12 +53612,12 @@ export interface components {
             wireless2gTotal?: number;
             /**
              * Format: int64
-             * @description 2g rx traffic
+             * @description 2g client rx traffic
              */
             wireless2gRx?: number;
             /**
              * Format: int64
-             * @description 2g rx traffic
+             * @description 2g client tx traffic
              */
             wireless2gTx?: number;
             /**
@@ -52510,12 +53627,12 @@ export interface components {
             wireless5gTotal?: number;
             /**
              * Format: int64
-             * @description 5g rx traffic
+             * @description 5g client rx traffic
              */
             wireless5gRx?: number;
             /**
              * Format: int64
-             * @description 5g tx traffic
+             * @description 5g client tx traffic
              */
             wireless5gTx?: number;
             /**
@@ -52525,12 +53642,12 @@ export interface components {
             wireless6gTotal?: number;
             /**
              * Format: int64
-             * @description 6g rx traffic
+             * @description 6g client rx traffic
              */
             wireless6gRx?: number;
             /**
              * Format: int64
-             * @description 6g tx traffic
+             * @description 6g client tx traffic
              */
             wireless6gTx?: number;
         };
@@ -52542,12 +53659,12 @@ export interface components {
             totalTraffic?: number;
             /**
              * Format: int64
-             * @description rx traffic
+             * @description client rx traffic
              */
             rxTraffic?: number;
             /**
              * Format: int64
-             * @description tx traffic
+             * @description client tx traffic
              */
             txTraffic?: number;
             trafficTrend?: components["schemas"]["WirelessTrafficTrendVO"][];
@@ -52565,12 +53682,12 @@ export interface components {
             totalTraffic?: number;
             /**
              * Format: int64
-             * @description rx traffic
+             * @description client rx traffic
              */
             rxTraffic?: number;
             /**
              * Format: int64
-             * @description tx traffic
+             * @description client tx traffic
              */
             txTraffic?: number;
             /**
@@ -52610,6 +53727,21 @@ export interface components {
             appType: string;
             /** @description If open the remote access tunnel after create. */
             openStatus?: boolean;
+            /** @description Mac of the local target device. */
+            localMac?: string;
+            /** @description Client's manager of the remote access tunnel for the client. */
+            clientManager?: boolean;
+            /** @description Client's name of the remote access tunnel for the client. */
+            clientName?: string;
+            /** @description Client's type of the remote access tunnel for the client. */
+            clientDeviceType?: string;
+            /** @description Client's model of the remote access tunnel for the client. */
+            clientModel?: string;
+            /**
+             * Format: int32
+             * @description Entry of the remote access tunnel.1: custom tunnel 2: device tunnel 3:device detail 4:client detail
+             */
+            tunnelEntryType?: number;
         };
         /** @description Site remember device setting */
         SiteRememberDeviceSetting: {
@@ -52640,6 +53772,27 @@ export interface components {
              * @description The value of parameter [appliedConfig] should be 1 or 2. 1: apply recommended config. 2: apply previous config.
              */
             appliedConfig?: number;
+        };
+        "Batch Delete PlanningHistory": {
+            /** @description Delete policy, all: delete all history, include: delete history in ids, exclude: exclude history in ids. */
+            type?: string;
+            /** @description HistoryId list */
+            ids?: string[];
+            /**
+             * Format: int64
+             * @description Start time of the history to be deleted(millisecond timestamp)
+             */
+            start?: number;
+            /**
+             * Format: int64
+             * @description End time of the history to be deleted(millisecond timestamp)
+             */
+            end?: number;
+            /**
+             * Format: int32
+             * @description filtermode should be a value as follows: 1: rfPlanningHistory mode is manual; 2:rfPlanningHistory mode is adaptive
+             */
+            filter_mode?: number;
         };
         BatchOspfProcessOpenApiVO: {
             /** @description List of Process ID */
@@ -57505,6 +58658,8 @@ export interface components {
             switchPortsInLag?: number[];
             /** @description Standard switch ports in Lag. Exists only when lagId exists and stackId exists */
             stPortsInLag?: string[];
+            /** @description Whether client support NAT traversal */
+            clientSupportNatTraversal?: boolean;
         };
         "OperationResponseClient Detail": {
             /** Format: int32 */
@@ -58580,9 +59735,9 @@ export interface components {
         /** @description A list of the SD-WAN devices which use auto select. */
         AutoSelectWanPortReq: {
             /** @description The MAC of a SD-WAN candidate device. */
-            deviceMac?: string;
+            deviceMac: string;
             /** @description Site ID. */
-            siteId?: string;
+            siteId: string;
             /**
              * Format: int32
              * @description The role of SD-WAN member, hub: 0 or spoke: 1.
@@ -58612,33 +59767,33 @@ export interface components {
             msg?: string;
             result?: components["schemas"]["BatchAutoSelectWanPortResult"];
         };
-        /** @description A list of original lan network */
+        /** @description A list of original custom route */
         SdWanLanNetworkNatReq: {
             /** @description The ID of the lan network */
             id?: string;
             /** @description The site ID of the lan network */
-            siteId?: string;
+            siteId: string;
             /** @description The Gateway Subnet of the lan network */
-            gatewaySubnet?: string;
+            gatewaySubnet: string;
+            /** @description This value exists in customNetwork. If true, it indicates a conflicting route that requires mapping; routes with false should be avoided by NAT mapping. */
+            needMap?: boolean;
         };
         /** @description A list of members of the SD-WAN group */
-        SdWanMemberBriefInfo: {
+        SdWanMemberSelected: {
             /** @description The device MAC of the sdWan member. */
-            deviceMac?: string;
+            deviceMac: string;
             /** @description The ID of the site where the sdWan member is located. */
-            siteId?: string;
-            /** @description The name of the site where the sdWan member is located. */
-            siteName?: string;
-            /** @description The device name of the sdWan member. */
-            deviceName?: string;
+            siteId: string;
         };
         SdWanSelectedMapNetwork: {
             /** @description A list of original lan network */
             lanNetworks?: components["schemas"]["SdWanLanNetworkNatReq"][];
+            /** @description A list of original custom route */
+            customNetwork?: components["schemas"]["SdWanLanNetworkNatReq"][];
             /** @description A list of map network range */
             mapNetworkList?: string[];
             /** @description A list of members of the SD-WAN group */
-            memberList?: components["schemas"]["SdWanMemberBriefInfo"][];
+            memberList?: components["schemas"]["SdWanMemberSelected"][];
             /** @description The SD-WAN group ID. */
             groupId?: string;
         };
@@ -58656,26 +59811,46 @@ export interface components {
             /** @description A list of the customized mapping network */
             customMapNetworkList?: string[];
         };
+        /** @description A list of the mapped network */
+        SdWanNetworkMap: {
+            /** @description The ID of the site */
+            siteId?: string;
+            /** @description The name of the site */
+            siteName?: string;
+            /** @description The name of the device */
+            deviceName?: string;
+            /** @description The ID of the original network before mapping */
+            lanNetworkId?: string;
+            /** @description The IP range of the original network before mapping */
+            gatewaySubnet?: string;
+            /** @description mapped network */
+            mappedNetwork?: string;
+            /**
+             * Format: int32
+             * @description Network type, 0/null: LAN network, 1: custom route
+             */
+            networkType?: number;
+        };
         CheckMappedNetwork: {
             /** @description The IP Subnet of the modified network */
-            modifiedNetwork?: string;
+            modifiedNetwork: string;
             /** @description A list of members of the SD-WAN group */
-            memberList?: components["schemas"]["SdWanMemberBriefInfo"][];
+            memberList: components["schemas"]["SdWanMemberSelected"][];
             /** @description A list of current mapped network of the SD-WAN group */
             mappedNetworks?: string[];
         };
         SdWanIpPoolRange: {
             /** @description The start of the IP pool of the sdWan group. */
-            ipPoolStart?: string;
+            ipPoolStart: string;
             /** @description The end of the IP pool of the sdWan group. */
-            ipPoolEnd?: string;
+            ipPoolEnd: string;
             /** @description The SD-WAN group ID. */
             groupId?: string;
             /**
              * Format: int32
-             * @description Maximum number of tunnels that each SD-WAN device.
+             * @description Enter the number of tunnels required by this group to determine if the number of IPs in the IP pool is sufficient.
              */
-            tunnelLimit?: number;
+            tunnelLimit: number;
         };
         QuerySdWanCandidateDevice: {
             /**
@@ -58699,9 +59874,9 @@ export interface components {
             searchField?: string;
             /**
              * Format: int32
-             * @description The maximum number of VPN tunnels that can be created.
+             * @description The maximum number of VPN tunnels that can be created. Used to filter devices that meet the minimum supported tunnel count. Only those that support a tunnel count greater than the minimum will be listed.
              */
-            tunnelLimit?: number;
+            tunnelLimit: number;
             /** @description The ID of the SD-WAN group. */
             groupId?: string;
             /**
@@ -58796,6 +59971,8 @@ export interface components {
         TransferRootOpenApiVO: {
             /** @description Target user ID for new owner */
             userId: string;
+            /** @description Token for transfer operation */
+            token?: string;
         };
         /** @description Add devices list */
         AddDeviceWithSiteBySnOpenApiVO: {
@@ -59029,6 +60206,32 @@ export interface components {
             clientCertFileId?: string;
             /** @description Client Private key file id. */
             privateKeyFileId?: string;
+        };
+        "Export RF planning history openapi VO": {
+            /** @description Export policy, type should be a value as follows:, all: export all history, include: export history in ids, exclude: exclude history in ids. */
+            type?: string;
+            /**
+             * Format: int32
+             * @description Export file format, should be a value as follows: 0: csv, 1: xlsx
+             */
+            export_format: number;
+            /** @description RfPlanningHistoryId list */
+            history_ids?: string[];
+            /**
+             * Format: int64
+             * @description Start time of history to export (millisecond timestamp)
+             */
+            start?: number;
+            /**
+             * Format: int64
+             * @description End time of history to export (millisecond timestamp)
+             */
+            end?: number;
+            /**
+             * Format: int32
+             * @description filtermode should be a value as follows: 1: rfPlanningHistory mode is manual; 2:rfPlanningHistory mode is adaptive
+             */
+            filter_mode?: number;
         };
         ClientExportOpenApiVO: {
             /**
@@ -59642,8 +60845,10 @@ export interface components {
             disable?: boolean;
             /** @description Profile ID */
             profileId?: string;
-            /** @description Indicates whether to enable Profile Override */
+            /** @description Indicates whether to enable Profile Override before v6.2.10; Indicates the fill mode of port configuration after v6.2.10: true: custom; false: follow profile */
             profileOverrideEnable?: boolean;
+            /** @description Indicates the fill mode of vlan configuration: true: custom; false: follow profile */
+            profileVlanOverrideEnable?: boolean;
             /**
              * Format: int32
              * @description Link Speed should be a value as follows: 0: auto; 1: 10M; 2: 100M; 3: 1000M; 4: 2.5G; 5: 10G
@@ -59789,8 +60994,10 @@ export interface components {
             disable?: boolean;
             /** @description Profile ID */
             profileId?: string;
-            /** @description Indicates whether to enable Profile Override */
+            /** @description Indicates whether to enable Profile Override before v6.2.10; Indicates the fill mode of port configuration after v6.2.10: true: custom; false: follow profile */
             profileOverrideEnable?: boolean;
+            /** @description Indicates the fill mode of vlan configuration: true: custom; false: follow profile */
+            profileVlanOverrideEnable?: boolean;
             /**
              * Format: int32
              * @description Link Speed should be a value as follows: 0: auto; 1: 10M; 2: 100M; 3: 1000M; 4: 2.5G; 5: 10G
@@ -59937,8 +61144,10 @@ export interface components {
             disable?: boolean;
             /** @description Profile ID */
             profileId?: string;
-            /** @description Indicates whether to enable Profile Override */
+            /** @description Indicates whether to enable Profile Override before v6.2.10; Indicates the fill mode of port configuration after v6.2.10: true: custom; false: follow profile */
             profileOverrideEnable?: boolean;
+            /** @description Indicates the fill mode of vlan configuration: true: custom; false: follow profile */
+            profileVlanOverrideEnable?: boolean;
             /**
              * Format: int32
              * @description Link Speed should be a value as follows: 0: auto; 1: 10M; 2: 100M; 3: 1000M; 4: 2.5G; 5: 10G
@@ -60188,6 +61397,12 @@ export interface components {
             /** @description This field represents Time Range Profile ID. Time Range Profile can be created using Create time range profile interface, and Time Range Profile ID can be obtained from Get time range profile list interface. */
             scheduleId?: string;
         };
+        UpdateWifiCallingOpenApiVO: {
+            /** @description SSID Wi-Fi Calling global config status. True: enable, false: disable. */
+            wifiCallingEnable: boolean;
+            /** @description This field represents Wi-Fi Calling Profile ID. Wi-Fi Calling Profile can be created using Create a new wifi calling profile. */
+            wifiCallingId?: string;
+        };
         /** @description Rate limit custom setting */
         CustomRateLimitSettingOpenApiVO: {
             /** @description Whether to limit downlink speed; This field is required when select custom setting. True: enable, false: disable. */
@@ -60330,6 +61545,10 @@ export interface components {
             macFilterId?: string;
             /** @description This field represents OUI Profile ID list. OUI Profile can be created using Create OUI profile interface, and OUI Profile ID can be obtained from Get OUI profile summary list interface(This configuration applies to the Pro Site of the Omada Pro Controller only). */
             ouiProfileIdList?: string[];
+        };
+        UpdateSsidLoadBalanceOpenApiVO: {
+            /** @description SSID Load Balance global config status. True: enable, false: disable. */
+            enable: boolean;
         };
         /** @description Authentication Param list, configure the EAP authentication parameter identifier and authentication parameters.<br />Note: Up to 4 entries are allowed for the Authentication Param list. */
         AuthenticationParamOpenApiVO: {
@@ -60490,6 +61709,13 @@ export interface components {
             /** @description SSID prohibitWifiShare config status. True: enable, false: disable. */
             prohibitWifiShare?: boolean;
         };
+        UpdateSsidBandSteerOpenApiVO: {
+            /**
+             * Format: int32
+             * @description should be a value as follows: 0:Disable; 1:Prefer 5GHz/6GHz; 2:Balance; 3:Use site setting.
+             */
+            mode: number;
+        };
         OperationResponseVoid: {
             /** Format: int32 */
             errorCode?: number;
@@ -60562,8 +61788,10 @@ export interface components {
             disable?: boolean;
             /** @description Profile ID */
             profileId?: string;
-            /** @description Indicates whether to enable Profile Override */
+            /** @description Indicates whether to enable Profile Override before v6.2.10; Indicates the fill mode of port configuration after v6.2.10: true: custom; false: follow profile */
             profileOverrideEnable?: boolean;
+            /** @description Indicates the fill mode of vlan configuration: true: custom; false: follow profile */
+            profileVlanOverrideEnable?: boolean;
             /**
              * Format: int32
              * @description Link Speed should be a value as follows: 0: auto; 1: 10M; 2: 100M; 3: 1000M; 4: 2.5G; 5: 10G
@@ -60706,8 +61934,10 @@ export interface components {
             disable?: boolean;
             /** @description Profile ID */
             profileId?: string;
-            /** @description Indicates whether to enable Profile Override */
+            /** @description Indicates whether to enable Profile Override before v6.2.10; Indicates the fill mode of port configuration after v6.2.10: true: custom; false: follow profile */
             profileOverrideEnable?: boolean;
+            /** @description Indicates the fill mode of vlan configuration: true: custom; false: follow profile */
+            profileVlanOverrideEnable?: boolean;
             /**
              * Format: int32
              * @description Link Speed should be a value as follows: 0: auto; 1: 10M; 2: 100M; 3: 1000M; 4: 2.5G; 5: 10G
@@ -60851,8 +62081,10 @@ export interface components {
             disable?: boolean;
             /** @description Profile ID */
             profileId?: string;
-            /** @description Indicates whether to enable Profile Override */
+            /** @description Indicates whether to enable Profile Override before v6.2.10; Indicates the fill mode of port configuration after v6.2.10: true: custom; false: follow profile */
             profileOverrideEnable?: boolean;
+            /** @description Indicates the fill mode of vlan configuration: true: custom; false: follow profile */
+            profileVlanOverrideEnable?: boolean;
             /**
              * Format: int32
              * @description Link Speed should be a value as follows: 0: auto; 1: 10M; 2: 100M; 3: 1000M; 4: 2.5G; 5: 10G
@@ -61453,6 +62685,27 @@ export interface components {
              *     Username and Password should not be the same.
              */
             password?: string;
+            /**
+             * Format: int32
+             * @description Security Level should be a value as follows: 0: NoAuthNoPriv; 1: AuthNoPriv; 2: AuthPriv
+             */
+            securityLevel?: number;
+            /**
+             * Format: int32
+             * @description Authentication Mode should be a value as follows: 1: MD5; 2: SHA. When Security Level is AuthNoPriv or AuthPriv, this field is required
+             */
+            authMode?: number;
+            /**
+             * Format: int32
+             * @description Privacy Mode should be a value as follows: 1: DES; 2: AES. When Security Level is AuthPriv, this field is required
+             */
+            privacyMode?: number;
+            /**
+             * @description The privacy password should contain at least 10 characters, using a combination of numbers, letters or special characters.
+             *     The privacy password should not contain consecutive identical characters.
+             *     Username and privacy password should not be the same.
+             */
+            privacyPassword?: string;
         };
         /** @description DNS Override setting, valid when parameter [type] is 3 */
         DnsOverrideSettingOpenApiVO: {
@@ -61583,6 +62836,8 @@ export interface components {
             clientIp?: string;
             /** @description Free auth client MAC Address, for example: AA-AA-AA-AA-AA-AA */
             clientMac?: string;
+            /** @description Description of Pre-Authentication Access Policy */
+            description?: string;
         };
         PortalAccessControlOpenApiVO: {
             /** @description Whether to enable Pre-Authentication Access. If parameter [preAuthAccessEnable] is true, parameter [preAuthAccessPolicies] is needed */
@@ -61615,6 +62870,8 @@ export interface components {
             subnetMask?: number;
             /** @description URL of Pre-Authentication Access */
             url?: string;
+            /** @description Description of Pre-Authentication Access Policy */
+            description?: string;
         };
         OperationResponsePortalAccessControlOpenApiVO: {
             /** Format: int32 */
@@ -62611,8 +63868,10 @@ export interface components {
             voiceBridgeVlan?: number;
             /** @description Profile ID */
             profileId?: string;
-            /** @description Indicates whether to enable Profile Override */
+            /** @description Indicates whether to enable Profile Override before v6.2.10; Indicates the fill mode of port configuration after v6.2.10: true: custom; false: follow profile */
             profileOverrideEnable?: boolean;
+            /** @description Indicates the fill mode of vlan configuration: true: custom; false: follow profile */
+            profileVlanOverrideEnable?: boolean;
         };
         EasyManagedSwitchGeneralConfig: {
             /** @description Device name should contain 1 to 32 characters. */
@@ -62853,7 +64112,7 @@ export interface components {
             loopbackDetectEnable?: boolean;
             /**
              * Format: int32
-             * @description Spanning Tree Protocol should be a value as follows: 1: STP; 2: RSTP; 3: MSTP; 0: OFF
+             * @description Spanning Tree Protocol should be a value as follows: 1: STP; 2: RSTP; 3: MSTP; 4: RPVST 0: OFF
              */
             stp?: number;
             snmp?: components["schemas"]["OswSnmpVO"];
@@ -62887,7 +64146,7 @@ export interface components {
              * @description STP maxHops should be should be within the range of 1-40
              */
             maxHops?: number;
-            mstp?: components["schemas"]["OswStpMstpConfig"];
+            mstp?: components["schemas"]["OswStpRpvstVO"];
             /** @description Tag ID List */
             tagIds?: string[];
             /**
@@ -62907,39 +64166,6 @@ export interface components {
              * @description Whether to remember the device.RememberDevice should be a value as follows: 0:off, 1:on, 2: follow site
              */
             rememberDevice?: number;
-        };
-        /** @description Instances */
-        OswStpInstanceConfig: {
-            /**
-             * Format: int32
-             * @description ID
-             */
-            id: number;
-            /**
-             * Format: int32
-             * @description Priority
-             */
-            priority: number;
-            /** @description Parameter [vlan] should be between 1 and 4094. */
-            vlan: string;
-        };
-        /** @description STP MSTP mode settging */
-        OswStpMstpConfig: {
-            region: components["schemas"]["OswStpRegionConfig"];
-            /** @description Instances */
-            instances: components["schemas"]["OswStpInstanceConfig"][];
-        };
-        /** @description Region */
-        OswStpRegionConfig: {
-            /** Format: int64 */
-            rebootDelay?: number;
-            /** @description Name */
-            name?: string;
-            /**
-             * Format: int32
-             * @description Revision
-             */
-            revision: number;
         };
         ModifyVoipDeviceApSettingEntity: {
             voipDeviceApConfiguration?: components["schemas"]["VoipDeviceApConfigurationOpenApiVO"];
@@ -63167,6 +64393,41 @@ export interface components {
              * @description Parameter [duration] should be from 20 to 120.
              */
             duration?: number;
+        };
+        NatTraversalTunnelModifyOpenApiVO: {
+            /** @description Name of the remote access tunnel. */
+            name?: string;
+            /** @description IP address of the local target device. */
+            localAddress?: string;
+            /**
+             * Format: int32
+             * @description Port of the local target device's service.
+             */
+            localPort?: number;
+            /**
+             * Format: int32
+             * @description Valid duration time of the remote access tunnel, 1-24 hours.
+             */
+            duration?: number;
+            /** @description App type of the remote access tunnel for the local target device. HTTP, HTTPS, SSH, TELNET. */
+            appType: string;
+            /** @description If open the remote access tunnel after create. */
+            openStatus?: boolean;
+            /** @description Mac of the local target device. */
+            localMac?: string;
+            /** @description Client's manager of the remote access tunnel for the client. */
+            clientManager?: boolean;
+            /** @description Client's name of the remote access tunnel for the client. */
+            clientName?: string;
+            /** @description Client's type of the remote access tunnel for the client. */
+            clientDeviceType?: string;
+            /** @description Client's model of the remote access tunnel for the client. */
+            clientModel?: string;
+            /**
+             * Format: int32
+             * @description Entry of the remote access tunnel.1: custom tunnel 2: device tunnel 3:device detail 4:client detail
+             */
+            tunnelEntryType?: number;
         };
         NatTraversalTunnelOpenVO: {
             /** @description Enable/Disable existing remote access tunnel. True: Enable, False: Disable */
@@ -63815,12 +65076,6 @@ export interface components {
             /** @description Contact, contact should contain 0 to 128 ASCII characters, spaces are not allowed. */
             contact?: string;
         };
-        OperationResponseApServicesConfigOpenApiVO: {
-            /** Format: int32 */
-            errorCode?: number;
-            msg?: string;
-            result?: components["schemas"]["ApServicesConfigOpenApiVO"];
-        };
         /** @description Radio Setting */
         ApRadioSetting: {
             /** @description Enable/Disable radio setting(if false, other params is not required) */
@@ -64116,9 +65371,35 @@ export interface components {
         };
         ApBridgeConfig: {
             /** @description Bridge SSID name. It should contain 1 to 32 UTF-8 characters. */
-            bridgeSsidName: string;
+            bridgeSsidName?: string;
             /** @description Bridge SSID password. It should contain 8-63 printable ASCII characters. */
-            bridgeSsidPassword: string;
+            bridgeSsidPassword?: string;
+            /**
+             * Format: int32
+             * @description Bridge DIP Switch config status. 0: disable, 1: enable.
+             */
+            hwSwitch?: number;
+            tdmaConfig?: components["schemas"]["ApBridgeTdmaConfigVO"];
+        };
+        /** @description Bridge TDMA config. */
+        ApBridgeTdmaConfigVO: {
+            /**
+             * Format: int32
+             * @description Bridge TDMA config status. 0: disable, 1: enable.
+             */
+            status: number;
+            /** @description Bridge TDMA Client config. */
+            clients?: components["schemas"]["BridgeClientApConfigVO"][];
+        };
+        /** @description Bridge TDMA Client config. */
+        BridgeClientApConfigVO: {
+            /** @description Bridge TDMA Client AP mac. */
+            mac: string;
+            /**
+             * Format: int32
+             * @description Bridge TDMA Client AP priority config. 0: high, 1:base, 2:low.
+             */
+            priority?: number;
         };
         UpdateApAnteGainConfig: {
             /** @description Antenna gain list. */
@@ -65063,8 +66344,17 @@ export interface components {
              * @description Blocked Type
              */
             blockedType?: number;
+            /** @description Blocked Or Not */
+            blocked?: boolean;
+            /**
+             * Format: int32
+             * @description Remain Block Num
+             */
+            remainBlockNum?: number;
             upLinkPort?: components["schemas"]["WiredPortV3DTO"];
             port?: components["schemas"]["WiredPortV3DTO"];
+            /** @description Remain Blocked PortList */
+            remainBlockedPortList?: components["schemas"]["TopologyOpenApiEdgeVO"][];
         };
         /** @description Topology Health Status */
         TopologyOpenApiHealthStatusVO: {
@@ -65805,6 +67095,12 @@ export interface components {
             msg?: string;
             result?: components["schemas"]["InterfaceForBatchIsolateOpenApiVO"][];
         };
+        OperationResponseWlanGroupOpenApiVO: {
+            /** Format: int32 */
+            errorCode?: number;
+            msg?: string;
+            result?: components["schemas"]["WlanGroupOpenApiVO"];
+        };
         OperationResponseVpnUserOpenApiGridVOVpnUserInfoVO: {
             /** Format: int32 */
             errorCode?: number;
@@ -65969,6 +67265,11 @@ export interface components {
              * @description The limit on the number of entries for remote subnets and local network.
              */
             subnetsLimitSize?: number;
+            /**
+             * Format: int32
+             * @description The limit on the number of entries for peer in WireGuard.
+             */
+            wgPeerLimitSize?: number;
             /** @description Whether manual Wire Guard in site to site supports local network. */
             supportManualWgLocalNetwork?: boolean;
             /** @description Whether auto Wire Guard in site to site is supported. */
@@ -67015,6 +68316,58 @@ export interface components {
             flag?: number;
             /** @description Marks profiles that cannot be modified */
             prohibitModify?: boolean;
+            /** @description Vlan configuration enable status */
+            vlanConfigEnable: boolean;
+            /**
+             * Format: int32
+             * @description network Tags configuration mode should be a value as follows: 0:allow all, 1:block all, 2:custom
+             */
+            networkTagsSetting: number;
+            /** @description Native Network ID, Native Network cannot be selected from Tagged Networks or Untagged Networks. */
+            nativeNetworkId?: string;
+            /**
+             * Format: int32
+             * @description Native Network Bridge Vlan.
+             */
+            nativeBridgeVlan?: number;
+            /** @description Tag Network IDs */
+            tagNetworkIds?: string[];
+            /** @description Tag Network Bridge Vlan Map */
+            tagBridgeVlanMap?: {
+                [key: string]: number[];
+            };
+            /** @description Untag Network IDs */
+            untagNetworkIds?: string[];
+            /** @description Untag Network Bridge Vlan Map */
+            untagBridgeVlanMap?: {
+                [key: string]: number[];
+            };
+            /** @description Indicates whether voice network is enabled */
+            voiceNetworkEnable?: boolean;
+            /** @description Voice Network ID */
+            voiceNetworkId?: string;
+            /**
+             * Format: int32
+             * @description Voice Network Bridge Vlan
+             */
+            voiceBridgeVlan?: number;
+            /** @description Indicates whether voice DSCP is enabled */
+            voiceDscpEnable?: boolean;
+            /**
+             * Format: int32
+             * @description Voice DSCP
+             */
+            voiceDscp?: number;
+            /** @description ES enable status */
+            esEnable?: boolean;
+            /** @description Indicates whether ES Tagged is modified */
+            esTaggedModified?: boolean;
+            /** @description ES enable tagged network ids */
+            esEnableTaggedNetworkIds?: string[];
+            /** @description Es enable tagged bridge vlan map */
+            esEnableTagBridgeVlanMap?: {
+                [key: string]: number[];
+            };
             /** @description Name should contain 1 to 128 characters. */
             name: string;
             /**
@@ -68452,6 +69805,14 @@ export interface components {
             /** @description SSID VLAN POOL IDs. This field is required when Parameter [vlanEnable] is true; The numbers contain in it should be within the range of 1–4094. */
             vlanPoolIds?: string;
         };
+        /** @description SSID Band Steer config. */
+        BandSteerOpenApiVO: {
+            /**
+             * Format: int32
+             * @description should be a value as follows: 0:Disable; 1:Prefer 5GHz/6GHz; 2:Balance; 3:Use site setting.
+             */
+            mode: number;
+        };
         /** @description Hotspot 2.0 is a WFA (Wi-Fi Alliance) technical specification based on IEEE 802.11u protocol.<br />It provides a simplified mechanism for wireless clients to discover and connect to suitable networks and switch seamlessly between mobile networks and wireless networks. */
         HotspotV2SettingOpenApiVO: {
             /** @description Whether Hotspot2.0 is enabled.<br />If hotspot2.0 is disabled, other parameters in Hotspot2.0 will be invalid. */
@@ -68555,6 +69916,11 @@ export interface components {
             /** @description SSID prohibitWifiShare config status. True: enable, false: disable. */
             prohibitWifiShare?: boolean;
             hotspotV2Setting?: components["schemas"]["HotspotV2SettingOpenApiVO"];
+            /** @description SSID Wifi Calling config status. True: enable, false: disable. */
+            wifiCallingEnable?: boolean;
+            /** @description The ID of the Wi-Fi calling profile bound to the SSID. When parameter [wifiCallingEnable] is true, it should not be null. */
+            wifiCallingId?: string;
+            ssidDhcpOption?: components["schemas"]["BandSteerOpenApiVO"];
         };
         /** @description SSID DHCP Option 82 config. */
         SsidDhcpOptionOpenApiVO: {
@@ -70059,49 +71425,49 @@ export interface components {
             /** @description The IoT Transport Stream entry ID. */
             id?: string;
             /** @description IoT Transport Stream setting name. */
-            name: string;
+            name_iotServer: string;
             /** @description Whether to enable the IoT Transport Stream setting. */
-            enable: boolean;
+            enable_iotServer: boolean;
             /** @description If the service type is http, the server URL must start with http://. */
-            serverUrl: string;
+            serverUrl_iotServer: string;
             /**
              * Format: int32
              * @description The server type should be a value as follows: [0: http].
              */
-            serverType: number;
+            serverType_iotServer: number;
             /** @description Supports protocol-based filtering during IoT data reporting processes.<br />The device class list should contain the value as follows: [0:minew; 1:iBeacon; 2:Eddystone]. */
-            deviceClasses: number[];
+            deviceClasses_iotServer: number[];
             /**
              * Format: int32
              * @description Data reporting interval configuration for AP devices in IoT systems.
              */
-            reportInterval?: number;
+            reportInterval_iotServer?: number;
             /**
              * Format: int32
              * @description The parameter [authentication] should be a value as follows:[0:Use Token].
              */
-            authentication: number;
+            authentication_iotServer: number;
             /** @description This parameter becomes mandatory when the authentication method is set to "Use Token".<br/>Note:The parameter [clientId] should be 1 ~ 128 characters. */
-            accessToken?: string;
+            accessToken_iotServer?: string;
             /** @description This parameter becomes mandatory when the authentication method is set to "Use Token".<br />Note:The parameter [clientId] should be 1 ~ 128 characters. */
-            clientId?: string;
+            clientId_iotServer?: string;
             /**
              * Format: int32
              * @description The signal strength reporting format currently supports five types: [0:Average; 1:Max; 2:Last; 3:Smooth; 4:Bulk].
              */
-            rssiFormat: number;
+            rssiFormat_iotServer: number;
             /** @description User-defined settings to manage AP device filtering rules for IoT devices.<br />The parameter [filtersType] should contain the value as follows:[0:Company Identifier; 1:Vendor; 2:Local Name; 3:Service UUID; 4:Mac Oui; 5:iBeacon UUID; 6:UID; 7:URL]. */
-            filtersType?: number[];
+            filtersType_iotServer?: number[];
             /** @description The keys in the [filters] map represent the filter types, while the values correspond to the specific filtering criteria or values associated with each filter type.<br />Note:<br />Filter type = 0, The Company Identifier must conform to a 4-digit or 6-digit hexadecimal encoding. It is only applicable to ibeacon devices<br />Filter type = 1, The Vendor should not exceed 255 bytes in length.<br />Filter type = 2, The Local Name should not exceed 120 bytes in length. It is only applicable to minew devices.<br />Filter type = 3, The Service UUID must conform to a 4-digit hexadecimal encoding. It is only applicable to minew and eddystone devices.<br />Filter type = 4, The Mac Oui must conform to a 6-digit hexadecimal encoding.<br />Filter type = 5, The iBeacon UUID must conform to a 32-digit hexadecimal encoding. It is only applicable to iBeacon devices.<br />Filter type = 6, The UID must conform to a 20-digit or 32-digit hexadecimal encoding. It is only applicable to eddystone devices.<br />Filter type = 7, The URL should not include a scheme. It is only applicable to eddystone devices.<br /> */
-            filters?: {
+            filters_iotServer?: {
                 [key: string]: string[];
             };
             /** @description A switch that controls whether the AP device exclusively reports the count of IoT devices. */
-            countOnly?: boolean;
+            countOnly_iotServer?: boolean;
             /** @description Whether to enable the BLE Periodic Telemetry. When disabled no periodic packets will be uploaded. */
-            blePeriodicTelemetry: boolean;
+            blePeriodicTelemetry_iotServer: boolean;
             /** @description Whether to enable the BLE Data Forwarding. When enabled, the AP directly reports the Bluetooth packet rawData to the server. */
-            rawData: boolean;
+            rawData_iotServer: boolean;
         };
         OperationResponseSiteServiceGeneralConfigOpenApiVO: {
             /** Format: int32 */
@@ -70467,6 +71833,11 @@ export interface components {
              * @description Fail message type. -1: Success. 0: Failed to optimize device because of no scan result. 1: Failed to apply deploy config because the device is not connected or the configuration is invalid.
              */
             failMsgType?: number;
+            /**
+             * Format: int32
+             * @description Trigger reason. 0: none. 1: Strong Interference. 2: new ap
+             */
+            triggerReason?: number;
         };
         /** @description Optimization results in band 6 GHz. */
         ApPlanningRadioVO: {
@@ -70710,6 +72081,27 @@ export interface components {
             outBandwidth?: number;
             /** @description The ratio of class type, value's format is [class1 ratio, class2 ratio, class3 ratio, others ratio]. */
             classRatio?: number[];
+        };
+        OperationResponseListWifiCallingProfileOpenApiVO: {
+            /** Format: int32 */
+            errorCode?: number;
+            msg?: string;
+            result?: components["schemas"]["WifiCallingProfileOpenApiVO"][];
+        };
+        WifiCallingProfileOpenApiVO: {
+            /** @description Wi-Fi Calling Profile ID */
+            id?: string;
+            /** @description Wi-Fi Calling Profile Name. It should contain 1 to 32 UTF-8 characters. */
+            name?: string;
+            /** @description The Description of Wi-Fi Calling Profile. It should contain 1 to 32 UTF-8 characters. */
+            description?: string;
+            /** @description carrierList */
+            carrierList?: components["schemas"]["CarrierOpenApiVO"][];
+            /**
+             * Format: int32
+             * @description The incident notifiction setting creation resource, such as: 0: new created, 1: from template, 2: override.
+             */
+            resource?: number;
         };
         GatewayQosServiceDetailOpenApiVO: {
             /** @description The ID of Gateway QoS Service. */
@@ -71433,7 +72825,7 @@ export interface components {
             termsOfServiceEnable?: boolean;
             /** @description Service Terms Content */
             termsOfService?: string;
-            /** @description Terms of service text, should contain 0 to 100 characters */
+            /** @description Terms of service text, should contain 0 to 512 characters */
             termsOfServiceText?: string;
             /**
              * Format: int32
@@ -71553,6 +72945,13 @@ export interface components {
             pcAlign?: number;
             /** @description Whether to use different images in mobile and PC devices */
             enableDeviceSpecificBg?: boolean;
+            /** @description Language Selector text color. Hex color code such as: #ffffff. */
+            languageSelectorTextColor?: string;
+            /**
+             * Format: int32
+             * @description Language Selector text opacity, should be within the range of 0–100.
+             */
+            languageSelectorTextOpacity?: number;
         };
         OperationResponseOuiGridVOOuiProfileQueryOpenApiVO: {
             /** Format: int32 */
@@ -71944,6 +73343,10 @@ export interface components {
             uptime?: string;
             /** Format: int64 */
             uptimeLong?: number;
+            /** Format: int32 */
+            cpuUtil?: number;
+            /** Format: int32 */
+            memUtil?: number;
             /** Format: double */
             poeTotalPower?: number;
             /** Format: double */
@@ -73644,8 +75047,10 @@ export interface components {
             profileId?: string;
             /** @description Lan Profile Name */
             profileName?: string;
-            /** @description Indicates whether to enable Profile Override */
+            /** @description Indicates whether to enable Profile Override before v6.2.10; Indicates the fill mode of port configuration after v6.2.10: true: custom; false: follow profile */
             profileOverrideEnable?: boolean;
+            /** @description Indicates the fill mode of vlan configuration: true: custom; false: follow profile */
+            profileVlanOverrideEnable?: boolean;
             /**
              * Format: int32
              * @description Link Speed should be a value as follows: 0: auto; 1: 10M; 2: 100M; 3: 1000M; 4: 2.5G; 5: 10G
@@ -75185,6 +76590,8 @@ export interface components {
             supportShowServerInReservation?: boolean;
             /** @description Whether support speedTest. */
             speedTest?: boolean;
+            /** @description Whether support natTraversal. */
+            natTraversal?: boolean;
         };
         BindSiteBriefOpenApiVO: {
             /** @description Site Template ID */
@@ -77667,6 +79074,41 @@ export interface components {
             /** @description Capabilities */
             capabilities?: string;
         };
+        OperationResponseOswL3SdmApplicationVO: {
+            /** Format: int32 */
+            errorCode?: number;
+            msg?: string;
+            result?: components["schemas"]["OswL3SdmApplicationVO"];
+        };
+        OswL3SdmApplicationVO: {
+            /** @description Current used sdm template. */
+            curTmplName?: string;
+            /** @description The list contains usage details of SDM resources on the device, including used and available resources. */
+            sdmResourceUsageList?: components["schemas"]["SdmResourceUsage"][];
+            /**
+             * Format: int32
+             * @description The overall TCAM utilization, calculated as usedTcam / totalTcam.
+             */
+            tcamUtilization?: number;
+        };
+        /** @description The list contains usage details of SDM resources on the device, including used and available resources. */
+        SdmResourceUsage: {
+            /**
+             * Format: int32
+             * @description It should be a value as follows: 0:Packet Control,  1:Packet Control V6 , 2:MAC ACL Ingress,  3:IP ACL Ingress,  4:IPV6 ACL Ingress,  5:Combined ACL Ingress,  6:MAC Diffserv Ingress, 7:IP Diffserv Ingress,  8:IPV6 Diffserv Ingress,  9:MAC Diffserv Egress,  10:IP Diffserv Egress,  11:IPV6 Diffserv Egress,  12:Voice VLAN,  13:QoS VLAN,  14:VLAN VPN Ingress,  15:VLAN VPN Egress,  16:IPV4 Source Guard,  17:IPV6 Source Guard,  18:CPP Egress,  19:VRF,  20:Tunnel V4,  21:Tunnel V6 Stage0,  22:Tunnel V6 Stage1,  23:MPLS UNI,  24:MPLS NNI0,  25:MPLS NNI1,  26:VXLAN V4 UNI,  27:VXLAN V6 UNI,  28:VXLAN V4 NNI Stage0,  29:VXLAN V4 NNI Stage1,  30:VXLAN V6 NNI Stage0,  31:VXLAN V6 NNI Stage1,  32:BFD V4,  33:BFD V6,  34:VXLAN Passenger,  35:QoS Rule V4,  36:QoS Rule V6 .
+             */
+            category?: number;
+            /**
+             * Format: int32
+             * @description The number of entries currently used by the feature.
+             */
+            usedNum?: number;
+            /**
+             * Format: int32
+             * @description The number of entries currently available for use by the feature.
+             */
+            freeNum?: number;
+        };
         /** @description Error frame health info and score */
         CommonSubHealthInfoDetailVO: {
             /**
@@ -79377,6 +80819,12 @@ export interface components {
              * @description The maximum unit number supported by the device
              */
             maxStackUnitNumber?: number;
+            /** @description Indicates whether the member device supports configuring the link speed of the stack port aggregation group */
+            supportStackGroupSpeed?: boolean;
+            /** @description Ports capability that support configuration as stack port */
+            stackPortConfigCaps?: components["schemas"]["OswStackPortCapVO"][];
+            /** @description Stack port aggregation group default link speed capability */
+            defaultGroupSpeedCap?: number[];
             /** @description Ports */
             ports?: components["schemas"]["OswStackMemberPortVO"][];
             /** @description Stack ports */
@@ -79411,6 +80859,18 @@ export interface components {
              * @description The number of MSTP instances
              */
             mstpInsNum?: number;
+            /**
+             * Format: int32
+             * @description The range of MSTP instanceId
+             */
+            mstpInsNo?: number;
+            /** @description Indicates whether the switch supports rpvst */
+            rpvstExtendSupport?: boolean;
+            /**
+             * Format: int32
+             * @description The number of RPVST instances
+             */
+            rpvstInsNum?: number;
             /** @description Indicates whether the switch supports cable test */
             supportCableTest?: boolean;
             /** @description Indicates whether the switch supports pinging domain */
@@ -79428,6 +80888,8 @@ export interface components {
             supportDhcpReservation?: boolean;
             /** @description Whether the device supports DHCP relay multi Server */
             supportRelayMultiServer?: boolean;
+            /** @description Whether the device supports returning TPCL resource information */
+            supportTpclResInfo?: boolean;
             /**
              * Format: int32
              * @description Max DHCP relay server num
@@ -79442,6 +80904,41 @@ export interface components {
             /** @description Indicates whether the switch supports Vrf */
             supportVrf?: boolean;
             licenseStatusStr?: string;
+        };
+        OperationResponseOswStackSdmApplicationVO: {
+            /** Format: int32 */
+            errorCode?: number;
+            msg?: string;
+            result?: components["schemas"]["OswStackSdmApplicationVO"];
+        };
+        /** @description The sdm resources usage detail of stack members */
+        OswStackMemberSdmVO: {
+            /** @description Mac of device. */
+            deviceMac?: string;
+            /** @description Device model. */
+            model?: string;
+            /** @description Device model Version. */
+            modelVersion?: string;
+            /** @description Whether the device is the master unit in a stack. */
+            isStackMaster?: boolean;
+            /**
+             * Format: int32
+             * @description Device status.
+             */
+            status?: number;
+            /** @description The list contains usage details of SDM resources on the device, including used and available resources. */
+            sdmResourceUsageList?: components["schemas"]["SdmResourceUsage"][];
+        };
+        OswStackSdmApplicationVO: {
+            /** @description Current used sdm template. */
+            curTmplName?: string;
+            /**
+             * Format: int32
+             * @description The overall TCAM utilization, calculated as usedTcam / totalTcam.
+             */
+            tcamUtilization?: number;
+            /** @description The sdm resources usage detail of stack members */
+            stackMemberSdmList?: components["schemas"]["OswStackMemberSdmVO"][];
         };
         GridVOStackRoutingOpenApiVO: {
             /**
@@ -80720,6 +82217,237 @@ export interface components {
              */
             failType?: number;
         };
+        /** @description The current detail of ap density displayed on the WIFI Dashboard page. */
+        ApDensityCurrentDetailOpenApiVO: {
+            /** @description The current detail of high ap density metrics displayed on the WIFI Dashboard page. */
+            currentApDensityHighInfo?: components["schemas"]["ApDensityInfoOpenApiVO"][];
+            /** @description The current detail of medium ap density metrics displayed on the WIFI Dashboard page. */
+            currentApDensityMediumInfo?: components["schemas"]["ApDensityInfoOpenApiVO"][];
+            /** @description The current detail of low ap density metrics displayed on the WIFI Dashboard page. */
+            currentApDensityLowInfo?: components["schemas"]["ApDensityInfoOpenApiVO"][];
+            /** @description The current detail of no ap density metrics displayed on the WIFI Dashboard page. */
+            noDataList?: components["schemas"]["BaseApInfoOpenApiVO"][];
+        };
+        /** @description The current detail of low ap density metrics displayed on the WIFI Dashboard page. */
+        ApDensityInfoOpenApiVO: {
+            /** @description The name of ap. */
+            name?: string;
+            /** @description The mac of ap. */
+            mac?: string;
+            /** @description The model of ap. */
+            model?: string;
+            /** @description The modelVersion of ap. */
+            modelVersion?: string;
+            /** @description The type of ap. */
+            type?: string;
+            /** @description This flag indicates whether data exists. */
+            noData?: boolean;
+            /**
+             * Format: int32
+             * @description The no data reason of ap.
+             */
+            noDataReason?: number;
+            /**
+             * Format: int32
+             * @description The neighbor ap percent
+             */
+            neighborApNum?: number;
+        };
+        /** @description The trend of ap density metrics displayed on the WIFI Dashboard page. */
+        ApDensityItemOpenApiVO: {
+            /**
+             * Format: int64
+             * @description Time(unit:ms)
+             */
+            time?: number;
+            /**
+             * Format: int32
+             * @description The number of dense Ap.
+             */
+            denseApNum?: number;
+            /**
+             * Format: int32
+             * @description The percent of dense Ap.
+             */
+            denseApPercent?: number;
+            /**
+             * Format: int32
+             * @description The number of moderate Ap.
+             */
+            moderateApNum?: number;
+            /**
+             * Format: int32
+             * @description The percent of moderate Ap.
+             */
+            moderateApPercent?: number;
+            /**
+             * Format: int32
+             * @description The number of sparse Ap.
+             */
+            sparseApNum?: number;
+            /**
+             * Format: int32
+             * @description The percent of sparse Ap.
+             */
+            sparseApPercent?: number;
+        };
+        /** @description The trend of ap density displayed on the WIFI Dashboard page. */
+        ApDensityTrendDetailOpenApiVO: {
+            /** @description The trend of ap density metrics displayed on the WIFI Dashboard page. */
+            apDensityItemList?: components["schemas"]["ApDensityItemOpenApiVO"][];
+        };
+        /** @description The current detail of low CCI metrics displayed on the WIFI Dashboard page. */
+        ApDetailCciInfoOpenApiOpenApiVO: {
+            /** @description The name of ap. */
+            name?: string;
+            /** @description The mac of ap. */
+            mac?: string;
+            /** @description The model of ap. */
+            model?: string;
+            /** @description The modelVersion of ap. */
+            modelVersion?: string;
+            /** @description The type of ap. */
+            type?: string;
+            /** @description This flag indicates whether data exists. */
+            noData?: boolean;
+            /**
+             * Format: int32
+             * @description The no data reason of ap.
+             */
+            noDataReason?: number;
+            /**
+             * Format: int32
+             * @description The channel of ap.
+             */
+            channel?: number;
+            /**
+             * Format: int32
+             * @description The channel of 5g2 radio of ap.
+             */
+            channel5g2?: number;
+            /**
+             * Format: int32
+             * @description The total CCI level of ap.
+             */
+            totalLevel?: number;
+            /**
+             * Format: int32
+             * @description The total CCI level percent of ap.
+             */
+            totalLevelPercent?: number;
+            /**
+             * Format: int32
+             * @description The inSite CCI level of ap.
+             */
+            inSiteLevel?: number;
+            /**
+             * Format: int32
+             * @description The inSite CCI level percent of ap.
+             */
+            inSiteLevelPercent?: number;
+            /**
+             * Format: int32
+             * @description The outSite CCI level of ap.
+             */
+            outSiteLevel?: number;
+            /**
+             * Format: int32
+             * @description The outSite CCI level percent of ap.
+             */
+            outSiteLevelPercent?: number;
+        };
+        /** @description The current detail of no ap density metrics displayed on the WIFI Dashboard page. */
+        BaseApInfoOpenApiVO: {
+            /** @description The name of ap. */
+            name?: string;
+            /** @description The mac of ap. */
+            mac?: string;
+            /** @description The model of ap. */
+            model?: string;
+            /** @description The modelVersion of ap. */
+            modelVersion?: string;
+            /** @description The type of ap. */
+            type?: string;
+            /** @description This flag indicates whether data exists. */
+            noData?: boolean;
+            /**
+             * Format: int32
+             * @description The no data reason of ap.
+             */
+            noDataReason?: number;
+        };
+        /** @description The current detail of CCI metrics displayed on the WIFI Dashboard page. */
+        CciCurrentDetailOpenApiVO: {
+            /** @description The current detail of high CCI metrics displayed on the WIFI Dashboard page. */
+            currentHighCciInfoList?: components["schemas"]["ApDetailCciInfoOpenApiOpenApiVO"][];
+            /** @description The current detail of medium CCI metrics displayed on the WIFI Dashboard page. */
+            currentMediumCciInfoList?: components["schemas"]["ApDetailCciInfoOpenApiOpenApiVO"][];
+            /** @description The current detail of low CCI metrics displayed on the WIFI Dashboard page. */
+            currentLowCciInfoList?: components["schemas"]["ApDetailCciInfoOpenApiOpenApiVO"][];
+            /** @description The current detail of no CCI metrics displayed on the WIFI Dashboard page. */
+            noDataList?: components["schemas"]["BaseApInfoOpenApiVO"][];
+        };
+        /** @description The trend of CCI metrics displayed on the WIFI Dashboard page. */
+        CciTrendDetailOpenApiVO: {
+            /** @description The trend of CCI metrics displayed on the WIFI Dashboard page. */
+            cciTrendItemList?: components["schemas"]["CciTrendItemOpenApiOpenApiVO"][];
+        };
+        /** @description The trend of CCI metrics displayed on the WIFI Dashboard page. */
+        CciTrendItemOpenApiOpenApiVO: {
+            /**
+             * Format: int64
+             * @description Time(unit:ms)
+             */
+            time?: number;
+            /**
+             * Format: int32
+             * @description The number of strong Interference Ap.
+             */
+            strongInterferenceApNum?: number;
+            /**
+             * Format: int32
+             * @description The percent of strong Interference Ap.
+             */
+            strongInterferenceApPercent?: number;
+            /**
+             * Format: int32
+             * @description The number of moderate Interference Ap.
+             */
+            moderateInterferenceApNum?: number;
+            /**
+             * Format: int32
+             * @description The percent of moderate Interference Ap.
+             */
+            moderateInterferenceApPercent?: number;
+            /**
+             * Format: int32
+             * @description The number of weak Interference Ap.
+             */
+            weakInterferenceApNum?: number;
+            /**
+             * Format: int32
+             * @description The percent of weak Interference Ap.
+             */
+            weakInterferenceApPercent?: number;
+        };
+        OperationResponseWlanOptDashBoardOpenApiVO: {
+            /** Format: int32 */
+            errorCode?: number;
+            msg?: string;
+            result?: components["schemas"]["WlanOptDashBoardOpenApiVO"];
+        };
+        /** @description The RRM 6G radio metrics displayed on the WIFI Dashboard page. */
+        WlanOptDashBoardDetailOpenApiVO: {
+            cciTrendDetail?: components["schemas"]["CciTrendDetailOpenApiVO"];
+            cciCurrentDetail?: components["schemas"]["CciCurrentDetailOpenApiVO"];
+            apDensityTrendDetail?: components["schemas"]["ApDensityTrendDetailOpenApiVO"];
+            apDensityCurrentDetail?: components["schemas"]["ApDensityCurrentDetailOpenApiVO"];
+        };
+        WlanOptDashBoardOpenApiVO: {
+            wlanOptDashBoardDetail2g?: components["schemas"]["WlanOptDashBoardDetailOpenApiVO"];
+            wlanOptDashBoardDetail5g?: components["schemas"]["WlanOptDashBoardDetailOpenApiVO"];
+            wlanOptDashBoardDetail6g?: components["schemas"]["WlanOptDashBoardDetailOpenApiVO"];
+        };
         OperationResponseListReportTab: {
             /** Format: int32 */
             errorCode?: number;
@@ -80820,6 +82548,10 @@ export interface components {
             supportWebAutoLogin?: boolean;
             /** @description If the remote access tunnel supports SSH and telnet connections. */
             supportSshTelnetTunnel?: boolean;
+            /** @description If the remote access tunnel supports HTTP and HTTPS connections. */
+            supportHttpHttpsTunnel?: boolean;
+            /** @description Nat traversal tunnel eweb host */
+            ewebHost?: string;
         };
         OperationResponseNatTraversalTunnelGridVONatTraversalTunnelVO: {
             /** Format: int32 */
@@ -80846,6 +82578,18 @@ export interface components {
             msg?: string;
             result?: components["schemas"]["NatTraversalSingleTunnelStatusVO"];
         };
+        NatTraversalEwebInfoVO: {
+            /** @description Nat traversal tunnel eweb host */
+            ewebHost?: string;
+            /** @description Nat traversal tunnel auto login token */
+            autoLoginToken?: string;
+        };
+        OperationResponseNatTraversalEwebInfoVO: {
+            /** Format: int32 */
+            errorCode?: number;
+            msg?: string;
+            result?: components["schemas"]["NatTraversalEwebInfoVO"];
+        };
         NatTraversalTunnelsStatusVO: {
             tunnelsStatus?: components["schemas"]["NatTraversalSingleTunnelStatusVO"][];
         };
@@ -80854,6 +82598,12 @@ export interface components {
             errorCode?: number;
             msg?: string;
             result?: components["schemas"]["NatTraversalTunnelsStatusVO"];
+        };
+        OperationResponseNatTraversalTunnelVO: {
+            /** Format: int32 */
+            errorCode?: number;
+            msg?: string;
+            result?: components["schemas"]["NatTraversalTunnelVO"];
         };
         OperationResponseSiteRememberDeviceSetting: {
             /** Format: int32 */
@@ -80936,6 +82686,99 @@ export interface components {
             errorCode?: number;
             msg?: string;
             result?: components["schemas"]["GridVOClassRuleDetailOpenApiVO"];
+        };
+        OperationResponseWifiCallingTrafficGridOpenApiVOWifiCallingTrafficOpenApiVO: {
+            /** Format: int32 */
+            errorCode?: number;
+            msg?: string;
+            result?: components["schemas"]["WifiCallingTrafficGridOpenApiVOWifiCallingTrafficOpenApiVO"];
+        };
+        WifiCallingTrafficGridOpenApiVOWifiCallingTrafficOpenApiVO: {
+            /**
+             * Format: int64
+             * @description Total rows of all items.
+             */
+            totalRows?: number;
+            /**
+             * Format: int32
+             * @description Current page number.
+             */
+            currentPage?: number;
+            /**
+             * Format: int32
+             * @description Number of entries per page.
+             */
+            currentSize?: number;
+            data?: components["schemas"]["WifiCallingTrafficOpenApiVO"][];
+            /** @description Top k SSIDs based on voice call traffic statistics. */
+            topKSsids?: components["schemas"]["WifiCallingTrafficOpenApiVO"][];
+            /** @description Top k ePDGs based on voice call traffic statistics. */
+            topKEPDGs?: components["schemas"]["WifiCallingTrafficOpenApiVO"][];
+        };
+        /** @description Top k ePDGs based on voice call traffic statistics. */
+        WifiCallingTrafficOpenApiVO: {
+            /** @description Client name. */
+            clientName?: string;
+            /** @description The name of the AP device connected to the client. */
+            apName?: string;
+            /** @description Ap MAC. */
+            apMac?: string;
+            /** @description Client Mac Address */
+            clientMac?: string;
+            /** @description Client ip or ipv6. */
+            ip?: string;
+            /** @description Carrier name used by the client. */
+            carrierName?: string;
+            /** @description Wifi calling profile name used by the client. */
+            wifiCallingProfileName?: string;
+            /**
+             * Format: int32
+             * @description Priority of ePDG in the WiFi calling profile.
+             */
+            priority?: number;
+            /** @description The name of the SSID that the client is connected to. */
+            ssid?: string;
+            /**
+             * Format: int32
+             * @description SSID band. The lowest bit indicates whether 2.4G is included; the second lowest bit indicates whether 5G is included; the third lowest bit indicates whether 6G is included; 1 means included while 0 means not included. For example, 7(111) means that 2G/5G/6G are enabled; 1(001) means that 2G is enabled. (When 5G is included，it means 5G/5G1/5G2 are enabled.)
+             */
+            band?: number;
+            /** @description EPDG domain name or IP. */
+            domain?: string;
+            /**
+             * Format: int64
+             * @description Total traffic.
+             */
+            totalTraffic?: number;
+            /**
+             * Format: int64
+             * @description Downlink traffic related to voice calls.
+             */
+            trafficDown?: number;
+            /**
+             * Format: int64
+             * @description Uplink traffic related to voice calls.
+             */
+            trafficUp?: number;
+            /**
+             * Format: int64
+             * @description Start time of the voice call.
+             */
+            startTime?: number;
+            /**
+             * Format: int64
+             * @description End time of the voice call.
+             */
+            endTime?: number;
+            /**
+             * Format: int32
+             * @description Number of calls on the same client MAC.
+             */
+            callNum?: number;
+            /** @description Client device type. */
+            deviceType?: string;
+            /** @description Client model. */
+            model?: string;
         };
         GlobalPortalDomainOpenApiVO: {
             /** @description Whether Portal URL enable Auto Refresh */
@@ -84204,6 +86047,8 @@ export interface components {
             dhcpServerEnable?: boolean;
             /** @description Whether DHCP Setting is auto */
             dhcpSettingsAuto?: boolean;
+            /** @description Whether the device supports DHCP Reservation */
+            supportDhcpReservation?: boolean;
         };
         DhcpServerInfoUnderNetworkVO: {
             /** @description Networks With Dhcp Servers */
@@ -84438,29 +86283,11 @@ export interface components {
             /** @description With DMZ enabled, all ports are open and the traffic from external network will be forwarded to the specific destination IP in the LAN. */
             dMZ: boolean;
         };
-        GridVOOtoNatInfoOpenApiVO: {
-            /**
-             * Format: int64
-             * @description Total rows of all items.
-             */
-            totalRows?: number;
-            /**
-             * Format: int32
-             * @description Current page number.
-             */
-            currentPage?: number;
-            /**
-             * Format: int32
-             * @description Number of entries per page.
-             */
-            currentSize?: number;
-            data?: components["schemas"]["OtoNatInfoOpenApiVO"][];
-        };
-        OperationResponseGridVOOtoNatInfoOpenApiVO: {
+        OperationResponseOtoNatOpenApiGridVO: {
             /** Format: int32 */
             errorCode?: number;
             msg?: string;
-            result?: components["schemas"]["GridVOOtoNatInfoOpenApiVO"];
+            result?: components["schemas"]["OtoNatOpenApiGridVO"];
         };
         OtoNatInfoOpenApiVO: {
             /** @description ID */
@@ -84479,6 +86306,26 @@ export interface components {
             dmz: boolean;
             /** @description Description should contain 1 to 64 characters. */
             description?: string;
+        };
+        OtoNatOpenApiGridVO: {
+            /**
+             * Format: int64
+             * @description Total rows of all items.
+             */
+            totalRows?: number;
+            /**
+             * Format: int32
+             * @description Current page number.
+             */
+            currentPage?: number;
+            /**
+             * Format: int32
+             * @description Number of entries per page.
+             */
+            currentSize?: number;
+            data?: components["schemas"]["OtoNatInfoOpenApiVO"][];
+            /** @description Whether to support Dynamic IP, Static IP, PPPoE, L2TP, PPTP dialing type wan port */
+            supportGeneralDialingTypeWan?: boolean;
         };
         OperationResponseRollingUpgradeRes: {
             /** Format: int32 */
@@ -88219,6 +90066,8 @@ export interface components {
             dot1xEnable?: boolean;
             /** @description MAB enable status */
             mabEnable?: boolean;
+            /** @description Whether this port support configuring dot1x. */
+            supportDot1x?: boolean;
         };
         OperationResponseListDot1xEapInfoOpenApiVO: {
             /** Format: int32 */
@@ -89769,6 +91618,8 @@ export interface components {
             network?: string[];
             /** @description Ssid list. */
             ssid?: string[];
+            /** @description Device detail info list. */
+            deviceDetail?: components["schemas"]["ClientFilteringDeviceDetailOpenApiVO"][];
         };
         /** @description Type list of clients. */
         ClientCategoryOptionsOpenApiVO: {
@@ -89776,6 +91627,17 @@ export interface components {
             category?: string;
             /** @description Type list of clients. */
             type?: string[];
+        };
+        /** @description Device detail info list. */
+        ClientFilteringDeviceDetailOpenApiVO: {
+            /** @description Device MAC */
+            mac?: string;
+            /** @description Device name */
+            name?: string;
+            /** @description Does this device belong to a stack group */
+            stack?: boolean;
+            /** @description Stack group name */
+            stackName?: string;
         };
         "OperationResponseClient Filtering Options": {
             /** Format: int32 */
@@ -91059,6 +92921,10 @@ export interface components {
             status?: number;
             /** Format: int32 */
             rssi?: number;
+            /** @description Model of device,for example:EAP225 */
+            model?: string;
+            /** @description Model version of device,for example:3.0 */
+            modelVersion?: string;
         };
         "OperationResponseAP Bridge Paring Window Result": {
             /** Format: int32 */
@@ -91217,6 +93083,12 @@ export interface components {
             errorCode?: number;
             msg?: string;
             result?: components["schemas"]["ApMeshStatisticsOpenApiVO"];
+        };
+        OperationResponseApManagementSsidConfig: {
+            /** Format: int32 */
+            errorCode?: number;
+            msg?: string;
+            result?: components["schemas"]["ApManagementSsidConfig"];
         };
         ApAdvancedLoadBalanceOpenApiVO: {
             /** @description Whether the device enable maximum associated clients 2g. */
@@ -91554,6 +93426,10 @@ export interface components {
              * @description Channel limit enable status. It should be a value as follows: 0: default, 1: false, 2: true.
              */
             channelLimitType?: number;
+            /** @description default mode in 5g radio. true: outdoor; false: indoor */
+            defaultInstType5g?: boolean;
+            /** @description default mode in 6g radio. true: outdoor; false: indoor */
+            defaultInstType6g?: boolean;
         };
         OperationResponseChannelLimitConfigOpenApiVO: {
             /** Format: int32 */
@@ -91561,11 +93437,67 @@ export interface components {
             msg?: string;
             result?: components["schemas"]["ChannelLimitConfigOpenApiVO"];
         };
-        OperationResponseApBridgeConfig: {
+        ApBridgeInfo: {
+            /** @description Bridge SSID name. It should contain 1 to 32 UTF-8 characters. */
+            bridgeSsidName?: string;
+            /** @description Bridge SSID password. It should contain 8-63 printable ASCII characters. */
+            bridgeSsidPassword?: string;
+            /**
+             * Format: int32
+             * @description Bridge DIP Switch config status. 0: disable, 1: enable.
+             */
+            hwSwitch?: number;
+            /**
+             * Format: int32
+             * @description Bridge paring code.
+             */
+            paringCode?: number;
+            tdmaConfig?: components["schemas"]["ApBridgeTdmaSettingOpenApiVO"];
+        };
+        /** @description Bridge Not Support TDMA Client AP info. */
+        ApBridgeNotSupportTdmaClientApOpenApiVO: {
+            /** @description Device mac */
+            mac?: string;
+            /** @description Device name,default value is the mac address of device */
+            name?: string;
+            /** @description Model of device,for example:EAP225 */
+            model?: string;
+            /** @description Model version of device,for example:3.0 */
+            modelVersion?: string;
+        };
+        /** @description Bridge TDMA Client AP config. */
+        ApBridgeTdmaClientApOpenApiVO: {
+            /** @description Bridge TDMA Client AP mac. */
+            mac?: string;
+            /**
+             * Format: int32
+             * @description Bridge TDMA Client AP priority. 0: high, 1:base, 2:low.
+             */
+            priority?: number;
+            /** @description Device name,default value is the mac address of device */
+            name?: string;
+            /** @description Model of device,for example:EAP225 */
+            model?: string;
+            /** @description Model version of device,for example:3.0 */
+            modelVersion?: string;
+        };
+        /** @description Bridge TDMA config. */
+        ApBridgeTdmaSettingOpenApiVO: {
+            /**
+             * Format: int32
+             * @description Bridge TDMA Switch config status. 0: disable, 1: enable.
+             */
+            status?: number;
+            /** @description Bridge TDMA Client AP config. */
+            clients?: components["schemas"]["ApBridgeTdmaClientApOpenApiVO"][];
+            /** @description Bridge Not Support TDMA Client AP info. */
+            notSupportTdmaClients?: components["schemas"]["ApBridgeNotSupportTdmaClientApOpenApiVO"][];
+        };
+        OperationResponseApBridgeInfo: {
             /** Format: int32 */
             errorCode?: number;
             msg?: string;
-            result?: components["schemas"]["ApBridgeConfig"];
+            result?: components["schemas"]["ApBridgeInfo"];
         };
         ApAvailableChannelOpenApiVO: {
             /**
@@ -91596,11 +93528,11 @@ export interface components {
              */
             index?: number;
         };
-        OperationResponseApAvailableChannelOpenApiVO: {
+        OperationResponseListApAvailableChannelOpenApiVO: {
             /** Format: int32 */
             errorCode?: number;
             msg?: string;
-            result?: components["schemas"]["ApAvailableChannelOpenApiVO"];
+            result?: components["schemas"]["ApAvailableChannelOpenApiVO"][];
         };
         ApAnteGainConfig: {
             /** @description Antenna gain list. */
@@ -91690,6 +93622,25 @@ export interface components {
              * @description The timestamp of the last AFC information obtained by the AP
              */
             lastResponseTimeSec?: number;
+            /**
+             * Format: int32
+             * @description The error code of last afc status
+             */
+            errCode?: number;
+            /**
+             * Format: int32
+             * @description The error main reason
+             */
+            errMain?: number;
+            /**
+             * Format: int32
+             * @description The error detail
+             */
+            errDetail?: number;
+            /** @description Whether the afc status is being retrieved */
+            processing?: boolean;
+            /** @description 6G radio available status */
+            available6g?: boolean;
         };
         OperationResponseApAfcInfoOpenApiVO: {
             /** Format: int32 */
@@ -91987,9 +93938,15 @@ export interface components {
             name?: string;
             /** @description The description of the SD-WAN group */
             description?: string;
-            /** @description The start of the IP pool of the SD-WAN group */
+            /**
+             * @deprecated
+             * @description The start of the IP pool of the SD-WAN group
+             */
             ipPoolStart?: string;
-            /** @description The end of the IP pool of the SD-WAN group */
+            /**
+             * @deprecated
+             * @description The end of the IP pool of the SD-WAN group
+             */
             ipPoolEnd?: string;
             /** @description A list of members of the SD-WAN group */
             memberList?: components["schemas"]["SdWanMemberInfo"][];
@@ -91999,11 +93956,102 @@ export interface components {
             enableNat?: boolean;
             natInfo?: components["schemas"]["SdWanNatInfo"];
         };
-        OperationResponseSdWanGroup: {
+        /** @description A list of linked-spokes of the SD-WAN group */
+        SdWanLinkedSpoke: {
+            /** @description The device MAC of one of the two linked-spokes */
+            deviceMac1?: string;
+            /** @description Another device MAC of the two linked-spokes */
+            deviceMac2?: string;
+            /**
+             * Format: int32
+             * @description The connection status of SD-WAN tunnel between spokes
+             */
+            status?: number;
+        };
+        /** @description A list of members of the SD-WAN group */
+        SdWanMemberInfo: {
+            /**
+             * Format: int32
+             * @description The role of sdWan member, hub or spoke.
+             */
+            role?: number;
+            /** @description The device MAC of the sdWan member. */
+            deviceMac?: string;
+            /** @description The device name of the sdWan member. */
+            deviceName?: string;
+            /**
+             * Format: int32
+             * @description The device online status of the sdWan member.
+             */
+            onlineStatus?: number;
+            /** @description The device type of the sdWan member. */
+            type?: string;
+            /** @description The device model of the sdWan member. */
+            model?: string;
+            /** @description The device model version of the sdWan member. */
+            modelVersion?: string;
+            /** @description The device showmodel of the sdWan member. */
+            showModel?: string;
+            /** @description The ID of the site where the sdWan member is located. */
+            siteId?: string;
+            /** @description The name of the site where the sdWan member is located. */
+            siteName?: string;
+            /** @description The region where the site is located. */
+            region?: string;
+            /**
+             * Format: double
+             * @description The map longitude of the site.
+             */
+            longitude?: number;
+            /**
+             * Format: double
+             * @description The map latitude of the site.
+             */
+            latitude?: number;
+            /**
+             * Format: double
+             * @description The region longitude of the site.
+             */
+            regionLongitude?: number;
+            /**
+             * Format: double
+             * @description The region latitude of the site.
+             */
+            regionLatitude?: number;
+            /** @description Whether the site is placed on the map. */
+            unplaced?: boolean;
+            /** @description The address where the site is located. */
+            address?: string;
+            /** @description A list of device port status info for SdWan Member. */
+            wanPortsInfo?: components["schemas"]["OsgPortStatBrief"][];
+            /** @description A list of lan network info for SdWan Member. */
+            lanNetworkInfo?: components["schemas"]["LanNetworkBrief"][];
+            /** @description Whether the sdWan member has a public IP. */
+            publicIp?: boolean;
+            /** @description The sdWan IP of the sdWan member. */
+            sdWanIp?: string;
+            /**
+             * Format: int32
+             * @description If a member is a spoke, the link connection to the hub is identified.
+             */
+            linkedToHub?: number;
+            /** @description Whether the device support SD-WAN NAT. */
+            supportSdWanNat?: boolean;
+        };
+        /** @description The NAT info of the SD-WAN group */
+        SdWanNatInfo: {
+            /** @description A list of the default mapping network */
+            defaultMapNetworkList?: string[];
+            /** @description A list of the customized mapping network */
+            customMapNetworkList?: string[];
+            /** @description A list of the network map item */
+            networkMapList?: components["schemas"]["SdWanNetworkMap"][];
+        };
+        OperationResponseSdWanGroupDetail: {
             /** Format: int32 */
             errorCode?: number;
             msg?: string;
-            result?: components["schemas"]["SdWanGroup"];
+            result?: components["schemas"]["SdWanGroupDetail"];
         };
         OperationResponseSdWanGroupTunnelStatus: {
             /** Format: int32 */
@@ -99850,6 +101898,65 @@ export interface operations {
             };
         };
     };
+    modifyRFPlanningScheduleConfig: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RFPlanningScheduleConfigOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
+    getExcludeAps: {
+        parameters: {
+            query: {
+                /** @description Start page number. Start from 1. */
+                currentPage: number;
+                /** @description Number of entries per page. It should be within the range of 1–1000. */
+                currentPageSize: number;
+            };
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
     modifyExcludeAps: {
         parameters: {
             query?: never;
@@ -102218,6 +104325,33 @@ export interface operations {
             };
         };
     };
+    getApManagementSsidConfig: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description AP MAC address, like AA-BB-CC-DD-EE-FF */
+                apMac: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseApManagementSsidConfig"];
+                };
+            };
+        };
+    };
     modifyApManagementSsidConfig: {
         parameters: {
             query?: never;
@@ -102907,7 +105041,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["OperationResponseSdWanGroup"];
+                    "*/*": components["schemas"]["OperationResponseSdWanGroupDetail"];
                 };
             };
         };
@@ -102980,7 +105114,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["SdWanNatInfo"];
+                "application/json": components["schemas"]["SdWanNatInfoConfig"];
             };
         };
         responses: {
@@ -103007,7 +105141,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["LanNetworkBrief"];
+                "application/json": components["schemas"]["ModifyLanNetworkBrief"];
             };
         };
         responses: {
@@ -103553,7 +105687,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["LanProfileConfigOpenApiVO"];
+                "application/json": components["schemas"]["LanProfileSettingOpenApiVO"];
             };
         };
         responses: {
@@ -105904,6 +108038,66 @@ export interface operations {
             };
         };
     };
+    getRpvstInstancesDetailTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site Template ID */
+                siteTemplateId: string;
+                /** @description Device Template ID */
+                deviceTemplateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StpInstanceDetailVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
+    getBatchRpvstInstancesTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site Template ID */
+                siteTemplateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
     getPortTagTemplates: {
         parameters: {
             query?: never;
@@ -107305,6 +109499,89 @@ export interface operations {
             };
         };
     };
+    getWifiCallingProfilesTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site Template ID */
+                siteTemplateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseListWifiCallingProfileOpenApiVO"];
+                };
+            };
+        };
+    };
+    createWifiCallingProfileTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site Template ID */
+                siteTemplateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateWifiCallingProfileOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
+    copyWifiCallingProfileTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site Template ID */
+                siteTemplateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CopyWifiCallingProfileOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
     listTemplateServiceType: {
         parameters: {
             query: {
@@ -107359,7 +109636,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["OperationResponseResponseIdVO"];
+                    "*/*": components["schemas"]["OperationResponse"];
                 };
             };
         };
@@ -111558,6 +113835,37 @@ export interface operations {
             };
         };
     };
+    getStpInstancesDetail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description Switch MAC address, like AA-BB-CC-DD-EE-FF */
+                switchMac: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StpInstanceDetailVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
     listSwitchNetworks: {
         parameters: {
             query: {
@@ -111681,6 +113989,35 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["OperationResponseOswPoeResultOpenApiVO"];
+                };
+            };
+        };
+    };
+    getBatchRpvstInstances: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
                 };
             };
         };
@@ -112696,6 +115033,37 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
+    getRpvstInstancesDetail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description Stack ID */
+                stackId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StpInstanceDetailVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
                 };
             };
         };
@@ -114429,6 +116797,35 @@ export interface operations {
             };
         };
     };
+    deleteExcludeAps: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExcludeApDeleteOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
     getCardsInfo: {
         parameters: {
             query?: never;
@@ -114822,6 +117219,89 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["OperationResponseResponseIdVO"];
+                };
+            };
+        };
+    };
+    getWifiCallingProfiles: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseListWifiCallingProfileOpenApiVO"];
+                };
+            };
+        };
+    };
+    createWifiCallingProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateWifiCallingProfileOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
+    copyWifiCallingProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CopyWifiCallingProfileOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
                 };
             };
         };
@@ -115775,6 +118255,35 @@ export interface operations {
             cookie?: never;
         };
         requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
+    batchDeletePlanningHistory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Batch Delete PlanningHistory"];
+            };
+        };
         responses: {
             /** @description OK */
             200: {
@@ -118584,7 +121093,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["OperationResponseGridVOOtoNatInfoOpenApiVO"];
+                    "*/*": components["schemas"]["OperationResponseOtoNatOpenApiGridVO"];
                 };
             };
         };
@@ -126051,6 +128560,35 @@ export interface operations {
             };
         };
     };
+    exportRfPlanningHistory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Export RF planning history openapi VO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
     uploadIspFile: {
         parameters: {
             query?: never;
@@ -127965,7 +130503,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["LanProfileConfigOpenApiVO"];
+                "application/json": components["schemas"]["LanProfileSettingOpenApiVO"];
             };
         };
         responses: {
@@ -128861,6 +131399,39 @@ export interface operations {
             };
         };
     };
+    updateSsidWifiCallingConfigTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site Template ID */
+                siteTemplateId: string;
+                /** @description WLAN ID */
+                wlanId: string;
+                /** @description SSID ID */
+                ssidId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateWifiCallingOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
     updateSsidRateLimitConfigTemplate: {
         parameters: {
             query?: never;
@@ -128993,6 +131564,39 @@ export interface operations {
             };
         };
     };
+    updateSsidLoadBalanceConfigTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site Template ID */
+                siteTemplateId: string;
+                /** @description WLAN ID */
+                wlanId: string;
+                /** @description SSID ID */
+                ssidId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateSsidLoadBalanceOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
     updateSsidHotspotV2SettingTemplate: {
         parameters: {
             query?: never;
@@ -129074,6 +131678,39 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["UpdateSsidBasicConfigOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
+    updateSsidBandSteerConfigTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site Template ID */
+                siteTemplateId: string;
+                /** @description WLAN ID */
+                wlanId: string;
+                /** @description SSID ID */
+                ssidId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateSsidBandSteerOpenApiVO"];
             };
         };
         responses: {
@@ -130541,6 +133178,64 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["SiteRemoteLoggingSetting"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
+    deleteWifiCallingProfileTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site Template ID */
+                siteTemplateId: string;
+                /** @description wifi calling profile ID. */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
+    modifyWifiCallingProfileTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site Template ID */
+                siteTemplateId: string;
+                /** @description Wifi calling profile ID. */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateWifiCallingProfileOpenApiVO"];
             };
         };
         responses: {
@@ -132565,6 +135260,39 @@ export interface operations {
             };
         };
     };
+    updateSsidWifiCallingConfig: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description WLAN ID */
+                wlanId: string;
+                /** @description SSID ID */
+                ssidId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateWifiCallingOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
     updateSsidRateLimitConfig: {
         parameters: {
             query?: never;
@@ -132697,6 +135425,39 @@ export interface operations {
             };
         };
     };
+    updateSsidLoadBalanceConfig: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description WLAN ID */
+                wlanId: string;
+                /** @description SSID ID */
+                ssidId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateSsidLoadBalanceOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
     updateSsidHotspotV2Setting: {
         parameters: {
             query?: never;
@@ -132780,6 +135541,39 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["UpdateSsidBasicConfigOpenApiVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
+    updateSsidBandSteerConfig: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description WLAN ID */
+                wlanId: string;
+                /** @description SSID ID */
+                ssidId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateSsidBandSteerOpenApiVO"];
             };
         };
         responses: {
@@ -135394,7 +138188,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["NatTraversalTunnelOpenApiVO"];
+                "application/json": components["schemas"]["NatTraversalTunnelModifyOpenApiVO"];
             };
         };
         responses: {
@@ -135507,6 +138301,64 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["SiteRemoteLoggingSetting"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
+    deleteWifiCallingProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description wifi calling profile ID. */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
+    modifyWifiCallingProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description Wifi calling profile ID. */
+                profileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateWifiCallingProfileOpenApiVO"];
             };
         };
         responses: {
@@ -138449,7 +141301,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["OperationResponseApServicesConfigOpenApiVO"];
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
                 };
             };
         };
@@ -138915,7 +141767,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["OperationResponseApBridgeConfig"];
+                    "*/*": components["schemas"]["OperationResponseApBridgeInfo"];
                 };
             };
         };
@@ -140863,6 +143715,33 @@ export interface operations {
             };
         };
     };
+    getWlanGroup: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description WLAN ID */
+                wlanId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWlanGroupOpenApiVO"];
+                };
+            };
+        };
+    };
     getGridSslVpnUserInGroupV2: {
         parameters: {
             query: {
@@ -141909,6 +144788,33 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["OperationResponseSwitchTemplateOverviewInfo"];
+                };
+            };
+        };
+    };
+    getRpvstInstancesTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site Template ID */
+                siteTemplateId: string;
+                /** @description Device Template ID */
+                deviceTemplateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
                 };
             };
         };
@@ -144781,6 +147687,33 @@ export interface operations {
             };
         };
     };
+    getRpvstInstances: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description Switch MAC address, like AA-BB-CC-DD-EE-FF */
+                switchMac: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
     getGridOswRoutingTable: {
         parameters: {
             query: {
@@ -144986,6 +147919,33 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["OperationResponseGridVOOswLldpNeighborVO"];
+                };
+            };
+        };
+    };
+    getL3SwitchUsedSdmNum: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description Switch MAC address, like AA-BB-CC-DD-EE-FF */
+                switchMac: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseOswL3SdmApplicationVO"];
                 };
             };
         };
@@ -145799,6 +148759,60 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
+    getStackUsedSdmNum: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description Stack ID */
+                stackId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseOswStackSdmApplicationVO"];
+                };
+            };
+        };
+    };
+    getStackRpvstInstances: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description Stack ID */
+                stackId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
                 };
             };
         };
@@ -146880,6 +149894,36 @@ export interface operations {
             };
         };
     };
+    getSnmpIncompatibleDevices: {
+        parameters: {
+            query: {
+                /** @description Start page number. Start from 1. */
+                page: number;
+                /** @description Number of entries per page. It should be within the range of 1–1000. */
+                pageSize: number;
+            };
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseGridVODeviceVO"];
+                };
+            };
+        };
+    };
     downloadDhcpImportResult: {
         parameters: {
             query?: never;
@@ -147283,6 +150327,148 @@ export interface operations {
             };
         };
     };
+    getTimeLinePlanningHistorys: {
+        parameters: {
+            query: {
+                /** @description start time */
+                start: number;
+                /** @description end time */
+                end: number;
+                /** @description type：0-day,1-week */
+                type: number;
+            };
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
+    getLast20PlanningHistorys: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
+                };
+            };
+        };
+    };
+    queryRFPlanningBoard: {
+        parameters: {
+            query: {
+                /** @description Start timestamp, in milliseconds, such as 174951360000 */
+                start: number;
+                /** @description End timestamp, in milliseconds, such as 1749600000000 */
+                end: number;
+            };
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWlanOptDashBoardOpenApiVO"];
+                };
+            };
+        };
+    };
+    queryRFPlanningBoardStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWlanOptDashBoardOpenApiVO"];
+                };
+            };
+        };
+    };
+    queryRFPlanningDashboardHistory: {
+        parameters: {
+            query: {
+                /** @description Start timestamp, in milliseconds, such as 174951360000 */
+                start: number;
+                /** @description End timestamp, in milliseconds, such as 1749600000000 */
+                end: number;
+            };
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWlanOptDashBoardOpenApiVO"];
+                };
+            };
+        };
+    };
     getTabById: {
         parameters: {
             query?: never;
@@ -147360,6 +150546,33 @@ export interface operations {
             };
         };
     };
+    getTunnelsEwebInfo: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description Remote access tunnel ID */
+                tunnelId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseNatTraversalEwebInfoVO"];
+                };
+            };
+        };
+    };
     getTunnelsStatus: {
         parameters: {
             query?: never;
@@ -147381,6 +150594,33 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["OperationResponseNatTraversalTunnelsStatusVO"];
+                };
+            };
+        };
+    };
+    getSingleDeviceTunnel: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description Mac of the local target device */
+                localMac: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseNatTraversalTunnelVO"];
                 };
             };
         };
@@ -147456,6 +150696,79 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["OperationResponseResponseDataVOQosBwcWanInfoOpenApiVO"];
+                };
+            };
+        };
+    };
+    getGridWifiCallingTrafficResult: {
+        parameters: {
+            query: {
+                /** @description Get the top-k SSIDs or EPDGs based on voice call traffic statistics. Parameter [topK] should not be null when parameter [queryTopEPDG] or parameter [queryTopEPDG] is true. */
+                topK?: number;
+                /** @description Whether to query top k ssids by traffic. */
+                queryTopSsid: boolean;
+                /** @description Whether to query top k ePDGs by traffic. */
+                queryTopEPDG: boolean;
+                /** @description Whether to query client history. */
+                queryClients: boolean;
+                /** @description Whether to query client history by client MAC. */
+                queryClientsByMac: boolean;
+                page: number;
+                /** @description Number of entries per page. It should be within the range of 1–1000. */
+                pageSize: number;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.apName"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.carrierName"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.wifiCallingProfileName"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.clientName"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.ip"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.domain"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.trafficDown"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.trafficUp"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.totalTraffic"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.clientMac"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.priority"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.ssid"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.startTime"?: string;
+                /** @description Sort parameter may be one of asc or desc. Optional parameter. If it is not carried, it means it is not sorted by this field. When there are more than one, the first one takes effect */
+                "sorts.endTime"?: string;
+                /** @description Filter query parameters, support field time range: start timestamp (second). */
+                "filters.timeStart": number;
+                /** @description Filter query parameters, support field time range: end timestamp (second). */
+                "filters.timeEnd": number;
+                /** @description Fuzzy query parameters, support field clientName,clientMac,ip,ssid,domain */
+                searchKey?: string;
+            };
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWifiCallingTrafficGridOpenApiVOWifiCallingTrafficOpenApiVO"];
                 };
             };
         };
@@ -147740,6 +151053,40 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["GridVORF Planning History"];
+                };
+            };
+        };
+    };
+    getPlanningHistorysByTime: {
+        parameters: {
+            query: {
+                /** @description Start page number. Start from 1. */
+                currentPage: number;
+                /** @description Number of entries per page. It should be within the range of 1–1000. */
+                currentPageSize: number;
+                /** @description start time */
+                start: number;
+                /** @description end time */
+                end: number;
+            };
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponse"];
                 };
             };
         };
@@ -150675,7 +154022,7 @@ export interface operations {
                 omadacId: string;
                 /** @description Site ID */
                 siteId: string;
-                /** @description type */
+                /** @description Device type, the type should be gateway, switch. */
                 type: string;
             };
             cookie?: never;
@@ -155748,7 +159095,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["OperationResponseApAvailableChannelOpenApiVO"];
+                    "*/*": components["schemas"]["OperationResponseListApAvailableChannelOpenApiVO"];
                 };
             };
         };
@@ -156617,6 +159964,40 @@ export interface operations {
             };
         };
     };
+    exportBatchFullChannelDetectResultData: {
+        parameters: {
+            query: {
+                /** @description Filter query parameters, support field time range: start timestamp (second). */
+                timeStart: number;
+                /** @description Filter query parameters, support field time range: end timestamp (second). */
+                timeEnd: number;
+                /** @description Fuzzy query parameters, support field clientName,clientMac,ip,ssid,domain */
+                searchKey?: string;
+            };
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description export data format */
+                format: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
     downloadVpnCertificate: {
         parameters: {
             query?: never;
@@ -156644,7 +160025,7 @@ export interface operations {
             };
         };
     };
-    exportBatchFullChannelDetectResultData: {
+    exportBatchFullChannelDetectResultData_1: {
         parameters: {
             query: {
                 /** @description export data format */
@@ -156658,6 +160039,36 @@ export interface operations {
                 siteId: string;
                 /** @description Customer ID */
                 historyId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["OperationResponseWithoutResult"];
+                };
+            };
+        };
+    };
+    exportFullChannelDetectResult: {
+        parameters: {
+            query: {
+                /** @description export data format */
+                format: number;
+            };
+            header?: never;
+            path: {
+                /** @description Omada ID */
+                omadacId: string;
+                /** @description Site ID */
+                siteId: string;
+                /** @description AP MAC address, like AA-BB-CC-DD-EE-FF */
+                apMac: string;
             };
             cookie?: never;
         };
