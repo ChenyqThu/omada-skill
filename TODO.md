@@ -85,6 +85,13 @@ Items observed but intentionally deferred — revisit after M6 auth lands:
   Currently a single `appendFile` failure reports through `onError` and the
   event is lost. If operators deploy against a flaky network mount, add a
   short retry here.
+- **Surface high-value new operations as MCP tools/skills.** The 2026-06-16
+  spec refresh added 45 operations (Wi-Fi Calling profiles, RF Planning
+  dashboard/history, RPVST/STP instance detail, SD-WAN device tunnels) that
+  now exist in the generated SDK but are not exposed as curated `omada_*`
+  tools. Surfacing any requires tool authoring + guardrail review (4 are
+  `delete*`) + a skill reference + tests — net-new feature work, not a
+  mechanical sync. Pick targets by demand, not by completeness.
 
 ---
 
