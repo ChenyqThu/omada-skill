@@ -42,6 +42,7 @@ export function buildOmadaClient(cfg: RuntimeConfig, logger: Logger): OmadaClien
       clientId: cfg.clientId,
       clientSecret: cfg.clientSecret,
       tokenUrl,
+      omadacId: cfg.omadacId,
       allowInsecureLoopback: cfg.allowInsecureLoopback,
     },
     transport,
@@ -54,6 +55,7 @@ export function buildOmadaClient(cfg: RuntimeConfig, logger: Logger): OmadaClien
     logger: sdkLogger,
     dryRun: cfg.dryRun,
     allowInsecureLoopback: cfg.allowInsecureLoopback,
+    authHeaderStyle: cfg.omadacId ? "accesstoken" : "bearer",
     ...(onAudit ? { onAudit } : {}),
   });
 }

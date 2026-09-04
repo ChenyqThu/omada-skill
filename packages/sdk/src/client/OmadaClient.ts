@@ -52,6 +52,7 @@ export class OmadaClient {
   private readonly auditSink?: AuditSink;
   private readonly retryOpts: RetryOptions;
   private readonly redactKeys: readonly string[];
+  private readonly authHeaderStyle: "bearer" | "accesstoken";
 
   constructor(opts: OmadaClientOptions) {
     this.baseUrl = resolveBaseUrl({
@@ -70,6 +71,7 @@ export class OmadaClient {
     this.redactKeys = opts.redactKeys
       ? [...DEFAULT_SENSITIVE_KEYS, ...opts.redactKeys]
       : DEFAULT_SENSITIVE_KEYS;
+    this.authHeaderStyle = opts.authHeaderStyle ?? "bearer";
   }
 
   async call<Op extends OperationId>(
@@ -113,7 +115,8 @@ export class OmadaClient {
 
     const runOnce = async (): Promise<HttpResponse> => {
       const token = await this.auth.getToken();
-      headers["authorization"] = `Bearer ${token}`;
+      headers["authorization"] =
+        this.authHeaderStyle === "accesstoken" ? `AccessToken=${token}` : `Bearer ${token}`;
 
       this.logger.debug("request", { operationId, method: info.method, url });
 

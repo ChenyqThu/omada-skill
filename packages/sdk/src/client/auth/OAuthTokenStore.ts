@@ -8,6 +8,14 @@ export interface OAuthClientCredentials {
   clientSecret: string;
   /** OAuth token endpoint URL (usually `<baseUrl>/openapi/authorize/token`). */
   tokenUrl: string;
+  /**
+   * Controller ID. Required by self-hosted/standalone controllers' Open API
+   * ("Client Mode" apps registered under Platform Integration) — omitting it
+   * causes those controllers to reject the token request with a generic
+   * "Invalid request parameters" error. Not needed for Omada Cloud-hosted
+   * multi-tenant access.
+   */
+  omadacId?: string;
   /** Optional OAuth scope string. */
   scope?: string;
   /** Refresh `refreshLeadMs` before the cached token would expire. Default: 60_000. */
@@ -69,21 +77,41 @@ export class OAuthTokenStore implements AuthStrategy {
   }
 
   private async fetchToken(): Promise<string> {
-    const form = new URLSearchParams();
-    form.set("grant_type", "client_credentials");
-    form.set("client_id", this.creds.clientId);
-    form.set("client_secret", this.creds.clientSecret);
-    if (this.creds.scope) form.set("scope", this.creds.scope);
-
-    const res = await this.transport.send({
-      method: "post",
-      url: this.creds.tokenUrl,
-      headers: {
-        "content-type": "application/x-www-form-urlencoded",
-        accept: "application/json",
-      },
-      body: form.toString(),
-    });
+    // Self-hosted/standalone controllers (identified by omadacId being set)
+    // reject the RFC 6749 form-urlencoded body with a generic
+    // "Invalid request parameters" error. They require grant_type as a query
+    // parameter and the credentials as a JSON body instead. Omada Cloud's
+    // multi-tenant endpoint keeps using the standard form-encoded request.
+    const res = this.creds.omadacId
+      ? await this.transport.send({
+          method: "post",
+          url: `${this.creds.tokenUrl}?grant_type=client_credentials`,
+          headers: {
+            "content-type": "application/json",
+            accept: "application/json",
+          },
+          body: JSON.stringify({
+            omadacId: this.creds.omadacId,
+            client_id: this.creds.clientId,
+            client_secret: this.creds.clientSecret,
+          }),
+        })
+      : await this.transport.send({
+          method: "post",
+          url: this.creds.tokenUrl,
+          headers: {
+            "content-type": "application/x-www-form-urlencoded",
+            accept: "application/json",
+          },
+          body: (() => {
+            const form = new URLSearchParams();
+            form.set("grant_type", "client_credentials");
+            form.set("client_id", this.creds.clientId);
+            form.set("client_secret", this.creds.clientSecret);
+            if (this.creds.scope) form.set("scope", this.creds.scope);
+            return form.toString();
+          })(),
+        });
 
     const token = parseTokenResponse(res);
     this.cached = token;

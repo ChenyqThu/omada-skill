@@ -116,6 +116,15 @@ export interface OmadaClientOptions {
   baseUrl?: string;
   /** How the client acquires bearer tokens for every request. */
   auth: AuthStrategy;
+  /**
+   * Authorization header format. Omada Cloud's multi-tenant API expects
+   * standard `Authorization: Bearer <token>` ("bearer", the default).
+   * Self-hosted/standalone controllers reject that and require
+   * `Authorization: AccessToken=<token>` instead ("accesstoken") — using
+   * the wrong style produces a generic "access token has expired" error
+   * from the controller regardless of token freshness.
+   */
+  authHeaderStyle?: "bearer" | "accesstoken";
   /** HTTP transport. Defaults to FetchTransport; swap with MockTransport in tests. */
   transport?: Transport;
   /** Logger. Defaults to `rootLogger.child("client")`. */

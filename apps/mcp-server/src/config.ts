@@ -9,6 +9,11 @@ export interface RuntimeConfig {
   clientSecret?: string | undefined;
   baseUrl?: string | undefined;
   tokenUrl?: string | undefined;
+  /**
+   * Controller ID required by self-hosted/standalone controllers' Open API
+   * token endpoint (Client Mode apps). Not needed for Omada Cloud.
+   */
+  omadacId?: string | undefined;
   dryRun: boolean;
   /**
    * Directory for daily audit JSONL files. Unset disables file audit (M1
@@ -67,6 +72,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): RuntimeConfig 
     clientSecret,
     baseUrl: env["OMADA_BASE_URL"]?.trim() || undefined,
     tokenUrl: env["OMADA_TOKEN_URL"]?.trim() || undefined,
+    omadacId: env["OMADA_OMADAC_ID"]?.trim() || undefined,
     dryRun: env["OMADA_DRY_RUN"] === "1" || env["OMADA_DRY_RUN"] === "true",
     auditDir: auditDirRaw ? expandHome(auditDirRaw) : undefined,
     allowInsecureLoopback:
